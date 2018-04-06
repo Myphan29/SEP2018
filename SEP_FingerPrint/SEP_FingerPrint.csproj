@@ -551,6 +551,15 @@
     <Content Include="CustomLib\js\lib\weather\weather-init.js" />
     <Content Include="CustomLib\js\scripts.js" />
     <Content Include="CustomLib\js\sidebarmenu.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.min.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.min.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.print.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.print.min.css" />
+    <Content Include="CustomLib\Schedule\lib\jquery-ui.min.js" />
+    <Content Include="CustomLib\Schedule\lib\jquery.min.js" />
+    <Content Include="CustomLib\Schedule\lib\moment.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -958,13 +967,13 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Lecturer\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="Views\Lecturer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
