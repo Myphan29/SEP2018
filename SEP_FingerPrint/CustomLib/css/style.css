@@ -92,6 +92,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   color: #67757c;
+  user-select: none;
 }
 html {
   position: relative;
@@ -2149,6 +2150,7 @@ textarea {
 ----------------------*/
 .card {
   margin-bottom: 30px;
+  user-select: none;
 }
 .card .card-subtitle {
   color: #99abb4;
