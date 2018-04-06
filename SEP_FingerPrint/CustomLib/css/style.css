@@ -1781,6 +1781,18 @@ textarea {
   .mini-sidebar.fix-sidebar .left-sidebar {
     position: fixed;
   }
+  .mini-sidebar .mvls-user-avt img {
+      width: 45px;
+      height: 45px;
+      margin-left: 7px;
+      position: absolute;
+  }
+    .mini-sidebar .mvls-user-cp {
+        display: none;
+    }
+    .mini-sidebar .mvls-user-cp p {
+        display: none;
+    }
 }
 @media (max-width: 767px) {
   .mini-sidebar .left-sidebar {
@@ -6928,3 +6940,30 @@ tbody tr td:last-child {
     display: inline-block !important;
   }
 }
+
+
+/* mvls */
+
+.mvls-user-cp {
+    height: 200px;
+    position: relative;
+}
+.mvls-user-cp p {
+    color: #646464;
+    font-weight: bold;
+    text-align:center;
+    font-size: 14px;
+}
+.mvls-user-avt {
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 95px;
+    height: 95px;
+}
+    .mvls-user-avt img {
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+    }
+
