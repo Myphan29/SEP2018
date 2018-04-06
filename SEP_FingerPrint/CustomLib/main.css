@@ -182,8 +182,7 @@ iframe {
   align-items: center;
   padding: 15px;
   
-  background: url("../images/photo_bg.jpg") no-repeat center center fixed;
-  background-size: cover;
+  background-color: #ebebeb;
 }
 
 
@@ -385,7 +384,6 @@ iframe {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  padding-left:115px;
 }
 
 .login100-form-btn {

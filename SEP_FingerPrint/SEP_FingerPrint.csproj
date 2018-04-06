@@ -219,6 +219,7 @@
     <Content Include="CustomLib\images\icons\icon-google.png" />
     <Content Include="CustomLib\images\icons\map-marker.png" />
     <Content Include="CustomLib\images\icons\symbol-01.png" />
+    <Content Include="CustomLib\images\photo_bg.jpg" />
     <Content Include="CustomLib\js\main.js" />
     <Content Include="CustomLib\vendor\animate\animate.css" />
     <Content Include="CustomLib\vendor\animsition\css\animsition.css" />
