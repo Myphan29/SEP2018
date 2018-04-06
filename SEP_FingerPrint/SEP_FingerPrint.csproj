@@ -379,6 +379,7 @@
     <Content Include="CustomLib\img\users\avatar-8.jpg" />
     <Content Include="CustomLib\img\users\avatar-9.jpg" />
     <Content Include="CustomLib\img\users\profile.png" />
+    <Content Include="CustomLib\img\VL_Identity_VI.png" />
     <Content Include="CustomLib\img\video-cam.png" />
     <Content Include="CustomLib\img\watch.jpg" />
     <Content Include="CustomLib\js\custom.min.js" />
@@ -958,12 +959,16 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Lecturer\" />
   </ItemGroup>
   <ItemGroup>
