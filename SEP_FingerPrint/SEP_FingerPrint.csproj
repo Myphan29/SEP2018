@@ -294,6 +294,7 @@
     <Content Include="CustomLib\img\big\img4.jpg" />
     <Content Include="CustomLib\img\big\img5.jpg" />
     <Content Include="CustomLib\img\big\img6.jpg" />
+    <Content Include="CustomLib\img\settings.png" />
     <Content Include="CustomLib\img\bookingSystem\1.png" />
     <Content Include="CustomLib\img\bookingSystem\2.png" />
     <Content Include="CustomLib\img\bookingSystem\3.png" />
@@ -380,7 +381,6 @@
     <Content Include="CustomLib\img\users\avatar-8.jpg" />
     <Content Include="CustomLib\img\users\avatar-9.jpg" />
     <Content Include="CustomLib\img\users\profile.png" />
-    <Content Include="CustomLib\img\VL_Identity_VI.png" />
     <Content Include="CustomLib\img\video-cam.png" />
     <Content Include="CustomLib\img\watch.jpg" />
     <Content Include="CustomLib\js\custom.min.js" />
@@ -969,19 +969,18 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Lecturer\Schedule.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Lecturer\Settings.cshtml" />
+    <Content Include="Views\Lecturer\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Lecturer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
