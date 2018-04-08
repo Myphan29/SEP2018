@@ -266,7 +266,7 @@ h6 {
   color: #ef5350 !important;
 }
 .text-muted {
-  color: #99abb4 !important;
+  color: white !important;
 }
 .text-warning {
   color: #ffb22b !important;
@@ -666,7 +666,7 @@ a,
 button {
   outline: none!important;
   text-decoration: none!important;
-  color: #99abb4;
+  color: black;
   transition: all 0.2s ease 0s;
 }
 a.active,
@@ -688,7 +688,6 @@ li {
 }
 p {
   font-family: 'Poppins', sans-serif;
-  color: #99abb4;
 }
 .h2,
 .h3,
@@ -1625,7 +1624,7 @@ textarea {
   font-size: 16px;
   display: inline-block;
   vertical-align: middle;
-  color: #99abb4;
+  color: white;
 }
 .sidebar-nav > ul > li > a .label {
   position: absolute;
@@ -1956,7 +1955,7 @@ textarea {
   font-size: 11px;
 }
 .page-titles .breadcrumb .breadcrumb-item.active {
-  color: #99abb4;
+  color: white;
 }
 .pagination > li:first-child > a {
   border-bottom-left-radius: 4px;
@@ -2165,7 +2164,7 @@ textarea {
   user-select: none;
 }
 .card .card-subtitle {
-  color: #99abb4;
+  color: white;
   font-weight: 300;
   margin-bottom: 15px;
 }
@@ -4496,7 +4495,7 @@ footer p {
 }
 .stat-widget-one .stat-text {
   font-size: 14px;
-  color: #99abb4;
+  color: white;
 }
 .stat-widget-one .stat-digit {
   font-size: 24px;
@@ -4515,7 +4514,7 @@ footer p {
 .stat-widget-two .stat-text {
   font-size: 20px;
   margin-bottom: 5px;
-  color: #99abb4;
+  color: white;
 }
 .stat-widget-two .progress {
   height: 8px;
@@ -4815,7 +4814,7 @@ footer p {
 .recent-comment .media-body p {
   margin-bottom: 10px;
   line-height: 16px;
-  color: #99abb4;
+  color: white;
 }
 .recent-comment .comment-date {
   position: absolute;
@@ -5345,14 +5344,14 @@ label {
 }
 .tdl-holder label:hover {
   background-color: #eef5f9;
-  color: #99abb4;
+  color: white;
 }
 .tdl-holder label:hover a {
   display: block;
 }
 .tdl-holder label a {
   border-radius: 50%;
-  color: #99abb4;
+  color: white;
   display: none;
   float: right;
   font-weight: bold;
@@ -5422,7 +5421,7 @@ tbody tr th {
 }
 tbody tr td {
   font-family: 'Poppins', sans-serif;
-  color: #99abb4;
+  color: white;
 }
 tbody tr td:last-child {
   text-align: right;
@@ -5617,7 +5616,7 @@ tbody tr td:last-child {
   margin-top: 8px;
 }
 .profiletimeline .sl-date {
-  color: #99abb4;
+  color: white;
   font-size: 12px;
 }
 .profiletimeline .time-item {
@@ -5959,7 +5958,7 @@ tbody tr td:last-child {
   background: #eef5f9 !important;
 }
 .fc-unthemed .fc-today {
-  background: #ffffff !important;
+    background: #f7f2ca !important;
 }
 .fc-event {
   border-radius: 2px;
@@ -6199,7 +6198,7 @@ tbody tr td:last-child {
   color: #4680ff;
 }
 .media-body p {
-  color: #99abb4;
+  color: white;
   line-height: 15px;
 }
 .example {
@@ -6967,3 +6966,26 @@ tbody tr td:last-child {
         border-top-right-radius: 60px;
     }
 
+/* mvls*/
+.content_component {
+    width: 730px;
+    height: auto;
+    margin: 0 auto;
+}
+
+    .content_component ul {
+        margin: 0 auto 50px;
+        background: #ddeaff;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+    }
+
+        .content_component ul li {
+            width: 150px;
+            margin-bottom: 10px;
+            list-style-type: none;
+            display: inline-block;
+            text-align: center;
+        }
