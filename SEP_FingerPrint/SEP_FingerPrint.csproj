@@ -298,7 +298,7 @@
     <Content Include="CustomLib\css\helper.css" />
     <Content Include="CustomLib\css\lib\amchart\export.css" />
     <Content Include="CustomLib\css\lib\barRating\barRating.css" />
-    <Content Include="CustomLib\css\lib\bootstrap\bootstrap.min - Copy.css" />
+    <Content Include="CustomLib\css\lib\bootstrap\bootstrap.min.css" />
     <Content Include="CustomLib\css\lib\c3\c3.min.css" />
     <Content Include="CustomLib\css\lib\calendar2\pignose.calendar.min.css" />
     <Content Include="CustomLib\css\lib\calendar2\semantic.ui.min.css" />
