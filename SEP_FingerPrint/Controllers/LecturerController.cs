@@ -17,5 +17,9 @@ namespace SEP_FingerPrint.Controllers
         {
             return View();
         }
+        public ActionResult Attendance()
+        {
+            return View();
+        }
     }
 }
