@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,61 +198,102 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BuoiHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DanhSachLop.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiemDanh.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiangVien.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\KhoaHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LichHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MonHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinhVien.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaiKhoan.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="CustomLib\css\main.css" />
-    <Content Include="CustomLib\css\util.css" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\css\font-awesome.css" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
-    <Content Include="CustomLib\fonts\montserrat\OFL.txt" />
-    <Content Include="CustomLib\fonts\raleway\OFL.txt" />
-    <Content Include="CustomLib\fonts\ubuntu\UFL.txt" />
-    <Content Include="CustomLib\images\icons\favicon.ico" />
-    <Content Include="CustomLib\images\icons\icon-google.png" />
-    <Content Include="CustomLib\images\icons\map-marker.png" />
-    <Content Include="CustomLib\images\icons\symbol-01.png" />
-    <Content Include="CustomLib\images\photo_bg.jpg" />
-    <Content Include="CustomLib\js\main.js" />
-    <Content Include="CustomLib\vendor\animate\animate.css" />
-    <Content Include="CustomLib\vendor\animsition\css\animsition.css" />
-    <Content Include="CustomLib\vendor\animsition\css\animsition.min.css" />
-    <Content Include="CustomLib\vendor\animsition\js\animsition.js" />
-    <Content Include="CustomLib\vendor\animsition\js\animsition.min.js" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-grid.css" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-grid.min.css" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-reboot.css" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-reboot.min.css" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap.css" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap.min.css" />
-    <Content Include="CustomLib\vendor\bootstrap\js\bootstrap.js" />
-    <Content Include="CustomLib\vendor\bootstrap\js\bootstrap.min.js" />
-    <Content Include="CustomLib\vendor\bootstrap\js\popper.js" />
-    <Content Include="CustomLib\vendor\bootstrap\js\popper.min.js" />
-    <Content Include="CustomLib\vendor\bootstrap\js\tooltip.js" />
-    <Content Include="CustomLib\vendor\countdowntime\countdowntime.js" />
-    <Content Include="CustomLib\vendor\css-hamburgers\hamburgers.css" />
-    <Content Include="CustomLib\vendor\css-hamburgers\hamburgers.min.css" />
-    <Content Include="CustomLib\vendor\daterangepicker\daterangepicker.css" />
-    <Content Include="CustomLib\vendor\daterangepicker\daterangepicker.js" />
-    <Content Include="CustomLib\vendor\daterangepicker\moment.js" />
-    <Content Include="CustomLib\vendor\daterangepicker\moment.min.js" />
-    <Content Include="CustomLib\vendor\jquery\jquery-3.2.1.min.js" />
-    <Content Include="CustomLib\vendor\perfect-scrollbar\perfect-scrollbar.css" />
-    <Content Include="CustomLib\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
-    <Content Include="CustomLib\vendor\select2\select2.css" />
-    <Content Include="CustomLib\vendor\select2\select2.js" />
-    <Content Include="CustomLib\vendor\select2\select2.min.css" />
-    <Content Include="CustomLib\vendor\select2\select2.min.js" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.min.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.min.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.js" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\npm.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap4.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap4.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.foundation.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.foundation.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.jqueryui.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.jqueryui.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.semanticui.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.semanticui.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\jquery.dataTables.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\jquery.dataTables.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_asc.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_asc_disabled.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_both.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_desc.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_desc_disabled.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap4.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap4.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.foundation.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.foundation.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.jqueryui.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.jqueryui.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.semanticui.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.semanticui.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.min.js" />
+    <Content Include="CustomLib\Attendance\datatables.css" />
+    <Content Include="CustomLib\Attendance\datatables.js" />
+    <Content Include="CustomLib\Attendance\datatables.min.css" />
+    <Content Include="CustomLib\Attendance\datatables.min.js" />
+    <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.js" />
+    <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.min.js" />
     <Content Include="CustomLib\css\animate.css" />
     <Content Include="CustomLib\css\helper.css" />
     <Content Include="CustomLib\css\lib\amchart\export.css" />
@@ -404,6 +447,7 @@
     <Content Include="CustomLib\img\smile.png" />
     <Content Include="CustomLib\img\tooltip\Euclid.png" />
     <Content Include="CustomLib\img\user-1.png" />
+    <Content Include="CustomLib\img\user-avt.jpg" />
     <Content Include="CustomLib\img\user-bg.jpg" />
     <Content Include="CustomLib\img\user-female.png" />
     <Content Include="CustomLib\img\user-profile.jpg" />
@@ -426,6 +470,7 @@
     <Content Include="CustomLib\img\users\avatar-8.jpg" />
     <Content Include="CustomLib\img\users\avatar-9.jpg" />
     <Content Include="CustomLib\img\users\profile.png" />
+    <Content Include="CustomLib\img\VL_Identity_VI.png" />
     <Content Include="CustomLib\img\video-cam.png" />
     <Content Include="CustomLib\img\watch.jpg" />
     <Content Include="CustomLib\js\custom.min.js" />
@@ -598,9 +643,28 @@
     <Content Include="CustomLib\js\lib\weather\weather-init.js" />
     <Content Include="CustomLib\js\scripts.js" />
     <Content Include="CustomLib\js\sidebarmenu.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.min.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.min.js" />
+    <Content Include="CustomLib\Schedule\fullcalendar.print.css" />
+    <Content Include="CustomLib\Schedule\fullcalendar.print.min.css" />
+    <Content Include="CustomLib\Schedule\lib\jquery-ui.min.js" />
+    <Content Include="CustomLib\Schedule\lib\jquery.min.js" />
+    <Content Include="CustomLib\Schedule\lib\moment.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -985,111 +1049,19 @@
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-grid.css.map" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-reboot.css.map" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap.css.map" />
-    <Content Include="CustomLib\vendor\bootstrap\css\bootstrap.min.css.map" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\animated.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\core.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\fixed-width.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\font-awesome.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\icons.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\larger.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\list.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\mixins.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\path.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\screen-reader.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\stacked.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\less\variables.less" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_animated.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_core.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_icons.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_larger.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_list.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_path.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\_variables.scss" />
-    <Content Include="CustomLib\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
-    <Content Include="CustomLib\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Black.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-BlackItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Bold.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-BoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-ExtraBold.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-ExtraLight.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Italic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Light.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-LightItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Medium.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-MediumItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Regular.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-SemiBold.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-Thin.ttf" />
-    <Content Include="CustomLib\fonts\montserrat\Montserrat-ThinItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Black.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-BlackItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Bold.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-BoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-ExtraBold.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-ExtraLight.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Italic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Light.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-LightItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Medium.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-MediumItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Regular.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-SemiBold.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-Thin.ttf" />
-    <Content Include="CustomLib\fonts\poppins\Poppins-ThinItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Black.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-BlackItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Bold.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-BoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-ExtraBold.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-ExtraBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-ExtraLight.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-ExtraLightItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Italic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Light.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-LightItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Medium.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-MediumItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Regular.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-SemiBold.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-SemiBoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-Thin.ttf" />
-    <Content Include="CustomLib\fonts\raleway\Raleway-ThinItalic.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-Bold.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-BoldItalic.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-Italic.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-Light.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-LightItalic.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-Medium.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-MediumItalic.ttf" />
-    <Content Include="CustomLib\fonts\ubuntu\Ubuntu-Regular.ttf" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.css.map" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.css.map" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1110,21 +1082,37 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Lecturer\Schedule.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Lecturer\Attendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Lecturer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
