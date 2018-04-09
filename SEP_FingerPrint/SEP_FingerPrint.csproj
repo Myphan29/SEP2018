@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,14 +198,102 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BuoiHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DanhSachLop.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiemDanh.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiangVien.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\KhoaHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LichHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MonHoc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SinhVien.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaiKhoan.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.min.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.min.css" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.js" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\npm.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap4.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap4.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.foundation.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.foundation.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.jqueryui.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.jqueryui.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.semanticui.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.semanticui.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\jquery.dataTables.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\jquery.dataTables.min.css" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_asc.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_asc_disabled.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_both.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_desc.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\images\sort_desc_disabled.png" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap4.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.bootstrap4.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.foundation.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.foundation.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.jqueryui.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.jqueryui.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.semanticui.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.semanticui.min.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.js" />
+    <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.min.js" />
+    <Content Include="CustomLib\Attendance\datatables.css" />
+    <Content Include="CustomLib\Attendance\datatables.js" />
+    <Content Include="CustomLib\Attendance\datatables.min.css" />
+    <Content Include="CustomLib\Attendance\datatables.min.js" />
+    <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.js" />
+    <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.min.js" />
     <Content Include="CustomLib\css\animate.css" />
     <Content Include="CustomLib\css\helper.css" />
     <Content Include="CustomLib\css\lib\amchart\export.css" />
@@ -565,6 +655,16 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -949,6 +1049,19 @@
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="CustomLib\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap-theme.css.map" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\css\bootstrap.css.map" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -975,13 +1088,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Lecturer\Attendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Lecturer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -998,6 +1110,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
