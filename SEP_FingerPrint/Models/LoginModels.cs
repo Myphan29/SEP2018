@@ -11,6 +11,7 @@ namespace SEP_FingerPrint.Models
         [Required(ErrorMessage ="Hãy điền tên tài khoản")]
         public string UserName { set; get; }
         [Required(ErrorMessage = "Hãy điền mật khẩu")]
+        [DataType(DataType.Password)]
         public string Password { set; get; }
     }
 }

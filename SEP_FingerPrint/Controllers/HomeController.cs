@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Model.Dao;
 using SEP_FingerPrint.Common;
 using System.Web.Security;
 
