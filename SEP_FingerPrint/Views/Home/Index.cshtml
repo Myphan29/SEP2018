@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IList<SEP_FingerPrint.Models.MonHoc>
+@{
     ViewBag.Title = "Home Page";
 }
 <script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>
@@ -38,30 +39,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.MMH</td>
+                                            <td>@item.TenMonHoc</td>
+                                            <td>@item.Note</td>
+                                            <td>...</td>
+                                        </tr>
+                                     }
+                                    @*<tr>
                                         <td>CMU01</td>
                                         <td>Software Measurement & Analysis</td>
                                         <td>...</td>
                                         <td>...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CMU02T1</td>
-                                        <td>Software Architecture & Design</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CMU02T2</td>
-                                        <td>Software Architecture & Design</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CMU03</td>
-                                        <td>Intro to Database</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                    </tr>
+                                    </tr>*@
+                                    @*<tr>
+            <td>CMU02T1</td>
+            <td>Software Architecture & Design</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>CMU02T2</td>
+            <td>Software Architecture & Design</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>CMU03</td>
+            <td>Intro to Database</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>*@
                                 </tbody>
                             </table>
                         </div>
