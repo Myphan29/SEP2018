@@ -265,9 +265,9 @@ h6 {
 .text-danger {
   color: #ef5350 !important;
 }
-.text-muted {
-  color: white !important;
-}
+/*.text-muted {
+  color:  !important;
+}*/
 .text-warning {
   color: #ffb22b !important;
 }
@@ -1624,7 +1624,7 @@ textarea {
   font-size: 16px;
   display: inline-block;
   vertical-align: middle;
-  color: white;
+  /*color: white;*/
 }
 .sidebar-nav > ul > li > a .label {
   position: absolute;
@@ -1955,7 +1955,7 @@ textarea {
   font-size: 11px;
 }
 .page-titles .breadcrumb .breadcrumb-item.active {
-  color: white;
+  /*color: white;*/
 }
 .pagination > li:first-child > a {
   border-bottom-left-radius: 4px;

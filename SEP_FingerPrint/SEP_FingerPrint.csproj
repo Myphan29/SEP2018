@@ -628,14 +628,9 @@
     <Content Include="CustomLib\js\lib\chart-js\chartjs-init.js" />
     <Content Include="CustomLib\js\lib\chartist\chartist-init.js" />
     <Content Include="CustomLib\js\lib\chartist\chartist-plugin-tooltip.min.js" />
-    <Content Include="CustomLib\js\lib\chartist\chartist.min.js" />
     <Content Include="CustomLib\js\lib\chat-widget\chat-widget-init.js" />
     <Content Include="CustomLib\js\lib\circle-progress\circle-progress-init.js" />
     <Content Include="CustomLib\js\lib\circle-progress\circle-progress.min.js" />
-    <Content Include="CustomLib\js\lib\datamap\d3.min.js" />
-    <Content Include="CustomLib\js\lib\datamap\datamap-init.js" />
-    <Content Include="CustomLib\js\lib\datamap\datamaps.world.min.js" />
-    <Content Include="CustomLib\js\lib\datamap\topojson.js" />
     <Content Include="CustomLib\js\lib\datatables\cdn.datatables.net\buttons\1.2.2\js\buttons.flash.min.js" />
     <Content Include="CustomLib\js\lib\datatables\cdn.datatables.net\buttons\1.2.2\js\buttons.html5.min.js" />
     <Content Include="CustomLib\js\lib\datatables\cdn.datatables.net\buttons\1.2.2\js\buttons.print.min.js" />
@@ -1376,6 +1371,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="CustomLib\css\font\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
