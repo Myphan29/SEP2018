@@ -39,6 +39,7 @@
             <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
                 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(false, "", "error")
                     <span class="login100-form-title p-b-32">
                         Đăng nhập tài khoản

@@ -10,5 +10,6 @@ namespace SEP_FingerPrint.Common
     {
         public string UserID { set; get; }
         public string UserName { set; get; }
+        public int? Role { set; get; }
     }
 }

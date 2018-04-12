@@ -191,8 +191,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Common\CommonConstants.cs" />
-    <Compile Include="Common\TaiKhoanDao.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
