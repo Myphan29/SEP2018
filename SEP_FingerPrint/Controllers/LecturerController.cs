@@ -16,21 +16,26 @@ namespace SEP_FingerPrint.Controllers
         {
             return View();
         }
-        public ActionResult Schedule()
+        public ActionResult Schedule(string id)
         {
-            return View();
+            //if (id == 0)
+            //{
+            //    return Redirect("Home/Index");
+            //}
+            var khoahoc = db.KhoaHocs.Where(p => p.MKH == id).FirstOrDefault();
+            return View(khoahoc);
         }
-       public ActionResult FindAll()
+       public ActionResult FindAll(string id)
         {
-            return Json(db.BuoiHocs.AsEnumerable().Select(e => new {
+            return Json(db.BuoiHocs.Where(p => p.MKH == id).AsEnumerable().Select(e => new {
                 id = Convert.ToInt32(e.MBH),
                 title = e.Phong,
-                description = e.Phong,
                 start = e.Ngay.Value.ToString("yyyy/MM/dd")+"T"+e.GioBatDau.Value.ToString(),
                 end= e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString(),
 
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
+       
         public ActionResult Attendance()
         {
             return View();
