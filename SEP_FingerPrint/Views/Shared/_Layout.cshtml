@@ -18,10 +18,13 @@
     <link href="~/CustomLib/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="~/CustomLib/css/helper.css" rel="stylesheet">
+    @*<link href="~/CustomLib/css/style.css" rel="stylesheet">*@
     <link href="~/CustomLib/css/style.css" rel="stylesheet">
+
+
 </head>
-<body>
-    <body class="fix-header fix-sidebar">
+<div>
+    <div class="fix-header fix-sidebar">
         <!-- Preloader - style you can find in spinners.css -->
         <div class="preloader">
             <svg class="circular" viewBox="25 25 50 50">
@@ -84,7 +87,7 @@
                                             <!-- List style -->
                                             <ul class="list-style-none">
                                                 <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            </ul>
+                                                </ul>
                                         </li>
                                         <li class="col-lg-3 col-xlg-3 m-b-30">
                                             <h4 class="m-b-20">List style</h4>
@@ -115,7 +118,7 @@
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
                                         <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                        <li>@Html.ActionLink("Log Out", "Logout", "Home", new {@class="fa fa-power-off"})</li>
                                     </ul>
                                 </div>
                             </li>
@@ -136,9 +139,6 @@
                             </div>
                             <p style="margin-top: 35px">Meo Meo</p>
                             <p style="margin-top: -10px">pemeohacker@vanlanguni.edu.vn</p>
-                            <div class="mvls-icon">
-                                <a href="~/Lecturer/Settings"><img src="~/CustomLib/img/settings.png" /></a>
-                            </div>
                         </div>
                         <ul id="sidebarnav">
                             <li class="nav-devider"></li>
@@ -146,13 +146,13 @@
                             <!--End user CP-->
                             <li class="nav-label">Features</li>
                             <li>
-                                <a href="" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
+                                <a href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
                             </li>
                             <li>
                                 <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
                             </li>
                             <li>
-                                <a href="~/Lecturer/Schedule" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Lịch dạy</span></a>
+                                <a href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Unknown</span></a>
                             </li>
                             <li class="nav-label">EXTRA</li>
                             <li>
@@ -212,12 +212,12 @@
             <!-- End Left Sidebar  -->
             @RenderBody()
             <!-- footer -->
-            <footer class="footer"> Marvellous Team © 2018 All rights reserved</footer>
+            <footer class="footer" style="margin: 0; margin-bottom: 20px; position: inherit"> Marvellous Team © 2018 All rights reserved</footer>
             <!-- End footer -->
         </div>
         <!-- End Wrapper -->
         <!-- All Jquery -->
-        <script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>
+        <!--<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>-->
         <!-- Bootstrap tether Core JavaScript -->
         <script src="~/CustomLib/js/lib/bootstrap/js/popper.min.js"></script>
         <script src="~/CustomLib/js/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -239,18 +239,13 @@
         <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel.min.js"></script>
         <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel-init.js"></script>
 
+
         <script src="~/CustomLib/js/lib/chartist/chartist.min.js"></script>
         <script src="~/CustomLib/js/lib/chartist/chartist-plugin-tooltip.min.js"></script>
         <script src="~/CustomLib/js/lib/chartist/chartist-init.js"></script>
         <!--Custom JavaScript -->
         <script src="~/CustomLib/js/custom.min.js"></script>
 
-        <!-- bla bla bla -->
-        @*<link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
-        <link href='~/CustomLib/Schedule/fullcalendar.css' rel='stylesheet' />
-        <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-        <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
-        <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
-        <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>*@
-    </body>
+
+    </div>
 </html>
