@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SEP_FingerPrint.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using SEP_FingerPrint.Models;
+using System.Linq.Dynamic;
+using System.Data.Entity;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -40,10 +43,34 @@ namespace SEP_FingerPrint.Controllers
         {
             return View();
         }
-        public ActionResult Logout()
+
+        public ActionResult LoadData()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Home");
+            List<DiemDanh> _list = new List<DiemDanh>();
+            try
+            {
+                _list = db.DiemDanhs.ToList();
+                var result = from c in _list
+                             //where c.MBH == "1"
+                             select new[]
+                             {
+                                 Convert.ToString( c.ID ),
+                                 Convert.ToString( c.MSV ),
+                                 Convert.ToString( c.MBH ),
+                                 Convert.ToString( c.Ngay ),
+                                 Convert.ToString( c.Gio ),
+                                 Convert.ToString( c.TrangThai ),
+                             };
+                return Json(new { aaData = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                //ErrorLogers.ErrorLog(ex);
+                return Json(new
+                {
+                    aaData = new List<string[]> { }
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
