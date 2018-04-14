@@ -42,16 +42,13 @@ namespace SEP_FingerPrint.Controllers
         {
             return View();
         }
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Home");
-        }
+       
         [HttpGet]
         public ActionResult ChangePassword()
         {
             return View();
         }
+        [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel p)
         {
             string message = "";
@@ -59,14 +56,14 @@ namespace SEP_FingerPrint.Controllers
             {
                 if (p.OldPassword == p.NewPassword)
                 {
-                    message = "New password can be same old password";
+                    message = "New password can't be same old password";
                     Session["CPMessage"] = message;
                     return View(p);
                 }
                 else
                 {
-                    string TenTk = Session["TKUser"] as string;
-                    var user = db.TaiKhoans.FirstOrDefault(x => x.TenTK == TenTk);
+                    string id = Session["ID"] as string; // Get Session ID after login - HomeController for details
+                    var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
                     string oldpass = "";
                     byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5
                     MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -78,7 +75,7 @@ namespace SEP_FingerPrint.Controllers
                     if (user.matkhau != oldpass)
                     {
                         message = "Wrong Old password";
-                        Session["CPMessage"] = message;
+                        Session["CPMessage"] = message; // Session CPMessage k tìm thấy *My*
                         return View(p);
                     }
                     else
@@ -93,7 +90,7 @@ namespace SEP_FingerPrint.Controllers
                         }
                         user.matkhau = pass;
                         db.SaveChanges();
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index","Home");
                     }
                 }
             }
