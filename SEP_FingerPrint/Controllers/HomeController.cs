@@ -31,19 +31,15 @@ namespace SEP_FingerPrint.Controllers
                     var userSession = new UserLogin();
                     Session.Add("USER_SESSION", userSession);
                     var user = GetByID(model.UserName);
-
-                    userSession.UserID = user.ID;
-                    userSession.UserName = user.TenTK;
-                    userSession.Role = user.Vaitro;
-
                     var pass = MD5Hash(model.Password);
                     var userdetail = db.TaiKhoans.Where(x => x.TenTK == model.UserName && x.matkhau == pass).FirstOrDefault();
                     Session["ID"] = userdetail.ID;
-                    Session["TenTK"] = userdetail.TenTK;
+                    Session["MSGV"] = userdetail.TenTK;
                     Session["Role"] = userdetail.Vaitro;
+                    Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
                     
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Course", "Lecturer");
                 }
                 else
                 {
@@ -52,10 +48,7 @@ namespace SEP_FingerPrint.Controllers
             }
             return View(model);
         }
-        public ActionResult Index()
-        {
-            return View(db.MonHocs);
-        }
+       
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

@@ -12,10 +12,8 @@
     Template: Ela Admin
     Author: Zebra Theme
     Developer by: Zebra Theme
-
     Table of Content
     ================
-
 1. variable
 2. fonts
 3. card
@@ -68,7 +66,6 @@
 50. table-export
 51. ui-widget-v1
 42. responsive
-
 */
 .preloader {
     width: 100%;
@@ -6512,7 +6509,6 @@ tbody tr th {
 
 tbody tr td {
     font-family: 'Open Sans', sans-serif;
-    
 }
 
     tbody tr td:last-child {
@@ -8340,7 +8336,7 @@ tbody tr td {
 /* mvls */
 
 .mvls-user-cp {
-    height: 240px;
+    height: 200px;
     position: relative;
 }
 
@@ -8364,46 +8360,26 @@ tbody tr td {
         border-top-left-radius: 60px;
         border-top-right-radius: 60px;
     }
-.mvls-icon {
-    width: 45px;
-    height: 45px;
-    margin: 0 auto;
-}
-.mvls-icon img {
-    width: 62%;
-    height: 62%;
-    margin-left: 9px;
-}
-.content_component {
-    width: 620px;
-    height: auto;
-    margin: 0 auto;
-    margin-left: 300px;
+
+/* mvls*/
+
+
+.content_component-text-detail {
+    width: 50%;
+    background: #ddeaff;
+    float: left;
+    min-width: 350px;
+    text-align: center;
+    color: black;
 }
 
-    .content_component ul {
-        margin: 0 auto 50px;
-        background: #ddeaff;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        border-top-right-radius: 25px;
-        border-top-left-radius: 25px;
+    .content_component-text-detail div {
+        margin: 10px;
+        border: 4px double #1e3284;
+        padding: 20px;
     }
 
-        .content_component ul li {
-            width: 150px;
-            margin-bottom: 10px;
-            list-style-type: none;
-            display: inline-block;
-            text-align: center;
+        .content_component-text-detail div p {
+            font-weight: 600;
+            margin-bottom: 5px !important;
         }
-
-
-/* full calendar fixed */
-.fullcalendarbody {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    font-size: 14px;
-}
-

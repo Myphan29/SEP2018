@@ -1372,7 +1372,7 @@
     <Content Include="Views\Lecturer\Attendance.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Lecturer\ChangePassword.cshtml" />
-    <Content Include="Views\Lecturer\View.cshtml" />
+    <Content Include="Views\Lecturer\Course.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
