@@ -54,7 +54,7 @@ namespace SEP_FingerPrint.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            return View(db.MonHocs);
         }
         public ActionResult Logout()
         {
