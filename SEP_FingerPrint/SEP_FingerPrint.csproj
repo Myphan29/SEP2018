@@ -1371,13 +1371,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Lecturer\Attendance.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Lecturer\ChangePassword.cshtml" />
     <Content Include="Views\Lecturer\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CustomLib\css\font\" />
     <Folder Include="CustomLib\font\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="CustomLib\css\font\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
