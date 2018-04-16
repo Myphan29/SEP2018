@@ -1,10 +1,9 @@
-﻿@model IEnumerable<SEP_FingerPrint.Models.DiemDanh>
-@{
+﻿@{
     ViewBag.Title = "Attendance";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Layout = null;
 }
-
+@model SEP_FingerPrint.Models.BuoiHoc
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Attendance</title>
@@ -36,7 +35,10 @@
                 //"scrollY": ($(window).height() - 500),
                 //"sScrollXInner": "100%",
                 //"bScrollCollapse": true,
-                "sAjaxSource": '@Url.Action("LoadData","Lecturer")',
+                "sAjaxSource": 'http://localhost:49354/Lecturer/LoadData/@Model.MKH',
+                //"fnServerParams": function (aoData) {
+                //    aoData.push({ "name": "id", "value": "1" });
+                //},
                 "bDestroy": true,
                 "bLengthChange": true,
                 "bPaginate": true,
@@ -79,8 +81,15 @@
                     //        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;<a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
                     //    }, "targets": 0,
                     //}
-                ]
-
+                ],
+                rowCallback: function (row, data, index) {
+                    if (data[5] == 0) {
+                        $(row).find('td:eq(5)').css('background', '#ffa3a3');
+                    }
+                    if (data[5] == 1) {
+                        $(row).find('td:eq(5)').css('background', '#d9f9dd');
+                    }
+                }
             });
         });
     </script>
@@ -111,7 +120,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Mã SV</th>
+                            <th>Họ và tên</th>
                             <th>Mã BH</th>
                             <th>Ngày</th>
                             <th>Giờ</th>

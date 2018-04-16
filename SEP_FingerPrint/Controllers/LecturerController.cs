@@ -39,23 +39,24 @@ namespace SEP_FingerPrint.Controllers
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
        
-        public ActionResult Attendance()
+        public ActionResult Attendance(string id)
         {
-            return View();
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(id)).FirstOrDefault();
+            return View(atd);
         }
 
-        public ActionResult LoadData()
+        public ActionResult LoadData(string id)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             //where c.MBH == "1"
+                             where c.BuoiHoc.MKH.Equals(id)
                              select new[]
                              {
                                  Convert.ToString( c.ID ),
-                                 Convert.ToString( c.MSV ),
+                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
                                  Convert.ToString( c.MBH ),
                                  Convert.ToString( c.Ngay ),
                                  Convert.ToString( c.Gio ),
