@@ -1293,27 +1293,3 @@ be a descendant of the grid when it is being dragged.
   /* theme will provide own background */
   background-color: #eee; }
 
-/* mvls*/
-.content_component {
-    width: 730px;
-    height: auto;
-    margin: 0 auto;
-}
-
-    .content_component ul {
-        margin: 0 auto 50px;
-        background: #ddeaff;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        border-top-right-radius: 25px;
-        border-top-left-radius: 25px;
-    }
-
-        .content_component ul li {
-            width: 150px;  
-            margin-bottom:10px;
-            list-style-type: none;
-            display: inline-block;
-           text-align:center;
-        
-        }

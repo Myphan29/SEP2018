@@ -41,21 +41,22 @@ namespace SEP_FingerPrint.Models
 
     public class ChangePasswordViewModel
     {
-        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
-        public string OldPassword { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
+        [Display(Name = "Mật khẩu cũ")]
+        [Required(ErrorMessage = "Please type password")]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "At least 8 character")]
+        public string OldPassword { set; get; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
+        [Display(Name = "Mật khẩu mới")]
+        [Required(ErrorMessage = "Please type password")]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "At least 8 character")]
+        public string NewPassword { set; get; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Xác nhận lại mật khẩu mới")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { set; get; }
     }
 
     public class AddPhoneNumberViewModel

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SEP_FingerPrint.Models.DiemDanh>
+@{
+    ViewBag.Title = "Attendance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Attendance</title>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
+    <style>
+        tbody tr td {
+            color: black;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#example").DataTable({
+                "processing": true,
+                "serverSide": false,
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "searching": true,
+                "bFilter": false,
+                //"scrollX": "100%",
+                //"scrollY": ($(window).height() - 500),
+                //"sScrollXInner": "100%",
+                //"bScrollCollapse": true,
+                "sAjaxSource": '@Url.Action("LoadData","Lecturer")',
+                "bDestroy": true,
+                "bLengthChange": true,
+                "bPaginate": true,
+                "sEmptyTable": "Loading data from server",
+
+                //"columnDefs":
+                //    [{
+                //        "targets": [0],
+                //        "visible": true,
+                //        "searchable": false
+                //    },
+                //    {
+                //        "targets": [5],
+                //        "searchable": false,
+                //        "orderable": false
+                //    },
+                //    {
+                //        "targets": [6],
+                //        "searchable": false,
+                //        "orderable": false
+                //    },
+                //    {
+                //        "targets": [7],
+                //        "searchable": false,
+                //        "orderable": false
+                //    }],
+
+                "columns": [
+
+                    { "render": function (data, type, row) { return row[0]; } },
+                    { "render": function (data, type, row) { return (row[1]); } },
+                    { "render": function (data, type, row) { return (row[2]); } },
+                    { "render": function (data, type, row) { return (row[3]); } },
+                    { "render": function (data, type, row) { return (row[4]); } },
+                    { "render": function (data, type, row) { return (row[5]); } },
+                    //{
+                    //    "bSortable": false,
+                    //    "sClass": "TextCenter",
+                    //    "render": function (data, type, row) {
+                    //        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;<a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
+                    //    }, "targets": 0,
+                    //}
+                ]
+
+            });
+        });
+    </script>
+</head>
+
+<div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Attendance</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">...</li>
+                <li class="breadcrumb-item active">...</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+            <!-- /# column -->
+            <div class="col-lg-12">
+                <table id="example" class="ui celled table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mã SV</th>
+                            <th>Mã BH</th>
+                            <th>Ngày</th>
+                            <th>Giờ</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <!-- End PAge Content -->
+    </div>
+    <!-- End Container fluid  -->
+</div>
