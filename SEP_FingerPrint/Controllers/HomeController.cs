@@ -26,17 +26,15 @@ namespace SEP_FingerPrint.Controllers
             if (ModelState.IsValid)
             {
                 var result = Login(model.UserName, MD5Hash(model.Password));
-                if (result)
+                if (result==true)
                 {
                     var user = GetByID(model.UserName);
-                    var userSession = new UserLogin();
 
-                    userSession.UserName = user.TenTK;
                     userSession.UserID = user.ID;
-                    //userSession.Role = user.Vaitro;
+                    userSession.UserName = user.TenTK;
+                    userSession.Role = user.Vaitro;
 
-                    Session.Add("USER_SESSION", userSession);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Schedule", "Lecturer");
                 }
                 else
                 {
@@ -45,10 +43,7 @@ namespace SEP_FingerPrint.Controllers
             }
             return View(model);
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
+       
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

@@ -1,5 +1,12 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<SEP_FingerPrint.Models.KhoaHoc>
+
+@{
+    ViewBag.Title = "Course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 <script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>
 <div class="page-wrapper">
@@ -41,12 +48,15 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>@item.MMH</td>
-                                            <td>@item.TenMonHoc</td>
+                                            <td>@item.MKH</td>
+                                            <td>@item.MonHoc.TenMonHoc</td>
                                             <td>@item.Note</td>
-                                            <td>...</td>
+                                            <td>
+                                                <a href="/Lecturer/Attendance" role="button" class="btn btn-outline-success">Điểm danh</a>
+                                                <a href="/Lecturer/Schedule/@item.MKH" role="button" class="btn btn-outline-info">Thông tin</a>
+                                            </td>
                                         </tr>
-                                     }
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -58,3 +68,4 @@
     </div>
     <!-- End Container fluid  -->
 </div>
+
