@@ -26,15 +26,20 @@ namespace SEP_FingerPrint.Controllers
             if (ModelState.IsValid)
             {
                 var result = Login(model.UserName, MD5Hash(model.Password));
-                if (result==true)
+                if (result == true)
                 {
+                    var userSession = new UserLogin();
+                    Session.Add("USER_SESSION", userSession);
                     var user = GetByID(model.UserName);
+                    var pass = MD5Hash(model.Password);
+                    var userdetail = db.TaiKhoans.Where(x => x.TenTK == model.UserName && x.matkhau == pass).FirstOrDefault();
+                    Session["ID"] = userdetail.ID;
+                    Session["MSGV"] = userdetail.TenTK;
+                    Session["Role"] = userdetail.Vaitro;
+                    Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
 
-                    userSession.UserID = user.ID;
-                    userSession.UserName = user.TenTK;
-                    userSession.Role = user.Vaitro;
 
-                    return RedirectToAction("Schedule", "Lecturer");
+                    return RedirectToAction("Course", "Lecturer");
                 }
                 else
                 {
