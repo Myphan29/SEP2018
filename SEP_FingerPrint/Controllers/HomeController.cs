@@ -28,15 +28,15 @@ namespace SEP_FingerPrint.Controllers
                 var result = Login(model.UserName, MD5Hash(model.Password));
                 if (result)
                 {
-                    var userSession = new UserLogin();
-                    Session.Add("USER_SESSION", userSession);
                     var user = GetByID(model.UserName);
+                    var userSession = new UserLogin();
 
-                    userSession.UserID = user.ID;
                     userSession.UserName = user.TenTK;
-                    userSession.Role = user.Vaitro;
+                    userSession.UserID = user.ID;
+                    //userSession.Role = user.Vaitro;
 
-                    return RedirectToAction("Schedule", "Lecturer");
+                    Session.Add("USER_SESSION", userSession);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
