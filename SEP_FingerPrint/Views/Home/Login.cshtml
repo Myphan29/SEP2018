@@ -1,6 +1,10 @@
 ﻿@model SEP_FingerPrint.Models.LoginModels
 @{
     Layout = null;
+    if (Session["ID"] != null)
+    {
+        Response.Redirect("~/Lecturer/Course");
+    }
 }
 
 <!DOCTYPE html>

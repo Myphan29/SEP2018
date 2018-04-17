@@ -52,6 +52,7 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Login","Home");
         }
         public static string MD5Hash(string text)
