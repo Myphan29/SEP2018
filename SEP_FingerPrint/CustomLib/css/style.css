@@ -8383,3 +8383,90 @@ tbody tr td {
             font-weight: 600;
             margin-bottom: 5px !important;
         }
+.mvls-aob {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #e6294b;
+    width: 240px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+.cp-block-1 {
+    width: 300px;
+    height: 550px;
+    float: left;
+    background: #4680ff;
+}
+
+/* radio button*/
+.mvls-radio-button1 div {
+    display: inline-block;
+}
+
+.mvls-radio-button1 input[type="radio"] {
+    display: none;
+}
+
+    .mvls-radio-button1 input[type="radio"] + label {
+        color: #333;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+        .mvls-radio-button1 input[type="radio"] + label span {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin: -1px 4px 0 0;
+            vertical-align: middle;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+            background-repeat: no-repeat;
+            background-position: center;
+            text-align: center;
+            line-height: 35px;
+        }
+
+            .mvls-radio-button1 input[type="radio"] + label span img {
+                opacity: 0;
+                transition: all .3s ease;
+            }
+
+    .mvls-radio-button1 input[type="radio"]#color-1 + label span {
+        background-color: #2ecc71;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-2 + label span {
+        background-color: #3498db;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-3 + label span {
+        background-color: #f1c40f;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-4 + label span {
+        background-color: #e74c3c;
+    }
+    .mvls-radio-button1 input[type="radio"]#color-5 + label span {
+        background-color: #2ecc71;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-6 + label span {
+        background-color: #3498db;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-7 + label span {
+        background-color: #f1c40f;
+    }
+
+    .mvls-radio-button1 input[type="radio"]#color-8 + label span {
+        background-color: #e74c3c;
+    }
+
+    .mvls-radio-button1 input[type="radio"]:checked + label span img {
+        opacity: 1;
+    }

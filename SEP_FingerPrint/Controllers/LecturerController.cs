@@ -75,7 +75,10 @@ namespace SEP_FingerPrint.Controllers
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
-
+        public ActionResult Settings()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ChangePassword()
         {
