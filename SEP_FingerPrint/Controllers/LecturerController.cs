@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using SEP_FingerPrint.Models;
+//using SEP_FingerPrint.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 
@@ -39,20 +39,20 @@ namespace SEP_FingerPrint.Controllers
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
        
-        public ActionResult Attendance(string id)
+        public ActionResult Attendance(string course, string time)
         {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(id)).FirstOrDefault();
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
             return View(atd);
         }
 
-        public ActionResult LoadData(string id)
+        public ActionResult LoadData(string course, string time)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id)
+                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
                              select new[]
                              {
                                  Convert.ToString( c.ID ),
