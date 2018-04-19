@@ -12,10 +12,8 @@
     Template: Ela Admin
     Author: Zebra Theme
     Developer by: Zebra Theme
-
     Table of Content
     ================
-
 1. variable
 2. fonts
 3. card
@@ -68,7 +66,6 @@
 50. table-export
 51. ui-widget-v1
 42. responsive
-
 */
 .preloader {
     width: 100%;
@@ -6512,7 +6509,6 @@ tbody tr th {
 
 tbody tr td {
     font-family: 'Open Sans', sans-serif;
-    
 }
 
     tbody tr td:last-child {
@@ -8381,10 +8377,9 @@ tbody tr td {
         margin: 10px;
         border: 4px double #1e3284;
         padding: 20px;
-        
-    }
-    .content_component-text-detail div p{
-        font-weight: 600;
-        margin-bottom: 5px !important;
     }
 
+        .content_component-text-detail div p {
+            font-weight: 600;
+            margin-bottom: 5px !important;
+        }
