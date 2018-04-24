@@ -74,7 +74,7 @@ else
                                 @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập lại mật khẩu", @class = "input100", @autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(model => model.nhaplaimatkhau, "", new { @class = "text-danger" })
                             </div>
-                            <div class="icon1" style="padding: 20px; font-size: 15px">
+                            <div class="icon1" style="padding: 20px 0 0 70px; font-size: 15px">
                                 <i class="fa fa-key" id="myHeader" aria-hidden="true"></i>
                                 @*<input type="radio" name="colors" id="red">*@
                                 @Html.RadioButtonFor(model => model.Trangthai, "Enable")
@@ -85,7 +85,7 @@ else
                                 <br>
                                 @Html.ValidationMessageFor(model => model.Trangthai, "", new { @class = "text-danger" })
                             </div>
-                            <div class="icon1" style="padding: 20px ; font-size: 15px">
+                            <div class="icon1" style="padding: 20px 0 0 70px ; font-size: 15px">
                                 <i class="fa fa-heart-o" id="myHeader" aria-hidden="true" style="margin-right: 10px"></i>
                                 Vai trò:
                                 @*<select style="margin-left: 30px; font-size: 16px">
@@ -99,12 +99,7 @@ else
                                 @Html.ValidationMessageFor(model => model.Vaitro, "", new { @class = "text-danger" })
                             </div>
                             <div class="icon1" style="text-align: center">
-                                <div class="login-check">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox" checked="">
-                                        Tôi chấp nhận thêm tài khoản<a href="#"> </a>
-                                    </label>
-                                </div>
+                                
                                 <div class="bottom" style="text-align: center">
                                     <input type="submit" id="button" value="Thêm" />
                                 </div>
