@@ -1,10 +1,20 @@
-﻿@model IEnumerable<SEP_FingerPrint.Models.DiemDanh>
-@{
+﻿@{
     ViewBag.Title = "Attendance";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Layout = null;
+    if (Session["ID"] != null)
+    {
+        if (Convert.ToInt32(Session["Role"]) == 2)
+        {
+            Response.Redirect("~/Admin/AddUser");
+        }
+    }
+    else
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
-
+@model SEP_FingerPrint.Models.BuoiHoc
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Attendance</title>
@@ -23,11 +33,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        function showTable() {
+            var time = $("#listTime").val();
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
-                "paging": true,
+                "pagingType": "full_numbers",
                 "ordering": true,
                 "info": true,
                 "searching": true,
@@ -36,36 +47,33 @@
                 //"scrollY": ($(window).height() - 500),
                 //"sScrollXInner": "100%",
                 //"bScrollCollapse": true,
-                "sAjaxSource": '@Url.Action("LoadData","Lecturer")',
+                "sAjaxSource": 'http://localhost:49354/Lecturer/LoadData/@Model.MKH/'+time,
+                //"fnServerParams": function (aoData) {
+                //    aoData.push({ "name": "id", "value": "1" });
+                //},
                 "bDestroy": true,
                 "bLengthChange": true,
                 "bPaginate": true,
                 "sEmptyTable": "Loading data from server",
-
-                //"columnDefs":
-                //    [{
-                //        "targets": [0],
-                //        "visible": true,
-                //        "searchable": false
-                //    },
-                //    {
-                //        "targets": [5],
-                //        "searchable": false,
-                //        "orderable": false
-                //    },
-                //    {
-                //        "targets": [6],
-                //        "searchable": false,
-                //        "orderable": false
-                //    },
-                //    {
-                //        "targets": [7],
-                //        "searchable": false,
-                //        "orderable": false
-                //    }],
-
+                language: {
+                    "search": "Tìm kiếm:",
+                    "searchPlaceholder": "Nhập dữ liệu cần tìm",
+                    "loadingRecords": "Đang tải dữ liệu...",
+                    "processing": "Đang xử lý...",
+                    "emptyTable": "Không tìm thấy dữ liệu",
+                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ dữ liệu",
+                    "infoEmpty": "Hiển thị 0 trong tổng số 0 dữ liệu",
+                    "infoFiltered": "(lọc từ tổng số _MAX_ dữ liệu)",
+                    "lengthMenu": "Hiển thị _MENU_ dữ liệu",
+                    "zeroRecords": "Không tìm thấy dữ liệu nào phù hợp",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp theo",
+                        "previous": "Trước đó"
+                    },
+                },
                 "columns": [
-
                     { "render": function (data, type, row) { return row[0]; } },
                     { "render": function (data, type, row) { return (row[1]); } },
                     { "render": function (data, type, row) { return (row[2]); } },
@@ -79,9 +87,22 @@
                     //        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;<a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
                     //    }, "targets": 0,
                     //}
-                ]
-
+                ],
+                rowCallback: function (row, data, index) {
+                    if (data[5] == 0) {
+                        $(row).find('td:eq(5)').css('background', '#ffa3a3');
+                    }
+                    if (data[5] == 1) {
+                        $(row).find('td:eq(5)').css('background', '#d9f9dd');
+                    }
+                }
             });
+        }
+        $(document).ready(function () {
+            showTable();
+            $("#listTime").change(function () {
+                showTable();
+            })
         });
     </script>
 </head>
@@ -106,12 +127,26 @@
         <!-- Start Page Content -->
         <div class="row">
             <!-- /# column -->
+            <div id="example_length" style="width: 50%">
+                <label for="listTime" style="width: 20%">Chọn buổi học:</label>
+                <select id="listTime" style="width: 20%">
+                    @{
+                        SEP_FingerPrint.Models.SepEntities db = new SEP_FingerPrint.Models.SepEntities();
+                        var listSel = db.BuoiHocs.ToList();
+                        foreach (var item in listSel)
+                        {
+                            <option>@item.MBH</option>
+                        }
+                    }
+                </select>
+            </div>
             <div class="col-lg-12">
+                
                 <table id="example" class="ui celled table" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Mã SV</th>
+                            <th>Họ và tên</th>
                             <th>Mã BH</th>
                             <th>Ngày</th>
                             <th>Giờ</th>
