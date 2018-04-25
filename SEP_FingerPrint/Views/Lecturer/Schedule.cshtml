@@ -7,7 +7,7 @@
         Response.Redirect("~/Home/Login");
     }
 }
-@model SEP_FingerPrint.Models.KhoaHoc
+@model SEP_FingerPrint.Models.BuoiHoc
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +18,10 @@
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <script>
+    
         $(document).ready(function () {
 
-            $('#calendar').fullCalendar({
+            $('#calendar').fullCalendar( {
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -29,7 +30,10 @@
                 navLinks: true, // can click day/week names to navigate views
                 editable: false,
                 eventLimit: true, // allow "more" link when too many events
-                events: 'http://localhost:49354/Lecturer/FindAll/@Model.MKH'
+                events: 'http://localhost:49354/Lecturer/FindAll/@Model.MKH',
+                eventClick: function (event) {
+                     window.open('/Lecturer/Attendance/@Model.MKH/'+event.id); //event.id là truyền vào mã buổi học  
+                }
 
             });
 
@@ -59,10 +63,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="container">
-                    <div class="content_component-text-detail"><div><p>Môn:</p> @Html.DisplayFor(model => model.MonHoc.TenMonHoc) </div></div>
-                    <div class="content_component-text-detail"><div><p>Giảng Viên:</p> @Html.DisplayFor(model => model.GiangVien.HoTen) </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày bắt đầu:</p> @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.NgayBatDau))  </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày kết thúc:</p>  @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.NgayKetThuc)) </div></div>
+                    <div class="content_component-text-detail"><div><p>Môn:</p> @Html.DisplayFor(model=>model.KhoaHoc.MonHoc.TenMonHoc) </div></div>
+                    <div class="content_component-text-detail"><div><p>Giảng Viên:</p> @Html.DisplayFor(model => model.KhoaHoc.GiangVien.HoTen) </div></div>
+                    <div class="content_component-text-detail"><div><p>Ngày bắt đầu:</p> @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau))  </div></div>
+                    <div class="content_component-text-detail"><div><p>Ngày kết thúc:</p>  @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc)) </div></div>
             </div>
         </div>
         <div id='calendar'></div>
