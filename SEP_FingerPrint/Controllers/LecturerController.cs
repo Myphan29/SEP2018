@@ -24,7 +24,7 @@ namespace SEP_FingerPrint.Controllers
             //{
             //    return Redirect("Home/Index");
             //}
-            var khoabieu = db.KhoaHocs.Where(p => p.MKH == id).FirstOrDefault();
+            var khoabieu = db.BuoiHocs.Where(p => p.MKH == id).FirstOrDefault();
             return View(khoabieu);
         }
         public ActionResult FindAll(string id)
@@ -33,7 +33,7 @@ namespace SEP_FingerPrint.Controllers
                 id = Convert.ToInt32(e.MBH),
                 title = e.Phong,
                 start = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioBatDau.Value.ToString(),
-                end = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString(),
+                end = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString()
 
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -78,7 +78,10 @@ namespace SEP_FingerPrint.Controllers
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
-
+        public ActionResult Settings()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ChangePassword()
         {
