@@ -8,6 +8,7 @@ using System.Web.Security;
 using SEP_FingerPrint.Models;
 using System.Security.Cryptography;
 using System.Text;
+//using SEP_FingerPrint.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 
@@ -36,23 +37,25 @@ namespace SEP_FingerPrint.Controllers
 
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Attendance()
+       
+        public ActionResult Attendance(string course, string time)
         {
-            return View();
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
+            return View(atd);
         }
-        public ActionResult LoadData()
+
+        public ActionResult LoadData(string course, string time)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                                 //where c.MBH == "1"
+                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
                              select new[]
                              {
                                  Convert.ToString( c.ID ),
-                                 Convert.ToString( c.MSV ),
+                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
                                  Convert.ToString( c.MBH ),
                                  Convert.ToString( c.Ngay ),
                                  Convert.ToString( c.Gio ),
@@ -75,7 +78,10 @@ namespace SEP_FingerPrint.Controllers
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
-
+        public ActionResult Settings()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ChangePassword()
         {
