@@ -38,10 +38,15 @@ namespace SEP_FingerPrint.Controllers
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
        
-        public ActionResult Attendance(string course, string time)
+        public ActionResult Attendance(string course, string time = "1")
         {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
-            return View(atd);
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+            if (atd != null)
+            {
+                return View(atd);
+            }
+            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+            //return HttpNotFound("");
         }
 
         public ActionResult LoadData(string course, string time)
