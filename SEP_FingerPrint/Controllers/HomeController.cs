@@ -36,10 +36,17 @@ namespace SEP_FingerPrint.Controllers
                     Session["ID"] = userdetail.ID;
                     Session["MSGV"] = userdetail.TenTK;
                     Session["Role"] = userdetail.Vaitro;
-                    Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
-                    
+                    if (Session["Role"].Equals(1))
+                    {
+                        Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
+                        return RedirectToAction("Course", "Lecturer");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddUser", "Admin");
+                    }
 
-                    return RedirectToAction("Course", "Lecturer");
+                   
                 }
                 else
                 {
