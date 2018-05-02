@@ -68,14 +68,16 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Edit()
         {
             SepEntities db = new SepEntities();
-            var user = db.TaiKhoans.OrderByDescending(x => x.ID).ToList();
+            var user = db.GiangViens.OrderByDescending(x => x.IDTaiKhoan).ToList();
             return View(user);
         }
+
         [HttpPost]
         public JsonResult ChangeStatus(string id)
         {
             SepEntities db = new SepEntities();
             var user = db.TaiKhoans.Find(id);
+
             if (user.Trangthai == "Enable")
             {
                 user.Trangthai = "Disable";
@@ -93,23 +95,7 @@ namespace SEP_FingerPrint.Controllers
             });
 
         }
-        //[HttpGet]
-        //public string ChangeStatus(string id)
-        //{
-        //    SepEntities db = new SepEntities();
-        //    var user = db.TaiKhoans.Find(id);
-        //    if (user.Trangthai == "Enable")
-        //    {
-        //        user.Trangthai = "Disable";
-        //    }else if (user.Trangthai == "Disable")
-        //    {
-        //        user.Trangthai = "Enable";
-        //    }
-        //    db.SaveChanges();
-        //    return user.Trangthai;
-
-
-        //}
+        
 
 
     }
