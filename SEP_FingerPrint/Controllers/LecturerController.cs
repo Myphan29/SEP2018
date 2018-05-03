@@ -155,13 +155,12 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Teach(int page =1, int pageSize =10)
         {
             string idTK = Session["ID"] as string;
-            string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             var model = ListAllPaging(page,pageSize);
-            return View(db.GiangViens.Where(p => p.MGV == idGV).ToList());
+            return View(model);
         }
-        public IEnumerable<GiangVien> ListAllPaging(int page,int pageSize)
+        public IEnumerable<KhoaHoc> ListAllPaging(int page,int pageSize)
         {
-            return db.GiangViens.OrderByDescending(x=>x.HoTen).ToPagedList(page,pageSize);
+            return db.KhoaHocs.OrderBy(x=>x.MGV).ToPagedList(page,pageSize);
         }
     }
 }

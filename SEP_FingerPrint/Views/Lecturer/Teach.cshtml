@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<SEP_FingerPrint.Models.GiangVien>
+﻿@model PagedList.IPagedList<SEP_FingerPrint.Models.KhoaHoc>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Teach";
@@ -51,8 +51,10 @@
                                     {
                                         <tr>
                                             <td>@item.MGV</td>
-                                            <td>@item.HoTen</td>
-                                            <td>@item.KhoaHocs</td>
+                                            <td>@item.GiangVien.HoTen</td>
+                                            <td>@item.MonHoc.TenMonHoc</td>
+                                            <td></td>
+                                            <td></td>
                                             @*<td>
                                                 <a href="/Lecturer/Attendance" role="button" class="btn btn-outline-success">Điểm danh</a>
                                                 <a href="/Lecturer/Teach/@item.MGV" role="button" class="btn btn-outline-info">Thông tin</a>
