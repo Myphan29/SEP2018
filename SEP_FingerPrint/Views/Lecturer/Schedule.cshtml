@@ -17,7 +17,7 @@
     <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    <script src='~/CustomLib/Schedule/locale/vi.js'></script>
+    @*<script src='~/CustomLib/Schedule/locale/vn.js'></script>*@
     <script>
 
         $(document).ready(function () {
@@ -64,15 +64,26 @@
     <div class="container-fluid">
         <div class="row">
             <div class="container">
-                    <div class="content_component-text-detail"><div><p>Môn:</p> @Html.DisplayFor(model=>model.KhoaHoc.MonHoc.TenMonHoc) </div></div>
-                    <div class="content_component-text-detail"><div><p>Giảng Viên:</p> @Html.DisplayFor(model => model.KhoaHoc.GiangVien.HoTen) </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày bắt đầu:</p> @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau))  </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày kết thúc:</p>  @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc)) </div></div>
+                <div class="content_component-text-detail">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            @Html.DisplayFor(model => model.KhoaHoc.MonHoc.TenMonHoc)
+                        </div>
+                        <div class="card-body">
+                            </br>
+                            <p class="card-text">Ngày bắt đầu: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau))  Ngày kết thúc: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc))</p>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                <div id='calendar'></div>
             </div>
         </div>
-        <div id='calendar'></div>
     </div>
+   
 </div>
+
+
 </html>
 
 
