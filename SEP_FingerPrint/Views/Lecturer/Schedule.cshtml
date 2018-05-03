@@ -17,8 +17,9 @@
     <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <script src='~/CustomLib/Schedule/locale/vi.js'></script>
     <script>
-    
+
         $(document).ready(function () {
 
             $('#calendar').fullCalendar( {
@@ -32,7 +33,7 @@
                 eventLimit: true, // allow "more" link when too many events
                 events: 'http://localhost:49354/Lecturer/FindAll/@Model.MKH',
                 eventClick: function (event) {
-                     window.open('/Lecturer/Attendance/@Model.MKH/'+event.id); //event.id là truyền vào mã buổi học  
+                     window.open('/Lecturer/Attendance/@Model.MKH/'+event.id); //event.id là truyền vào mã buổi học
                 }
 
             });

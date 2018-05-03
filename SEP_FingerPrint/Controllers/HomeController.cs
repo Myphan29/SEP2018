@@ -13,7 +13,7 @@ namespace SEP_FingerPrint.Controllers
 {
     public class HomeController : Controller
     {
-        SepEntities db = new SepEntities();
+        Sep2018Entities db = new Sep2018Entities();
         [HttpGet]
         public ActionResult Login()
         {
@@ -84,7 +84,7 @@ namespace SEP_FingerPrint.Controllers
         {
             db.TaiKhoans.Add(entity);
             db.SaveChanges();
-            return entity.ID;
+            return entity.ID.ToString();
         }
         public TaiKhoan GetByID(string userName)
         {
