@@ -16,7 +16,7 @@ namespace SEP_FingerPrint.Controllers
 {
     public class LecturerController : Controller
     {
-        private SepEntities db = new SepEntities();
+        private Sep2018Entities db = new Sep2018Entities();
         // GET: Lecturer
         public ActionResult Schedule(string id)
         {
@@ -79,7 +79,7 @@ namespace SEP_FingerPrint.Controllers
         }
         public ActionResult Course()
         {
-            string idTK = Session["ID"] as string;
+            int idTK = Convert.ToInt32(Session["ID"]);
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
@@ -106,7 +106,7 @@ namespace SEP_FingerPrint.Controllers
                 }
                 else
                 {
-                    string id = Session["ID"] as string; // Get Session ID after login - HomeController for details
+                    int id = Convert.ToInt32(Session["ID"]); // Get Session ID after login - HomeController for details
                     var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
                     string oldpass = "";
                     byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5

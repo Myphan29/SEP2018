@@ -25,7 +25,7 @@ namespace SEP_FingerPrint.Models
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public Nullable<bool> GioiTinh { get; set; }
         public string Note { get; set; }
-        public string IDTaiKhoan { get; set; }
+        public Nullable<int> IDTaiKhoan { get; set; }
     
         public virtual TaiKhoan TaiKhoan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

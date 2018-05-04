@@ -20,10 +20,10 @@ namespace SEP_FingerPrint.Models
             this.GiangViens = new HashSet<GiangVien>();
         }
     
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string TenTK { get; set; }
         public string matkhau { get; set; }
-        public Nullable<int> Vaitro { get; set; }
+        public int Vaitro { get; set; }
         public string Trangthai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

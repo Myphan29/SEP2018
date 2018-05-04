@@ -40,7 +40,7 @@ namespace SEP_FingerPrint.Controllers
             var user = new TaiKhoan();
             if (ModelState.IsValid)
             {
-                using (SepEntities db = new SepEntities())
+                using (Sep2018Entities db = new Sep2018Entities())
                 {
                     if (db.TaiKhoans.Any(x => x.TenTK == user.TenTK))
                     {
@@ -49,7 +49,7 @@ namespace SEP_FingerPrint.Controllers
                     }
                     if (model.matkhau == model.nhaplaimatkhau)
                     {
-                        user.ID = model.ID;
+                      //  user.ID = model.ID;
                         user.TenTK = model.TenTK;
                         user.matkhau = Crypto.Hash(model.matkhau);
                         user.Vaitro = model.Vaitro;
