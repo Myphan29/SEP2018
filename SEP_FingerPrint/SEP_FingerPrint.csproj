@@ -371,6 +371,7 @@
     <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.js" />
     <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\bootstrap.min.js" />
     <Content Include="CustomLib\Attendance\Bootstrap-3.3.7\js\npm.js" />
+    <Content Include="CustomLib\Attendance\buttons.dataTables.min.css" />
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.css" />
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap.min.css" />
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\css\dataTables.bootstrap4.css" />
@@ -400,12 +401,17 @@
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\dataTables.semanticui.min.js" />
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.js" />
     <Content Include="CustomLib\Attendance\DataTables-1.10.16\js\jquery.dataTables.min.js" />
+    <Content Include="CustomLib\Attendance\dataTables.buttons.min.js" />
     <Content Include="CustomLib\Attendance\datatables.css" />
+    <Content Include="CustomLib\Attendance\dataTables.editor.min.js" />
     <Content Include="CustomLib\Attendance\datatables.js" />
     <Content Include="CustomLib\Attendance\datatables.min.css" />
     <Content Include="CustomLib\Attendance\datatables.min.js" />
+    <Content Include="CustomLib\Attendance\dataTables.select.min.js" />
+    <Content Include="CustomLib\Attendance\editor.dataTables.min.css" />
     <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.js" />
     <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.min.js" />
+    <Content Include="CustomLib\Attendance\select.dataTables.min.css" />
     <Content Include="CustomLib\css\accountfont.css" />
     <Content Include="CustomLib\css\animate.css" />
     <Content Include="CustomLib\css\cssaccount.css" />
