@@ -67,16 +67,18 @@ namespace SEP_FingerPrint.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
-            SepEntities db = new SepEntities();
+            Sep2018Entities db = new Sep2018Entities();
             var user = db.GiangViens.OrderByDescending(x => x.IDTaiKhoan).ToList();
             return View(user);
         }
+        
+            
 
         [HttpPost]
         public JsonResult ChangeStatus(string id)
         {
-            SepEntities db = new SepEntities();
-            var user = db.TaiKhoans.Find(id);
+            Sep2018Entities db = new Sep2018Entities();
+            var user = db.TaiKhoans.Find(Convert.ToInt32(id));
 
             if (user.Trangthai == "Enable")
             {
@@ -86,8 +88,8 @@ namespace SEP_FingerPrint.Controllers
             {
                 user.Trangthai = "Enable";
             }
-             db.SaveChanges();
-           
+            db.SaveChanges();
+            //var result = db.TaiKhoans.Find(Convert.ToInt32(id));
             var result = id;
             return Json(new
             {
@@ -95,7 +97,16 @@ namespace SEP_FingerPrint.Controllers
             });
 
         }
-        
+        public ActionResult Search(string text)
+        {
+            Sep2018Entities db = new Sep2018Entities();
+       
+            // Xử lí sự kiện search
+            var p = db.GiangViens.ToList().Where(x => x.HoTen.ToUpper().Contains(text.ToUpper()) || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper())
+            || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper()));
+            return View(p);
+        }
+
 
 
     }
