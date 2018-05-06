@@ -14,7 +14,7 @@
                 type: "POST",
                 success: function (response) {
                     console.log(response);
-                    if (response.status == true) {
+                    if (response.status == "Enable") {
                         btn.text('Enable');
                     }
                     else {
