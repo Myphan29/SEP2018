@@ -1396,7 +1396,7 @@
     <Content Include="Views\Lecturer\Course.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
     <Content Include="Views\Lecturer\Settings.cshtml" />
-    <Content Include="Views\Lecturer\Teach.cshtml" />
+    <Content Include="Views\Admin\Teach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
