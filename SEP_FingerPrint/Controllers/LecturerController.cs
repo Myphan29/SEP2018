@@ -11,6 +11,8 @@ using System.Text;
 //using SEP_FingerPrint.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity;
+using PagedList.Mvc;
+using PagedList;
 
 namespace SEP_FingerPrint.Controllers
 {

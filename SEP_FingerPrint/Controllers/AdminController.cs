@@ -1,4 +1,5 @@
-﻿using SEP_FingerPrint.Models;
+﻿using PagedList;
+using SEP_FingerPrint.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SEP_FingerPrint.Controllers
 {
     public class AdminController : Controller
     {
+        private Sep2018Entities db = new Sep2018Entities();
         // GET: Admin
         public ActionResult Index()
         {
@@ -56,7 +58,7 @@ namespace SEP_FingerPrint.Controllers
                         user.Trangthai = model.Trangthai;
                         //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                         db.TaiKhoans.Add(user);
-                        db.SaveChanges();
+                        db.SaveChanges(); 
                     }
                 }
                 ModelState.Clear();
@@ -64,50 +66,24 @@ namespace SEP_FingerPrint.Controllers
             }
             return View("AddUser", new Account());
         }
-        [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Teach(int page = 1, int pageSize = 10)
         {
-            Sep2018Entities db = new Sep2018Entities();
-            var user = db.GiangViens.OrderByDescending(x => x.IDTaiKhoan).ToList();
-            return View(user);
+            string idTK = Session["ID"] as string;
+            var model = ListAllPaging(page, pageSize);
+            return View(model);
         }
-        
-            
-
-        [HttpPost]
-        public JsonResult ChangeStatus(string id)
+        public IEnumerable<KhoaHoc> ListAllPaging(int page, int pageSize)
         {
-            Sep2018Entities db = new Sep2018Entities();
-            var user = db.TaiKhoans.Find(Convert.ToInt32(id));
-
-            if (user.Trangthai == "Enable")
+            var list = db.KhoaHocs.OrderBy(x => x.MGV).ToList();
+            for (int i = 0; i < list.Count(); i++)
             {
-                user.Trangthai = "Disable";
+                if (list[i].MGV == list[i + 1].MGV)
+                {
+                    list.Remove(list[i + 1]);
+                }
             }
-            else if (user.Trangthai == "Disable")
-            {
-                user.Trangthai = "Enable";
-            }
-            db.SaveChanges();
-            //var result = db.TaiKhoans.Find(Convert.ToInt32(id));
-            var result = id;
-            return Json(new
-            {
-                Trangthai = result
-            });
-
+            return list.ToPagedList(page, pageSize);
         }
-        public ActionResult Search(string text)
-        {
-            Sep2018Entities db = new Sep2018Entities();
-       
-            // Xử lí sự kiện search
-            var p = db.GiangViens.ToList().Where(x => x.HoTen.ToUpper().Contains(text.ToUpper()) || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper())
-            || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper()));
-            return View(p);
-        }
-
-
 
     }
 }
