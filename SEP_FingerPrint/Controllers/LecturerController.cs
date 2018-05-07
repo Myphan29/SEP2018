@@ -8,6 +8,7 @@ using System.Web.Security;
 using SEP_FingerPrint.Models;
 using System.Security.Cryptography;
 using System.Text;
+//using SEP_FingerPrint.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 
@@ -23,7 +24,7 @@ namespace SEP_FingerPrint.Controllers
             //{
             //    return Redirect("Home/Index");
             //}
-            var khoabieu = db.KhoaHocs.Where(p => p.MKH == id).FirstOrDefault();
+            var khoabieu = db.BuoiHocs.Where(p => p.MKH == id).FirstOrDefault();
             return View(khoabieu);
         }
         public ActionResult FindAll(string id)
@@ -32,27 +33,34 @@ namespace SEP_FingerPrint.Controllers
                 id = Convert.ToInt32(e.MBH),
                 title = e.Phong,
                 start = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioBatDau.Value.ToString(),
-                end = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString(),
+                end = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString()
 
             }).ToList(), JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Attendance()
+       
+        public ActionResult Attendance(string course, string time = "1")
         {
-            return View();
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+            if (atd != null)
+            {
+                return View(atd);
+            }
+            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+            //return HttpNotFound("");
         }
-        public ActionResult LoadData()
+
+        public ActionResult LoadData(string course, string time)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                                 //where c.MBH == "1"
+                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
                              select new[]
                              {
                                  Convert.ToString( c.ID ),
-                                 Convert.ToString( c.MSV ),
+                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
                                  Convert.ToString( c.MBH ),
                                  Convert.ToString( c.Ngay ),
                                  Convert.ToString( c.Gio ),
@@ -75,7 +83,10 @@ namespace SEP_FingerPrint.Controllers
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
-
+        public ActionResult Settings()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ChangePassword()
         {

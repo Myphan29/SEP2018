@@ -52,6 +52,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -772,7 +774,6 @@
     <Content Include="CustomLib\js\main.js" />
     <Content Include="CustomLib\js\scripts.js" />
     <Content Include="CustomLib\js\sidebarmenu.js" />
-    <Content Include="CustomLib\main.css" />
     <Content Include="CustomLib\Schedule\fullcalendar.css" />
     <Content Include="CustomLib\Schedule\fullcalendar.js" />
     <Content Include="CustomLib\Schedule\fullcalendar.min.css" />
@@ -1384,6 +1385,7 @@
     <Content Include="Views\Lecturer\ChangePassword.cshtml" />
     <Content Include="Views\Lecturer\Course.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Lecturer\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
