@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Search";
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 <head>
     <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>

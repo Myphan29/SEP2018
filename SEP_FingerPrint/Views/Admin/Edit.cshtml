@@ -2,13 +2,18 @@
 
 @{
     ViewBag.Title = "Edit";
+
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 <head>
     <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
 </head>
 @section jsFooter{
     <script src="~/CustomLib/js/user.js"></script>
-    
+
 }
 <div class="page-wrapper">
 
