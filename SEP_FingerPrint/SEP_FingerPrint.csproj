@@ -247,6 +247,9 @@
     <Compile Include="Models\SinhVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TaiKhoan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1387,19 +1390,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomLib\css\font\" />
+    <Folder Include="fonts\" />
     <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
