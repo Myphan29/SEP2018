@@ -8367,24 +8367,9 @@ tbody tr td {
 
 
 .content_component-text-detail {
-    width: 50%;
-    background: #ddeaff;
-    float: left;
-    min-width: 350px;
-    text-align: center;
-    color: black;
-}
-
-    .content_component-text-detail div {
-        margin: 10px;
-        border: 4px double #1e3284;
-        padding: 20px;
-    }
-
-        .content_component-text-detail div p {
-            font-weight: 600;
-            margin-bottom: 5px !important;
-        }
+    margin: 0 auto;
+    width: 70%;
+}  
 
 .mvls-aob {
     position: fixed;
