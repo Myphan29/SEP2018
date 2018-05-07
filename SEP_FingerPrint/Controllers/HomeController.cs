@@ -43,7 +43,7 @@ namespace SEP_FingerPrint.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("AddUser", "Admin");
+                        return RedirectToAction("Teach", "Admin");
                     }
 
                    

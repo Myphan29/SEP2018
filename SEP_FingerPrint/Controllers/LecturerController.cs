@@ -2,42 +2,65 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using SEP_FingerPrint.Models;
 using System.Security.Cryptography;
 using System.Text;
-//using SEP_FingerPrint.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity;
+using PagedList.Mvc;
+using PagedList;
 
 namespace SEP_FingerPrint.Controllers
 {
     public class LecturerController : Controller
     {
         private Sep2018Entities db = new Sep2018Entities();
-        // GET: Lecturer
+        // Schedule performance -My 
         public ActionResult Schedule(string id)
         {
-            //if (id == 0)
-            //{
-            //    return Redirect("Home/Index");
-            //}
             var khoabieu = db.BuoiHocs.Where(p => p.MKH == id).FirstOrDefault();
             return View(khoabieu);
         }
-        public ActionResult FindAll(string id)
+      
+        public JsonResult GetEvents(string id)
         {
-            return Json(db.BuoiHocs.Where(p => p.MKH == id).AsEnumerable().Select(e => new {
-                id = Convert.ToInt32(e.MBH),
-                title = e.Phong,
-                start = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioBatDau.Value.ToString(),
-                end = e.Ngay.Value.ToString("yyyy/MM/dd") + "T" + e.GioKetThuc.Value.ToString()
-
-            }).ToList(), JsonRequestBehavior.AllowGet);
+                  var events = (from e in db.BuoiHocs.Where(p=>p.MKH==id)
+                              select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau,e.GioKetThuc }).ToList();
+                ;
+                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-       
+        
+        [HttpPost]
+        public JsonResult SaveEvent( BuoiHoc e)
+        { 
+            var status = false;
+            using (Sep2018Entities dc = new Sep2018Entities())
+            {
+                if (Convert.ToInt32(e.MBH) > 0)
+                {
+                    //Update the event
+                    var v = dc.BuoiHocs.Where(a => a.MBH == e.MBH).FirstOrDefault();
+                    if (v != null)
+                    {
+                        v.Phong= e.Phong;
+                        v.Ngay = e.Ngay;
+                        v.GioBatDau = e.GioBatDau;
+                        v.GioKetThuc = e.GioKetThuc;
+                        v.MKH = e.MKH;
+                    }
+                }
+                else
+                {
+                  
+                    dc.BuoiHocs.Add(e);
+                }
+                dc.SaveChanges();
+                status = true;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
         public ActionResult Attendance(string course, string time = "1")
         {
             var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
@@ -193,7 +216,7 @@ namespace SEP_FingerPrint.Controllers
                 return View(p);
             }
 
-            
+
         }
     }
 }
