@@ -41,12 +41,24 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Attendance(string course, string time = "1")
         {
             var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+            
+            if (atd != null)
+            {
+                return View(atd);
+            }
+
+            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+            //return HttpNotFound("");
+        }
+
+        public ActionResult FullAttendance(string course)
+        {
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-            //return HttpNotFound("");
         }
 
         public ActionResult LoadData(string course, string time)
@@ -59,8 +71,10 @@ namespace SEP_FingerPrint.Controllers
                              where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
                              select new[]
                              {
-                                 Convert.ToString( c.ID ),
+                                 Convert.ToString( c.MSV ),
                                  Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                                 Convert.ToString( c.SinhVien.GioiTinh ),
+                                 Convert.ToString( c.SinhVien.NgaySinh.ToString().Split(' ')[0] ),
                                  Convert.ToString( c.MBH ),
                                  Convert.ToString( c.Ngay ),
                                  Convert.ToString( c.Gio ),
@@ -77,6 +91,37 @@ namespace SEP_FingerPrint.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult LoadFullData(string course)
+        {
+            List<DiemDanh> _list = new List<DiemDanh>();
+            try
+            {
+                _list = db.DiemDanhs.ToList();
+                var result = from c in _list
+                             where c.BuoiHoc.MKH.Equals(course)
+                             select new[]
+                             {
+                                 Convert.ToString( c.MSV ),
+                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                             };
+                //var result = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course)).AsEnumerable().Select(c => new
+                //             {
+                //                 id = Convert.ToString( c.MSV ),
+                //                 name = Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                //             }).ToList();
+                return Json(new { aaData = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                //ErrorLogers.ErrorLog(ex);
+                return Json(new
+                {
+                    aaData = new List<string[]> { }
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);

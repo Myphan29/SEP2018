@@ -21,6 +21,13 @@ namespace SEP_FingerPrint
             );
 
             routes.MapRoute(
+                name: "FullAttendance",
+                url: "{controller}/{action}/{course}"
+            //defaults: new { controller = "Lecturer", action = "Attendace", id = UrlParameter.Optional },
+            //namespaces: new[] { "SEP_FingerPrint.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
