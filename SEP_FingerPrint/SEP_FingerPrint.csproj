@@ -424,7 +424,7 @@
     <Content Include="CustomLib\Attendance\jQuery-1.12.3\jquery-1.12.3.min.js" />
     <Content Include="CustomLib\css\accountfont.css" />
     <Content Include="CustomLib\css\animate.css" />
-    <Content Include="CustomLib\css\cssaccount.css" />
+    <Content Include="CustomLib\css\account.css" />
     <Content Include="CustomLib\css\helper.css" />
     <Content Include="CustomLib\css\lib\amchart\export.css" />
     <Content Include="CustomLib\css\lib\barRating\barRating.css" />
