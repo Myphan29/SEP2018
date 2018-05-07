@@ -256,6 +256,7 @@
     <Compile Include="Models\MonHoc.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForgotPasswordViewModels.cs" />
     <Compile Include="Models\SinhVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1397,6 +1398,7 @@
     <Content Include="Views\Admin\AddUser.cshtml" />
     <Content Include="Views\Lecturer\Settings.cshtml" />
     <Content Include="Views\Admin\Teach.cshtml" />
+    <Content Include="Views\ForgotPasswordView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

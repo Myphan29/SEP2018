@@ -1,8 +1,10 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using SEP_FingerPrint.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -51,14 +53,14 @@ namespace SEP_FingerPrint.Controllers
                     }
                     if (model.matkhau == model.nhaplaimatkhau)
                     {
-                      //  user.ID = model.ID;
+                        //  user.ID = model.ID;
                         user.TenTK = model.TenTK;
                         user.matkhau = Crypto.Hash(model.matkhau);
                         user.Vaitro = model.Vaitro;
                         user.Trangthai = model.Trangthai;
                         //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                         db.TaiKhoans.Add(user);
-                        db.SaveChanges(); 
+                        db.SaveChanges();
                     }
                 }
                 ModelState.Clear();
@@ -84,6 +86,39 @@ namespace SEP_FingerPrint.Controllers
             }
             return list.ToPagedList(page, pageSize);
         }
+        public ActionResult ResetPassword(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ForgotPasswordViewModels model = new ForgotPasswordViewModels() { Id = id };
+            return View(model);
+        }
 
+        //
+        // POST: /AccountAdmin/ResetPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ForgotPasswordViewModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var removePassword = UserManager.RemovePassword(model.Id);
+            if (removePassword.Succeeded)
+            {
+                //Removed Password Success
+                var AddPassword = UserManager.AddPassword(model.Id, model.NewPassword);
+                if (AddPassword.Succeeded)
+                {
+                    return View("PasswordResetConfirm");
+                }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
     }
 }
