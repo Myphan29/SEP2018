@@ -136,7 +136,7 @@
                 <select id="listTime" style="width: 20%">
                     <option>Select time</option>
                     @{
-                        SEP_FingerPrint.Models.SepEntities db = new SEP_FingerPrint.Models.SepEntities();
+                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
                         var listSel = db.BuoiHocs.ToList();
                         foreach (var item in listSel)
                         {

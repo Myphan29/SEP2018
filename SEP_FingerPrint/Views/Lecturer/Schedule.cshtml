@@ -2,48 +2,190 @@
 @{
     ViewBag.Title = "Schedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+
     if (Session["ID"] == null)
     {
         Response.Redirect("~/Home/Login");
     }
 }
 @model SEP_FingerPrint.Models.BuoiHoc
-<!DOCTYPE html>
-<html>
+
 <head>
-    <meta charset='utf-8' />
-    <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
-    <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
-    <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+    <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
+    <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
+    <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>*@
     <script>
-    
         $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/Lecturer/GetEvents/@Model.MKH",
+                    success: function (data) {
+                        $.each(data, function (i,v) {
+                            events.push({
+                                eventID: v.MBH,
+                                title: v.Phong,
+                                start: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioBatDau).format('HH:mm:ss'),
+                                end: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioKetThuc).format('HH:mm:ss'),
 
-            $('#calendar').fullCalendar( {
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
-                },
-                navLinks: true, // can click day/week names to navigate views
-                editable: false,
-                eventLimit: true, // allow "more" link when too many events
-                events: 'http://localhost:49354/Lecturer/FindAll/@Model.MKH',
-                eventClick: function (event) {
-                     window.open('/Lecturer/Attendance/@Model.MKH/'+event.id); //event.id là truyền vào mã buổi học  
-                }
+                            });
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+            function GenerateCalender(events) {
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    contentWidth: 900,
+                    defaultDate: new Date(),
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listWeek'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Ngày: </b>' + calEvent.start.format("DD/MM/YYYY")));
+                        $description.append($('<p/>').html('<b>Giờ bắt đầu: </b>' + calEvent.start.format("HH:mm:ss")));
+                        $description.append($('<p/>').html('<b>Giờ kết Thúc: </b>' + calEvent.end.format("HH:mm:ss")));
+
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+
+                    },
+                    // Thêm buổi học (chưa sử dụng)
+                    selectable: false,
+                    //select: function (start, end) {
+                    //    selectedEvent = {
+                    //        eventID: 0,
+                    //        title: '',
+                    //        description: '',
+                    //        start: start,
+                    //        end: end,
+                    //        allDay: false,
+                    //        color: ''
+                    //    };
+                    //    openAddEditForm();
+                    //    $('#calendar').fullCalendar('unselect');
+                    //},
+                    // Chỉnh sửa buổi học
+                    editable: false,
+                    //eventDrop: function (event) {
+                    //    var data = {
+                    //        EventID: event.eventID,
+                    //        Subject: event.title,
+                    //        Start: event.start.format('DD/MM/YYYY HH:mm A'),
+                    //        End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                    //        Description: event.description,
+                    //        ThemeColor: event.color,
+                    //        IsFullDay: event.allDay
+                    //    };
+                    //    SaveEvent(data);
+                    //}
+                })
+            }
+
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+
+            $('#dtp1').datepicker({
 
             });
 
-        });</script>
-    <style>
-        #calendar {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-    </style>
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtDay').val(selectedEvent.start.format('DD/MM/YYYY'));
+                    $('#txtStartTime').val(selectedEvent.start.format('HH:mm:ss'));
+                    $('#txtEndTime').val(selectedEvent.end.format('HH:mm:ss'));
+
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+
+            $('#btnSave').click(function () {
+                //Validation/
+                if ($('#txtSubject').val().trim() == "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#txtStartTime').val().trim() == "") {
+                    alert('Start time required');
+                    return;
+                }
+                if ($('#txtEndTime').val().trim() == "") {
+                    alert('End date and time required');
+                    return;
+                }
+
+                else {
+                    var startDate = moment($('#txtStartTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#txtEndTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end time');
+                        return;
+                    }
+                }
+
+                var data = {
+                    MBH: $('#hdEventID').val(),
+                    Phong: $('#txtSubject').val().trim(),
+                    Ngay: $('#txtDay').val().trim(),
+                    GioBatDau: $('#txtStartTime').val().trim(),
+                    GioKetThuc: $('#txtEndTime').val().trim(),
+                    MKH:"@Model.MKH"
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Lecturer/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+        })
+    </script>
+
 
 </head>
 <div class="page-wrapper">
@@ -63,15 +205,93 @@
     <div class="container-fluid">
         <div class="row">
             <div class="container">
-                    <div class="content_component-text-detail"><div><p>Môn:</p> @Html.DisplayFor(model=>model.KhoaHoc.MonHoc.TenMonHoc) </div></div>
-                    <div class="content_component-text-detail"><div><p>Giảng Viên:</p> @Html.DisplayFor(model => model.KhoaHoc.GiangVien.HoTen) </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày bắt đầu:</p> @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau))  </div></div>
-                    <div class="content_component-text-detail"><div><p>Ngày kết thúc:</p>  @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc)) </div></div>
+                <div class="content_component-text-detail">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            @Html.DisplayFor(model => model.KhoaHoc.MonHoc.TenMonHoc)
+                        </div>
+                        <div class="card-body">
+                            </br>
+                            <p class="card-text">Ngày bắt đầu: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau))  Ngày kết thúc: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc))</p>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                <div id='calendar'></div>
+                <!-- Start function Change Date-->
+
+                <div id="myModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Phòng <span id="eventTitle"></span></h5>
+
+                            </div>
+                            <div class="modal-body">
+                                <button class="btn btn-default btn-sm pull-right">
+                                    <span class="fa fa-male"></span> <a href="/Lecturer/Attendance/@Model.MKH/@Model.MBH">Điểm danh</a>
+                                </button>
+                                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                    <span class="fa fa-pencil"></span> Chỉnh sửa
+                                </button>
+                                <p id="pDetails"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="myModalSave" class="modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title fa fa-edit">Chỉnh sửa buổi học</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="col-md-12 form-horizontal">
+                                    <input type="hidden" id="hdEventID" value="0" />
+                                    <div class="form-group">
+                                        <label>Phòng</label>
+                                        <input type="text" id="txtSubject" class="form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Ngày</label>
+                                        <div class="input-group date" id="dtp1">
+                                            <input type="text" id="txtDay" class="form-control" />
+                                            <span class="input-group-addon">
+                                                @*<span class="fa fa-calendar-o"></span>*@
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Giờ bắt đầu</label>
+                                        <div class="input-group date">
+                                            <input type="text" id="txtStartTime" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Giờ kết thúc</label>
+                                        <div class="input-group date">
+                                            <input type="text" id="txtEndTime" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                    <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End function Change Date -->
             </div>
         </div>
-        <div id='calendar'></div>
     </div>
+
 </div>
-</html>
+
 
 

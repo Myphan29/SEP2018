@@ -13,10 +13,10 @@ namespace SEP_FingerPrint.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SepEntities : DbContext
+    public partial class Sep2018Entities : DbContext
     {
-        public SepEntities()
-            : base("name=SepEntities")
+        public Sep2018Entities()
+            : base("name=Sep2018Entities")
         {
         }
     
@@ -33,7 +33,6 @@ namespace SEP_FingerPrint.Models
         public virtual DbSet<LichHoc> LichHocs { get; set; }
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
     }
 }
