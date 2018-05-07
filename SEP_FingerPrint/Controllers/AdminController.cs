@@ -107,5 +107,24 @@ namespace SEP_FingerPrint.Controllers
             || x.TaiKhoan.Trangthai.ToUpper().Contains(text.ToUpper()));
            return View(p);
         }
-}
+        public ActionResult Teach(int page = 1, int pageSize = 10)
+        {
+            string idTK = Session["ID"] as string;
+            var model = ListAllPaging(page, pageSize);
+            return View(model);
+        }
+        public IEnumerable<KhoaHoc> ListAllPaging(int page, int pageSize)
+        {
+            var list = db.KhoaHocs.OrderBy(x => x.MGV).ToList();
+            for (int i = 0; i < list.Count(); i++)
+            {
+                if (list[i].MGV == list[i + 1].MGV)
+                {
+                    list.Remove(list[i + 1]);
+                }
+            }
+            return list.ToPagedList(page, pageSize);
+        }
+
+    }
 }
