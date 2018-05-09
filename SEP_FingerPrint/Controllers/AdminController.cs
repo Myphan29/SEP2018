@@ -148,16 +148,16 @@ namespace SEP_FingerPrint.Controllers
                 return View(model);
             }
 
-            var removePassword = UserManager.RemovePassword(model.Id);
-            if (removePassword.Succeeded)
-            {
+            //var removePassword = UserManager.RemovePassword(model.Id);
+            //if (removePassword.Succeeded)
+            //{
                 //Removed Password Success
-                var AddPassword = UserManager.AddPassword(model.Id, model.NewPassword);
-                if (AddPassword.Succeeded)
-                {
-                    return View("PasswordResetConfirm");
-                }
-            }
+                //var AddPassword = UserManager.AddPassword(model.Id, model.NewPassword);
+                //if (AddPassword.Succeeded)
+                //{
+                //    return View("PasswordResetConfirm");
+                //}
+            //}
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
