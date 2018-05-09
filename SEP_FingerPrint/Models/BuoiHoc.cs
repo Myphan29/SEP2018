@@ -22,9 +22,9 @@ namespace SEP_FingerPrint.Models
     
         public string MBH { get; set; }
         public string Phong { get; set; }
-        public Nullable<System.DateTime> Ngay { get; set; }
-        public Nullable<System.TimeSpan> GioBatDau { get; set; }
-        public Nullable<System.TimeSpan> GioKetThuc { get; set; }
+        public System.DateTime Ngay { get; set; }
+        public System.TimeSpan GioBatDau { get; set; }
+        public System.TimeSpan GioKetThuc { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public string note { get; set; }
         public string MLH { get; set; }

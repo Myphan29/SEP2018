@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="Models\LoginModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ForgotPasswordViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1400,6 +1401,7 @@
     <Content Include="Views\Admin\AddUser.cshtml" />
     <Content Include="Views\Lecturer\Settings.cshtml" />
     <Content Include="Views\Admin\Teach.cshtml" />
+    <Content Include="Views\ForgotPasswordView.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Search.cshtml" />
     <Content Include="Views\Lecturer\FullAttendance.cshtml" />
