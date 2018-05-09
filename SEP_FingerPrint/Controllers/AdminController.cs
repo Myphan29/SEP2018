@@ -98,15 +98,7 @@ namespace SEP_FingerPrint.Controllers
             return user.Trangthai;
         }
 
-        public ActionResult Search(string text)
-        {
-            Sep2018Entities db = new Sep2018Entities();
-       
-            // Xử lí sự kiện search
-            var p = db.GiangViens.ToList().Where(x => x.HoTen.ToUpper().Contains(text.ToUpper()) || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper())
-            || x.TaiKhoan.Trangthai.ToUpper().Contains(text.ToUpper()));
-           return View(p);
-        }
+        
         public ActionResult Teach(int page = 1, int pageSize = 10)
         {
             string idTK = Session["ID"] as string;
