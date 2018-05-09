@@ -14,6 +14,13 @@ namespace SEP_FingerPrint
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ResetPassword",
+                url: "{controller}/{action}/{tentk}"
+            //defaults: new { controller = "Lecturer", action = "Attendace", id = UrlParameter.Optional },
+            //namespaces: new[] { "SEP_FingerPrint.Controllers" }
+            );
+
+            routes.MapRoute(
                name: "Default",
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }

@@ -46,28 +46,53 @@ namespace SEP_FingerPrint.Controllers
             {
                 using (Sep2018Entities db = new Sep2018Entities())
                 {
-                    if (db.TaiKhoans.Any(x => x.TenTK == user.TenTK))
+                    if (db.TaiKhoans.Any(x => x.TenTK == model.TenTK))
                     {
-                        ViewBag.DuplicateMessage = "This name has already used.";
-                        return View("AddUser", user);
+                        //ViewBag.DuplicateMessage = "This name has already used.";
+                        ModelState.AddModelError("", "Tài khoản đã tồn tại");
+                        return View("AddUser", model);
                     }
                     if (model.matkhau == model.nhaplaimatkhau)
                     {
                         //  user.ID = model.ID;
                         user.TenTK = model.TenTK;
-                        user.matkhau = Crypto.Hash(model.matkhau);
+                        //user.matkhau = Crypto.Hash(model.matkhau);
+                        user.matkhau = HomeController.MD5Hash(model.matkhau);
                         user.Vaitro = model.Vaitro;
                         user.Trangthai = model.Trangthai;
                         //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                         db.TaiKhoans.Add(user);
                         db.SaveChanges();
+                        ViewBag.SuccessMessage = "The user has been added";
                     }
                 }
                 ModelState.Clear();
-                ViewBag.SuccessMessage = "The user has been added";
             }
             return View("AddUser", new Account());
         }
+
+        [HttpGet]
+        public ActionResult ResetPassword(string tentk)
+        {            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(string tentk, ResetPasswordModel model)
+        {
+            var item = db.TaiKhoans.Where(x => x.TenTK == tentk).First();
+            if (ModelState.IsValid)
+            {
+                if (model.matkhau == model.nhaplaimatkhau)
+                {
+                    item.matkhau = HomeController.MD5Hash(model.matkhau);
+                    db.SaveChanges();
+                    ViewBag.SuccessMessage = "The password has been reseted";
+                }
+            }
+            return View();
+        }
+
+
         public ActionResult Teach(int page = 1, int pageSize = 10)
         {
             string idTK = Session["ID"] as string;
@@ -85,40 +110,6 @@ namespace SEP_FingerPrint.Controllers
                 }
             }
             return list.ToPagedList(page, pageSize);
-        }
-        public ActionResult ResetPassword(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ForgotPasswordViewModels model = new ForgotPasswordViewModels() { Id = id };
-            return View(model);
-        }
-
-        //
-        // POST: /AccountAdmin/ResetPassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ForgotPasswordViewModels model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var removePassword = UserManager.RemovePassword(model.Id);
-            if (removePassword.Succeeded)
-            {
-                //Removed Password Success
-                var AddPassword = UserManager.AddPassword(model.Id, model.NewPassword);
-                if (AddPassword.Succeeded)
-                {
-                    return View("PasswordResetConfirm");
-                }
-            }
-
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
+        }           
     }
 }
