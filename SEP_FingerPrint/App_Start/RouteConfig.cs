@@ -13,12 +13,12 @@ namespace SEP_FingerPrint
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "FullAttendance",
-                url: "{controller}/{action}/{course}",
-            defaults: new { controller = "Lecturer", action = "Attendace", course = UrlParameter.Optional },
-            namespaces: new[] { "SEP_FingerPrint.Controllers" }
-            );
+            //routes.MapRoute(
+            //    name: "FullAttendance",
+            //    url: "{controller}/{action}/{course}",
+            //defaults: new { controller = "Lecturer", action = "Attendace", course = UrlParameter.Optional },
+            //namespaces: new[] { "SEP_FingerPrint.Controllers" }
+            //);
             routes.MapRoute(
                 name: "Attendance",
                 url: "{controller}/{action}/{course}/{time}"
