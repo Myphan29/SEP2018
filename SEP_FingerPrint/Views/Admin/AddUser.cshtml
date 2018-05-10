@@ -45,6 +45,11 @@
                     <div class="header-left-bottom agileinfo">
                         <form action="#" method="post">
                             @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @if (ViewBag.SuccessMessage != null)
+                            {
+                                <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+                            }   
                             @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
                             @*<div class="icon1">
                                 <i class="fa fa-user" id="myHeader" aria-hidden="true"></i>
@@ -66,8 +71,8 @@
                             </div>
                             <div class="icon1">
                                 <i class="fa fa-lock" id="myHeader" aria-hidden="true"></i>
-                                @*<input type="password" placeholder="Nhập lại mật khẩu" name="password" required="" />*@
-                                @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập lại mật khẩu", @class = "input100", @autofocus = "autofocus" })
+                                @*<input type="password" placeholder="Mật khẩu" name="password" required="" />*@
+                                @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập lại mật khẩu", @class = "input100", @autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(model => model.nhaplaimatkhau, "", new { @class = "text-danger" })
                             </div>
                             <div style="text-align:center; font-size: 15px">
