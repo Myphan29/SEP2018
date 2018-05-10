@@ -59,7 +59,28 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-
+        public JsonResult EditAtd (int id)
+        {
+            var pistol = AtdChanger(id);
+            return Json(new
+            {
+                status = pistol
+            });
+        }
+        public string AtdChanger(int id)
+        {
+            var editor = db.DiemDanhs.Find(id);
+            if (editor.TrangThai == 0)
+            {
+                editor.TrangThai = 1;
+            }
+            else if (editor.TrangThai == 1)
+            {
+                editor.TrangThai = 0;
+            }
+            db.SaveChanges();
+            return editor.TrangThai.ToString();
+        }
 
         public ActionResult Attendance(string course, string time = "1")
         {
@@ -73,7 +94,11 @@ namespace SEP_FingerPrint.Controllers
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
             //return HttpNotFound("");
         }
-
+        public ActionResult RollupEditor()
+        {
+            var std = db.DiemDanhs.OrderBy(x => x.ID).ToList();
+            return View(std);
+        }
         public ActionResult FullAttendance(string course)
         {
             var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
