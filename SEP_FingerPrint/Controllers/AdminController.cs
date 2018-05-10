@@ -105,14 +105,14 @@ namespace SEP_FingerPrint.Controllers
         
 
         [HttpGet]
-        public ActionResult ResetPassword(string tentk)
+        public ActionResult ResetPassword(string id)
         {            
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string tentk, ResetPasswordModel model)
+        public ActionResult ResetPassword(string id, ResetPasswordModel model)
         {
-            var item = db.TaiKhoans.Where(x => x.TenTK == tentk).First();
+            var item = db.TaiKhoans.Where(x => x.TenTK == id).First();
             if (ModelState.IsValid)
             {
                 if (model.matkhau == model.nhaplaimatkhau)
@@ -121,6 +121,7 @@ namespace SEP_FingerPrint.Controllers
                     db.SaveChanges();
                     ViewBag.SuccessMessage = "The password has been reseted";
                 }
+
             }
             return View();
         }
@@ -144,39 +145,6 @@ namespace SEP_FingerPrint.Controllers
             }
             return list.ToPagedList(page, pageSize);
         }
-        public ActionResult ResetPassword(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ForgotPasswordViewModels model = new ForgotPasswordViewModels() { Id = id };
-            return View(model);
-        }
-
-        //
-        // POST: /AccountAdmin/ResetPassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ForgotPasswordViewModels model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var removePassword = UserManager.RemovePassword(model.Id);
-            if (removePassword.Succeeded)
-            {
-                //Removed Password Success
-                var AddPassword = UserManager.AddPassword(model.Id, model.NewPassword);
-                if (AddPassword.Succeeded)
-                {
-                    return View("PasswordResetConfirm");
-                }
-            }
-
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
+       
     }
 }
