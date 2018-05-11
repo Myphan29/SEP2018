@@ -1404,6 +1404,10 @@
     <Content Include="Views\Admin\Teach.cshtml" />
     <Content Include="Views\ForgotPasswordView.cshtml" />
     <Content Include="Views\Admin\ResetPassword.cshtml" />
+    <Content Include="Views\Lecturer\FullAttendance.cshtml" />
+    <Content Include="Views\Lecturer\RollupEditor.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,28 +21,28 @@ namespace SEP_FingerPrint.Controllers
             var khoabieu = db.BuoiHocs.Where(p => p.MKH == id).FirstOrDefault();
             return View(khoabieu);
         }
-      
+
         public JsonResult GetEvents(string id)
         {
-                  var events = (from e in db.BuoiHocs.Where(p=>p.MKH==id)
-                              select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau,e.GioKetThuc }).ToList();
-                ;
-                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var events = (from e in db.BuoiHocs.Where(p => p.MKH == id)
+                          select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau, e.GioKetThuc }).ToList();
+            ;
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        
+
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
-        { 
+        {
             var status = false;
             using (Sep2018Entities dc = new Sep2018Entities())
             {
                 if (Convert.ToInt32(e.MBH) > 0)
                 {
                     //Update the event
-                    var v = dc.BuoiHocs.Where(a =>a.MBH == e.MBH).FirstOrDefault();
+                    var v = dc.BuoiHocs.Where(a => a.MBH == e.MBH).FirstOrDefault();
                     if (v != null)
                     {
-                        v.Phong= e.Phong;
+                        v.Phong = e.Phong;
                         v.Ngay = e.Ngay;
                         v.GioBatDau = e.GioBatDau;
                         v.GioKetThuc = e.GioKetThuc;
@@ -51,7 +51,7 @@ namespace SEP_FingerPrint.Controllers
                 }
                 else
                 {
-                  
+
                     dc.BuoiHocs.Add(e);
                 }
                 dc.SaveChanges();
@@ -59,7 +59,15 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public JsonResult EditAtd (int id)
+        [HttpGet]
+        public ActionResult RollupEditor(string id)
+        {
+            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
+            return View(std);
+        }
+        [HttpPost]
+
+        public JsonResult EditAtd(string id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -67,7 +75,7 @@ namespace SEP_FingerPrint.Controllers
                 status = pistol
             });
         }
-        public string AtdChanger(int id)
+        public int AtdChanger(string id)
         {
             var editor = db.DiemDanhs.Find(id);
             if (editor.TrangThai == 0)
@@ -79,13 +87,13 @@ namespace SEP_FingerPrint.Controllers
                 editor.TrangThai = 0;
             }
             db.SaveChanges();
-            return editor.TrangThai.ToString();
+            return (int)editor.TrangThai;
         }
 
         public ActionResult Attendance(string course, string time = "1")
         {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
-            
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+
             if (atd != null)
             {
                 return View(atd);
@@ -94,11 +102,8 @@ namespace SEP_FingerPrint.Controllers
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
             //return HttpNotFound("");
         }
-        public ActionResult RollupEditor()
-        {
-            var std = db.DiemDanhs.OrderBy(x => x.ID).ToList();
-            return View(std);
-        }
+
+
         public ActionResult FullAttendance(string course)
         {
             var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
