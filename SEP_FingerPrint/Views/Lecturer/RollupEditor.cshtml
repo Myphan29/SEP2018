@@ -64,7 +64,7 @@
                     </thead>
                     @foreach (var item in Model)
                     {
-                      
+
                         string tmp = "";
                         if (item.TrangThai == 0)
                         {
@@ -74,15 +74,15 @@
                         {
                             tmp = "Hiện diện";
                         }
-                            <tr>
-                                <td>@item.SinhVien.MSV</td>
-                                <td>@item.SinhVien.Ho</td>
-                                <td>@item.SinhVien.Ten</td>
-                                <td>@item.SinhVien.NgaySinh.ToString().Split(' ')[0]</td>
-                                <td>
-                                    <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.ID">@tmp</button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>@item.SinhVien.MSV</td>
+                            <td>@item.SinhVien.Ho</td>
+                            <td>@item.SinhVien.Ten</td>
+                            <td>@item.SinhVien.NgaySinh.ToString().Split(' ')[0]</td>
+                            <td>
+                                <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.ID">@tmp</button>
+                            </td>
+                        </tr>
                     }
                 </table>
             </div>
@@ -91,9 +91,8 @@
     </div>
     <!-- End Container fluid  -->
 </div>
-<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
-
-
+@*<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>*@
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
     var time = $("#timeHolder").val();
     var time2 = $("#timeHolder2").val();
