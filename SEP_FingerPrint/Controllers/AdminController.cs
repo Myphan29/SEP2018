@@ -1,8 +1,10 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using SEP_FingerPrint.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -44,25 +46,27 @@ namespace SEP_FingerPrint.Controllers
             {
                 using (Sep2018Entities db = new Sep2018Entities())
                 {
-                    if (db.TaiKhoans.Any(x => x.TenTK == user.TenTK))
+                    if (db.TaiKhoans.Any(x => x.TenTK == model.TenTK))
                     {
-                        ViewBag.DuplicateMessage = "This name has already used.";
-                        return View("AddUser", user);
+                        //ViewBag.DuplicateMessage = "This name has already used.";
+                        ModelState.AddModelError("", "Tài khoản đã tồn tại");
+                        return View("AddUser", model);
                     }
                     if (model.matkhau == model.nhaplaimatkhau)
                     {
-                      //  user.ID = model.ID;
+                        //  user.ID = model.ID;
                         user.TenTK = model.TenTK;
-                        user.matkhau = Crypto.Hash(model.matkhau);
+                        //user.matkhau = Crypto.Hash(model.matkhau);
+                        user.matkhau = HomeController.MD5Hash(model.matkhau);
                         user.Vaitro = model.Vaitro;
                         user.Trangthai = model.Trangthai;
                         //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                         db.TaiKhoans.Add(user);
                         db.SaveChanges();
+                        ViewBag.SuccessMessage = "The user has been added";
                     }
                 }
                 ModelState.Clear();
-                ViewBag.SuccessMessage = "The user has been added";
             }
             return View("AddUser", new Account());
         }
@@ -98,15 +102,31 @@ namespace SEP_FingerPrint.Controllers
             return user.Trangthai;
         }
 
-        public ActionResult Search(string text)
-        {
-            Sep2018Entities db = new Sep2018Entities();
-       
-            // Xử lí sự kiện search
-            var p = db.GiangViens.ToList().Where(x => x.HoTen.ToUpper().Contains(text.ToUpper()) || x.TaiKhoan.TenTK.ToUpper().Contains(text.ToUpper())
-            || x.TaiKhoan.Trangthai.ToUpper().Contains(text.ToUpper()));
-           return View(p);
+        
+
+        [HttpGet]
+        public ActionResult ResetPassword(string id)
+        {            
+            return View();
         }
+        [HttpPost]
+        public ActionResult ResetPassword(string id, ResetPasswordModel model)
+        {
+            var item = db.TaiKhoans.Where(x => x.TenTK == id).First();
+            if (ModelState.IsValid)
+            {
+                if (model.matkhau == model.nhaplaimatkhau)
+                {
+                    item.matkhau = HomeController.MD5Hash(model.matkhau);
+                    db.SaveChanges();
+                    ViewBag.SuccessMessage = "The password has been reseted";
+                }
+
+            }
+            return View();
+        }
+
+
         public ActionResult Teach(int page = 1, int pageSize = 10)
         {
             string idTK = Session["ID"] as string;
@@ -125,6 +145,6 @@ namespace SEP_FingerPrint.Controllers
             }
             return list.ToPagedList(page, pageSize);
         }
-
+       
     }
 }

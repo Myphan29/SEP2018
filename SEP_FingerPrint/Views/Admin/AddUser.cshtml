@@ -45,17 +45,22 @@
                     <div class="header-left-bottom agileinfo">
                         <form action="#" method="post">
                             @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @if (ViewBag.SuccessMessage != null)
+                            {
+                                <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+                            }   
                             @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
-                            <div class="icon1">
+                            @*<div class="icon1">
                                 <i class="fa fa-user" id="myHeader" aria-hidden="true"></i>
-                                @*<input type="text" placeholder="ID" name="fullname" required="" />*@
-                                @Html.TextBoxFor(model => model.ID, new { placeholder = "ID", @class = "input100", @autofocus = "autofocus" })
+                                <input type="text" placeholder="ID" name="fullname" required="" />
+                                @Html.TextBoxFor(model => model.ID, new { @class = "input100", @autofocus = "autofocus", disabled="true" })
                                 @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
-                            </div>
+                            </div>*@
                             <div class="icon1">
                                 <i class="fa fa-cloud" id="myHeader" aria-hidden="true"></i>
                                 @*<input type="text" placeholder="Họ và tên" name="fullname" required="" />*@
-                                @Html.TextBoxFor(model => model.TenTK, new { placeholder = "Nhập Họ tên", @class = "input100", @autofocus = "autofocus" })
+                                @Html.TextBoxFor(model => model.TenTK, new { placeholder = "Tên Đăng Nhập", @class = "input100", @autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(model => model.TenTK, "", new { @class = "text-danger" })
                             </div>
                             <div class="icon1">
@@ -66,24 +71,25 @@
                             </div>
                             <div class="icon1">
                                 <i class="fa fa-lock" id="myHeader" aria-hidden="true"></i>
-                                @*<input type="password" placeholder="Nhập lại mật khẩu" name="password" required="" />*@
-                                @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập lại mật khẩu", @class = "input100", @autofocus = "autofocus" })
+                                @*<input type="password" placeholder="Mật khẩu" name="password" required="" />*@
+                                @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập lại mật khẩu", @class = "input100", @autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(model => model.nhaplaimatkhau, "", new { @class = "text-danger" })
                             </div>
-                            <div class="icon1" style="padding: 20px 0 0 70px; font-size: 15px">
+                            <div style="text-align:center; font-size: 15px">
                                 <i class="fa fa-key" id="myHeader" aria-hidden="true"></i>
+                                Trạng thái: 
                                 @*<input type="radio" name="colors" id="red">*@
                                 @Html.RadioButtonFor(model => model.Trangthai, "Enable")
                                 Kích hoạt
-                                @*<input type="radio" name="colors" id="red" style="margin-left: 30px">*@
+                                @*<input type="radio" name="colors" id="red" style="margin-left: 50px">*@
                                 @Html.RadioButtonFor(model => model.Trangthai, "Disable")
-                                Chưa kích hoạt
+                                Không kích hoạt
                                 <br>
                                 @Html.ValidationMessageFor(model => model.Trangthai, "", new { @class = "text-danger" })
                             </div>
-                            <div class="icon1" style="padding: 20px 0 0 70px ; font-size: 15px">
+                            <div style="text-align:center; font-size: 15px">
                                 <i class="fa fa-heart-o" id="myHeader" aria-hidden="true" style="margin-right: 10px"></i>
-                                Vai trò:
+                                Vai trò: 
                                 @*<select style="margin-left: 30px; font-size: 16px">
                                         <option value="volvo">Giảng viên</option>
                                     </select>*@
@@ -94,7 +100,7 @@
                                 <br>
                                 @Html.ValidationMessageFor(model => model.Vaitro, "", new { @class = "text-danger" })
                             </div>
-                            <div class="icon1" style="text-align: center">
+                            <div style="text-align: center">
 
                                 <div class="bottom" style="text-align: center">
                                     <input type="submit" id="button" value="Thêm" />

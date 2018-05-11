@@ -31,7 +31,7 @@ namespace SEP_FingerPrint.Controllers
         }
         
         [HttpPost]
-        public JsonResult SaveEvent( BuoiHoc e)
+        public JsonResult SaveEvent(BuoiHoc e)
         { 
             var status = false;
             using (Sep2018Entities dc = new Sep2018Entities())
@@ -39,7 +39,7 @@ namespace SEP_FingerPrint.Controllers
                 if (Convert.ToInt32(e.MBH) > 0)
                 {
                     //Update the event
-                    var v = dc.BuoiHocs.Where(a => a.MBH == e.MBH).FirstOrDefault();
+                    var v = dc.BuoiHocs.Where(a =>a.MBH == e.MBH).FirstOrDefault();
                     if (v != null)
                     {
                         v.Phong= e.Phong;
