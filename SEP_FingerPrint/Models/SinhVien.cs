@@ -18,7 +18,7 @@ namespace SEP_FingerPrint.Models
         public SinhVien()
         {
             this.DanhSachLops = new HashSet<DanhSachLop>();
-            this.DiemDanh1 = new HashSet<DiemDanh1>();
+            this.DiemDanhs = new HashSet<DiemDanh>();
         }
     
         public string MSV { get; set; }
@@ -31,6 +31,6 @@ namespace SEP_FingerPrint.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhSachLop> DanhSachLops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DiemDanh1> DiemDanh1 { get; set; }
+        public virtual ICollection<DiemDanh> DiemDanhs { get; set; }
     }
 }

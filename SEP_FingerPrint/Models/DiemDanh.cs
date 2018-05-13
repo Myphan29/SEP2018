@@ -12,7 +12,7 @@ namespace SEP_FingerPrint.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DiemDanh1
+    public partial class DiemDanh
     {
         public string ID { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }
