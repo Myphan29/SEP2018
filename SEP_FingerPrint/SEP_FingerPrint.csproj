@@ -226,7 +226,7 @@
     <Compile Include="Models\DanhSachLop.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DiemDanh1.cs">
+    <Compile Include="Models\DiemDanh.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GiangVien.cs">
