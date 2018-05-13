@@ -19,7 +19,7 @@ namespace SEP_FingerPrint.Models
         {
             this.BuoiHocs = new HashSet<BuoiHoc>();
             this.DanhSachLops = new HashSet<DanhSachLop>();
-            this.DiemDanh1 = new HashSet<DiemDanh1>();
+            this.DiemDanhs = new HashSet<DiemDanh>();
             this.LichHocs = new HashSet<LichHoc>();
         }
     
@@ -37,7 +37,7 @@ namespace SEP_FingerPrint.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhSachLop> DanhSachLops { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DiemDanh1> DiemDanh1 { get; set; }
+        public virtual ICollection<DiemDanh> DiemDanhs { get; set; }
         public virtual GiangVien GiangVien { get; set; }
         public virtual MonHoc MonHoc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
