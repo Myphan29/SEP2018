@@ -4,23 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c813540c332942509dea4f00a24089d2" Name="Diagram1">
-        <EntityTypeShape EntityType="Sep2018Model.BuoiHoc" Width="1.5" PointX="9.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.DanhSachLop" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.DiemDanh" Width="1.5" PointX="12" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.GiangVien" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.KhoaHoc" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.LichHoc" Width="1.5" PointX="7.5" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.MonHoc" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.SinhVien" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sep2018Model.TaiKhoan" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="ac6465b4f38f410e95c9fe6093e40c78" Name="Diagram1">
+        <EntityTypeShape EntityType="Sep2018Model.BuoiHoc" Width="1.5" PointX="9.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.CauHinh" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.DanhSachLop" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.DiemDanh" Width="1.5" PointX="12" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.DiemDanh1" Width="1.5" PointX="12" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.GiangVien" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.KhoaHoc" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.LichHoc" Width="1.5" PointX="7.5" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.MonHoc" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.SinhVien" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sep2018Model.TaiKhoan" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <AssociationConnector Association="Sep2018Model.FK_BuoiHoc_KhoaHoc" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_BuoiHoc_LichHoc" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_DiemDanh_BuoiHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="Sep2018Model.FK_DiemDanh1_BuoiHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="Sep2018Model.FK_CauHinh_TaiKhoan" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_DanhSachLop_KhoaHoc" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_DanhSachLop_SinhVien" ManuallyRouted="false" />
-        <AssociationConnector Association="Sep2018Model.FK_DiemDanh_SinhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="Sep2018Model.FK_DiemDanh1_KhoaHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="Sep2018Model.FK_DiemDanh1_SinhVien" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_GiangVien_TaiKhoan" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_KhoaHoc_GiangVien" ManuallyRouted="false" />
         <AssociationConnector Association="Sep2018Model.FK_KhoaHoc_MonHoc" ManuallyRouted="false" />
