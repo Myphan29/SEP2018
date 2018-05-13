@@ -35,7 +35,5 @@ namespace SEP_FingerPrint.Models
         public virtual DbSet<SinhVien> SinhViens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
-
-        public System.Data.Entity.DbSet<SEP_FingerPrint.Models.ResetPasswordModel> ResetPasswordModels { get; set; }
     }
 }

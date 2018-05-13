@@ -14,6 +14,7 @@ namespace SEP_FingerPrint.Controllers
 {
     public class LecturerController : Controller
     {
+
         private Sep2018Entities db = new Sep2018Entities();
         // Schedule performance -My 
         public ActionResult Schedule(string id)
@@ -104,24 +105,16 @@ namespace SEP_FingerPrint.Controllers
         }
 
 
-        public ActionResult FullAttendance(string course)
-        {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
-            if (atd != null)
-            {
-                return View(atd);
-            }
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-        }
 
-        public ActionResult LoadData(string course, string time)
+
+        public ActionResult LoadData(string id, string e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
                              select new[]
                              {
                                  Convert.ToString( c.MSV ),
@@ -145,24 +138,33 @@ namespace SEP_FingerPrint.Controllers
             }
         }
 
-        public ActionResult LoadFullData(string course)
+
+        public ActionResult FullAttendance(string id)
+        {
+            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(id)).FirstOrDefault();
+            //if (atd != null)
+
+            return View(atd);
+
+            //return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+        }
+        public ActionResult LoadFullData(string id)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
+
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(course)
+                             where c.BuoiHoc.MKH.Equals(id)
                              select new[]
                              {
-                                 Convert.ToString( c.MSV ),
-                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                                Convert.ToString( c.MSV ),
+                                Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                                Convert.ToString(c.TrangThai).Where(c.MBH="1"),
+                                Convert.ToString(c.TrangThai).Where(c.MBH="2")
+
                              };
-                //var result = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course)).AsEnumerable().Select(c => new
-                //             {
-                //                 id = Convert.ToString( c.MSV ),
-                //                 name = Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
-                //             }).ToList();
                 return Json(new { aaData = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
