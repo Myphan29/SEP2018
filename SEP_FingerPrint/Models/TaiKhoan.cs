@@ -17,6 +17,7 @@ namespace SEP_FingerPrint.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaiKhoan()
         {
+            this.CauHinhs = new HashSet<CauHinh>();
             this.GiangViens = new HashSet<GiangVien>();
         }
     
@@ -26,6 +27,8 @@ namespace SEP_FingerPrint.Models
         public int Vaitro { get; set; }
         public string Trangthai { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CauHinh> CauHinhs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiangVien> GiangViens { get; set; }
     }

@@ -19,6 +19,15 @@
           <Property Name="MLH" Type="varchar" MaxLength="10" />
           <Property Name="MKH" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Absent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Attend" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDtk" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DanhSachLop">
           <Key>
             <PropertyRef Name="ID" />
@@ -29,6 +38,18 @@
           <Property Name="MKH" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="DiemDanh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Ngay" Type="date" />
+          <Property Name="Gio" Type="time" Precision="7" />
+          <Property Name="TrangThai" Type="int" />
+          <Property Name="MSV" Type="varchar" MaxLength="10" />
+          <Property Name="MBH" Type="varchar" MaxLength="10" />
+          <Property Name="MKH" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DiemDanh1">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -137,6 +158,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CauHinh_TaiKhoan">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
+          <End Role="CauHinh" Type="Self.CauHinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CauHinh">
+              <PropertyRef Name="IDtk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DanhSachLop_KhoaHoc">
           <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
           <End Role="DanhSachLop" Type="Self.DanhSachLop" Multiplicity="*" />
@@ -173,14 +206,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DiemDanh_SinhVien">
+        <Association Name="FK_DiemDanh1_BuoiHoc">
+          <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="0..1" />
+          <End Role="DiemDanh1" Type="Self.DiemDanh1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuoiHoc">
+              <PropertyRef Name="MBH" />
+            </Principal>
+            <Dependent Role="DiemDanh1">
+              <PropertyRef Name="MBH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiemDanh1_KhoaHoc">
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="DiemDanh1" Type="Self.DiemDanh1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhoaHoc">
+              <PropertyRef Name="MKH" />
+            </Principal>
+            <Dependent Role="DiemDanh1">
+              <PropertyRef Name="MKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiemDanh1_SinhVien">
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
-          <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
+          <End Role="DiemDanh1" Type="Self.DiemDanh1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SinhVien">
               <PropertyRef Name="MSV" />
             </Principal>
-            <Dependent Role="DiemDanh">
+            <Dependent Role="DiemDanh1">
               <PropertyRef Name="MSV" />
             </Dependent>
           </ReferentialConstraint>
@@ -235,8 +292,10 @@
         </Association>
         <EntityContainer Name="Sep2018ModelStoreContainer">
           <EntitySet Name="BuoiHoc" EntityType="Self.BuoiHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CauHinh" EntityType="Self.CauHinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhSachLop" EntityType="Self.DanhSachLop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiemDanh" EntityType="Self.DiemDanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiemDanh1" EntityType="Self.DiemDanh1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiangVien" EntityType="Self.GiangVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhoaHoc" EntityType="Self.KhoaHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LichHoc" EntityType="Self.LichHoc" Schema="dbo" store:Type="Tables" />
@@ -252,6 +311,10 @@
             <End Role="LichHoc" EntitySet="LichHoc" />
             <End Role="BuoiHoc" EntitySet="BuoiHoc" />
           </AssociationSet>
+          <AssociationSet Name="FK_CauHinh_TaiKhoan" Association="Self.FK_CauHinh_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="CauHinh" EntitySet="CauHinh" />
+          </AssociationSet>
           <AssociationSet Name="FK_DanhSachLop_KhoaHoc" Association="Self.FK_DanhSachLop_KhoaHoc">
             <End Role="KhoaHoc" EntitySet="KhoaHoc" />
             <End Role="DanhSachLop" EntitySet="DanhSachLop" />
@@ -264,9 +327,17 @@
             <End Role="BuoiHoc" EntitySet="BuoiHoc" />
             <End Role="DiemDanh" EntitySet="DiemDanh" />
           </AssociationSet>
-          <AssociationSet Name="FK_DiemDanh_SinhVien" Association="Self.FK_DiemDanh_SinhVien">
+          <AssociationSet Name="FK_DiemDanh1_BuoiHoc" Association="Self.FK_DiemDanh1_BuoiHoc">
+            <End Role="BuoiHoc" EntitySet="BuoiHoc" />
+            <End Role="DiemDanh1" EntitySet="DiemDanh1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiemDanh1_KhoaHoc" Association="Self.FK_DiemDanh1_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
+            <End Role="DiemDanh1" EntitySet="DiemDanh1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiemDanh1_SinhVien" Association="Self.FK_DiemDanh1_SinhVien">
             <End Role="SinhVien" EntitySet="SinhVien" />
-            <End Role="DiemDanh" EntitySet="DiemDanh" />
+            <End Role="DiemDanh1" EntitySet="DiemDanh1" />
           </AssociationSet>
           <AssociationSet Name="FK_GiangVien_TaiKhoan" Association="Self.FK_GiangVien_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
@@ -306,6 +377,17 @@
           <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_BuoiHoc_KhoaHoc" FromRole="BuoiHoc" ToRole="KhoaHoc" />
           <NavigationProperty Name="LichHoc" Relationship="Self.FK_BuoiHoc_LichHoc" FromRole="BuoiHoc" ToRole="LichHoc" />
           <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_BuoiHoc" FromRole="BuoiHoc" ToRole="DiemDanh" />
+          <NavigationProperty Name="DiemDanh1" Relationship="Self.FK_DiemDanh1_BuoiHoc" FromRole="BuoiHoc" ToRole="DiemDanh1" />
+        </EntityType>
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Absent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Attend" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDtk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_CauHinh_TaiKhoan" FromRole="CauHinh" ToRole="TaiKhoan" />
         </EntityType>
         <EntityType Name="DanhSachLop">
           <Key>
@@ -328,9 +410,8 @@
           <Property Name="TrangThai" Type="Int32" />
           <Property Name="MSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MBH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BuoiHoc" Relationship="Self.FK_DiemDanh_BuoiHoc" FromRole="DiemDanh" ToRole="BuoiHoc" />
-          <NavigationProperty Name="SinhVien" Relationship="Self.FK_DiemDanh_SinhVien" FromRole="DiemDanh" ToRole="SinhVien" />
+          <NavigationProperty Name="BuoiHoc" Relationship="Sep2018Model.FK_DiemDanh_BuoiHoc" FromRole="DiemDanh" ToRole="BuoiHoc" />
+          <NavigationProperty Name="SinhVien" Relationship="Sep2018Model.FK_DiemDanh_SinhVien" FromRole="DiemDanh" ToRole="SinhVien" />
         </EntityType>
         <EntityType Name="GiangVien">
           <Key>
@@ -359,6 +440,7 @@
           <Property Name="MGV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BuoiHocs" Relationship="Self.FK_BuoiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BuoiHoc" />
           <NavigationProperty Name="DanhSachLops" Relationship="Self.FK_DanhSachLop_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhSachLop" />
+          <NavigationProperty Name="DiemDanh1" Relationship="Self.FK_DiemDanh1_KhoaHoc" FromRole="KhoaHoc" ToRole="DiemDanh1" />
           <NavigationProperty Name="GiangVien" Relationship="Self.FK_KhoaHoc_GiangVien" FromRole="KhoaHoc" ToRole="GiangVien" />
           <NavigationProperty Name="MonHoc" Relationship="Self.FK_KhoaHoc_MonHoc" FromRole="KhoaHoc" ToRole="MonHoc" />
           <NavigationProperty Name="LichHocs" Relationship="Self.FK_LichHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="LichHoc" />
@@ -395,7 +477,7 @@
           <Property Name="GioiTinh" Type="Boolean" />
           <Property Name="VanTay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DanhSachLops" Relationship="Self.FK_DanhSachLop_SinhVien" FromRole="SinhVien" ToRole="DanhSachLop" />
-          <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_SinhVien" FromRole="SinhVien" ToRole="DiemDanh" />
+          <NavigationProperty Name="DiemDanhs" Relationship="Sep2018Model.FK_DiemDanh_SinhVien" FromRole="SinhVien" ToRole="DiemDanh" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -416,6 +498,7 @@
           <Property Name="matkhau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Vaitro" Type="Int32" Nullable="false" />
           <Property Name="Trangthai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CauHinhs" Relationship="Self.FK_CauHinh_TaiKhoan" FromRole="TaiKhoan" ToRole="CauHinh" />
           <NavigationProperty Name="GiangViens" Relationship="Self.FK_GiangVien_TaiKhoan" FromRole="TaiKhoan" ToRole="GiangVien" />
         </EntityType>
         <Association Name="FK_BuoiHoc_KhoaHoc">
@@ -442,18 +525,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DiemDanh_BuoiHoc">
-          <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="0..1" />
-          <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BuoiHoc">
-              <PropertyRef Name="MBH" />
-            </Principal>
-            <Dependent Role="DiemDanh">
-              <PropertyRef Name="MBH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DanhSachLop_KhoaHoc">
           <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
           <End Role="DanhSachLop" Type="Self.DanhSachLop" Multiplicity="*" />
@@ -474,6 +545,30 @@
               <PropertyRef Name="MSV" />
             </Principal>
             <Dependent Role="DanhSachLop">
+              <PropertyRef Name="MSV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiemDanh1_KhoaHoc">
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="DiemDanh1" Type="Self.DiemDanh1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhoaHoc">
+              <PropertyRef Name="MKH" />
+            </Principal>
+            <Dependent Role="DiemDanh1">
+              <PropertyRef Name="MKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiemDanh1_SinhVien">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+          <End Role="DiemDanh1" Type="Self.DiemDanh1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="MSV" />
+            </Principal>
+            <Dependent Role="DiemDanh1">
               <PropertyRef Name="MSV" />
             </Dependent>
           </ReferentialConstraint>
@@ -540,8 +635,10 @@
         </Association>
         <EntityContainer Name="Sep2018Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BuoiHocs" EntityType="Self.BuoiHoc" />
+          <EntitySet Name="CauHinhs" EntityType="Self.CauHinh" />
           <EntitySet Name="DanhSachLops" EntityType="Self.DanhSachLop" />
           <EntitySet Name="DiemDanhs" EntityType="Self.DiemDanh" />
+          <EntitySet Name="DiemDanh1" EntityType="Self.DiemDanh1" />
           <EntitySet Name="GiangViens" EntityType="Self.GiangVien" />
           <EntitySet Name="KhoaHocs" EntityType="Self.KhoaHoc" />
           <EntitySet Name="LichHocs" EntityType="Self.LichHoc" />
@@ -557,10 +654,6 @@
             <End Role="LichHoc" EntitySet="LichHocs" />
             <End Role="BuoiHoc" EntitySet="BuoiHocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DiemDanh_BuoiHoc" Association="Self.FK_DiemDanh_BuoiHoc">
-            <End Role="BuoiHoc" EntitySet="BuoiHocs" />
-            <End Role="DiemDanh" EntitySet="DiemDanhs" />
-          </AssociationSet>
           <AssociationSet Name="FK_DanhSachLop_KhoaHoc" Association="Self.FK_DanhSachLop_KhoaHoc">
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="DanhSachLop" EntitySet="DanhSachLops" />
@@ -568,10 +661,6 @@
           <AssociationSet Name="FK_DanhSachLop_SinhVien" Association="Self.FK_DanhSachLop_SinhVien">
             <End Role="SinhVien" EntitySet="SinhViens" />
             <End Role="DanhSachLop" EntitySet="DanhSachLops" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DiemDanh_SinhVien" Association="Self.FK_DiemDanh_SinhVien">
-            <End Role="SinhVien" EntitySet="SinhViens" />
-            <End Role="DiemDanh" EntitySet="DiemDanhs" />
           </AssociationSet>
           <AssociationSet Name="FK_GiangVien_TaiKhoan" Association="Self.FK_GiangVien_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
@@ -611,6 +700,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CauHinhs">
+            <EntityTypeMapping TypeName="Sep2018Model.CauHinh">
+              <MappingFragment StoreEntitySet="CauHinh">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Absent" ColumnName="Absent" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
+                <ScalarProperty Name="IDtk" ColumnName="IDtk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DanhSachLops">
             <EntityTypeMapping TypeName="Sep2018Model.DanhSachLop">
               <MappingFragment StoreEntitySet="DanhSachLop">
@@ -630,7 +729,6 @@
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MSV" ColumnName="MSV" />
                 <ScalarProperty Name="MBH" ColumnName="MBH" />
-                <ScalarProperty Name="MKH" ColumnName="MKH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
