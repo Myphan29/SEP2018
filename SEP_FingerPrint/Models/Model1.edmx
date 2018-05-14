@@ -266,6 +266,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="PivotAttendance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MKH" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="Sep2018ModelStoreContainer">
           <EntitySet Name="BuoiHoc" EntityType="Self.BuoiHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CauHinh" EntityType="Self.CauHinh" Schema="dbo" store:Type="Tables" />
@@ -677,6 +680,9 @@
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="LichHoc" EntitySet="LichHocs" />
           </AssociationSet>
+          <FunctionImport Name="PivotAttendance">
+            <Parameter Name="MKH" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -812,6 +818,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PivotAttendance" FunctionName="Sep2018Model.Store.PivotAttendance" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
