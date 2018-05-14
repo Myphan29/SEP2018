@@ -128,7 +128,7 @@
                             @if (Session["Role"].Equals(1))
                         {
                             <li>
-                                <a href="/Lecturer/Settings" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
+                                <a href="/Lecturer/Settings/@Session["ID"]" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
                             </li>
                     }
                         </ul>

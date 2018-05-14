@@ -83,13 +83,13 @@
                     //{ "render": function (data, type, row) { return (row[5]); } },
                     //{ "render": function (data, type, row) { return (row[6]); } },
                     { "render": function (data, type, row) { return (row[7]); } },
-                    {
+                    @*{
                         "bSortable": false,
                         "sClass": "TextCenter",
                         "render": function (data, type, row) {
                             return '<button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@Model.ID">@Model.TrangThai</button>';
                         }, "targets": 0,
-                    }
+                    }*@
                 ],
                 rowCallback: function (row, data, index) {
                     if (data[7] == 0) {
@@ -165,7 +165,7 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row">
+        <div style="margin-left: 12px" class="row">
             <!-- /# column -->
             <div id="example_length" style="width: 50%">
                 <label for="listTime" style="width: 20%">Chọn buổi học:</label>
@@ -196,7 +196,7 @@
                             <th style="text-align:center">
                                 Trạng thái
                             </th>
-                            <th>Edit</th>
+                            @*<th>Edit</th>*@
                         </tr>
                     </thead>
                 </table>

@@ -13,26 +13,6 @@
 </head>
 <div class="page-wrapper">
     <!-- Bread crumb -->
-    <select style="display: none" id="timeHolder">
-        @{
-            SEP_FingerPrint.Models.Sep2018Entities bird = new SEP_FingerPrint.Models.Sep2018Entities();
-            var rifle = bird.BuoiHocs.ToList();
-            foreach (var bullet in rifle)
-            {
-                <option>@bullet.MBH</option>
-            }
-        }
-    </select>
-    <select style="display: none" id="timeHolder2">
-        @{
-            SEP_FingerPrint.Models.Sep2018Entities bird2 = new SEP_FingerPrint.Models.Sep2018Entities();
-            var rifle2 = bird2.BuoiHocs.ToList();
-            foreach (var bullet in rifle2)
-            {
-                <option>@bullet.MKH</option>
-            }
-        }
-    </select>
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
             <h3 class="text-primary">Attendance edit</h3>
@@ -94,8 +74,6 @@
 @*<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>*@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-    var time = $("#timeHolder").val();
-    var time2 = $("#timeHolder2").val();
     var editor = {
         init: function () {
             editor.registerEvents();
@@ -106,7 +84,7 @@
                 var btn = $(this);
                 var id = btn.data('id');
                 $.ajax({
-                    url: "/Lecturer/EditAtd", /*+ time2 + "/" + time*/
+                    url: "/Lecturer/EditAtd",
                     data: { id: id },
                     dataType: "json",
                     type: "POST",

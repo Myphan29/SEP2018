@@ -6,7 +6,33 @@
         Response.Redirect("~/Home/Login");
     }
 }
+@model IEnumerable<SEP_FingerPrint.Models.CauHinh>
 <script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>
+
+<script>
+    var config = {
+        init: function () {
+            editor.registerEvents();
+        },
+        registerEvents: function () {
+            $('.input-focus').off('click').on('click', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data('id');
+                $.ajax({
+                    url: "/Lecturer/ColorChanger",
+                    data: { id: id },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        }
+    }
+</script>
+
 <div class="page-wrapper">
     <!-- Bread crumb -->
     <div class="row page-titles">
@@ -30,68 +56,64 @@
                     Màu nền điểm danh
                 </div>
                 <hr />
-                <p>Hiện diện: </p>
-                <div class="mvls-radio-button1">
-                    <div>
-                        <input type="radio" id="color-1" name="ColorGroup1" value="color-1" checked>
-                        <label for="color-1">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
+                    <p>Hiện diện: </p>
+                    <div class="mvls-radio-button1">
+                        <div>
+                            <input type="radio" id="color-1" class="input-focus" name="ColorGroup1" value="color-1" checked>
+                            <label for="color-1">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
 
-                    <div>
-                        <input type="radio" id="color-2" name="ColorGroup1" value="color-2">
-                        <label for="color-2">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
+                        <div>
+                            <input type="radio" id="color-2" name="ColorGroup1" value="color-2">
+                            <label for="color-2">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
 
-                    <div>
-                        <input type="radio" id="color-3" name="ColorGroup1" value="color-3">
-                        <label for="color-3">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
+                        <div>
+                            <input type="radio" id="color-3" name="ColorGroup1" value="color-3">
+                            <label for="color-3">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <p>Vắng: </p>
-                <div class="mvls-radio-button1">
-                    <div>
-                        <input type="radio" id="color-5" name="color" value="color-5" checked>
-                        <label for="color-5">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
+                    <p>Vắng: </p>
+                    <div class="mvls-radio-button1">
+                        <div>
+                            <input type="radio" id="color-5" name="ColorGroup2" value="color-5" checked>
+                            <label for="color-5">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
 
-                    <div>
-                        <input type="radio" id="color-6" name="color" value="color-6">
-                        <label for="color-6">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
+                        <div>
+                            <input type="radio" id="color-6" name="ColorGroup2" value="color-6">
+                            <label for="color-6">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
 
-                    <div>
-                        <input type="radio" id="color-7" name="color" value="color-7">
-                        <label for="color-7">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
+                        <div>
+                            <input type="radio" id="color-7" name="ColorGroup2" value="color-7">
+                            <label for="color-7">
+                                <span>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <br/>
-                <div class="btn btn-light">
-                    <a href="#">Save</a>
-                </div>
             </div>
         </div>
         <!-- End PAge Content -->

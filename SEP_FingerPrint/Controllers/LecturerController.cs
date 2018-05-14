@@ -65,6 +65,11 @@ namespace SEP_FingerPrint.Controllers
             var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
             return View(std);
         }
+        public ActionResult Settings(int id)
+        {
+            var thm = db.CauHinhs.Where(x => x.ID == id).ToList();
+            return View(thm);
+        }
         [HttpPost]
 
         public JsonResult EditAtd(string id)
@@ -89,7 +94,20 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-
+        public ActionResult ColorChanger(int id)
+        {
+            var thm = db.CauHinhs.Find(id);
+            if (thm.Absent == null)
+            {
+                thm.Absent = "ffa3a3";
+            }
+            if (thm.Attend == null)
+            {
+                thm.Attend = "d9f9dd";
+            }
+            db.SaveChanges();
+            return View();
+        }
         public ActionResult Attendance(string course, string time = "1")
         {
             var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
@@ -180,10 +198,6 @@ namespace SEP_FingerPrint.Controllers
             int idTK = Convert.ToInt32(Session["ID"]);
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
-        }
-        public ActionResult Settings()
-        {
-            return View();
         }
         [HttpGet]
         public ActionResult ChangePassword()
