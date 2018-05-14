@@ -28,13 +28,7 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult AddUser()
         {
             return View();
-        }
-        //[HttpGet]
-        //public ActionResult AddUser(int id = 0)
-        //{
-        //    TaiKhoan userx = new TaiKhoan();
-        //    return View(userx);
-        //}
+        }       
 
         [HttpPost]
         [AllowAnonymous]
@@ -52,15 +46,14 @@ namespace SEP_FingerPrint.Controllers
                         ModelState.AddModelError("", "Tài khoản đã tồn tại");
                         return View("AddUser", model);
                     }
+                    
                     if (model.matkhau == model.nhaplaimatkhau)
                     {
                         //  user.ID = model.ID;
-                        user.TenTK = model.TenTK;
-                        //user.matkhau = Crypto.Hash(model.matkhau);
+                        user.TenTK = model.TenTK;                       
                         user.matkhau = HomeController.MD5Hash(model.matkhau);
                         user.Vaitro = model.Vaitro;
-                        user.Trangthai = model.Trangthai;
-                        //user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
+                        user.Trangthai = model.Trangthai;                        
                         db.TaiKhoans.Add(user);
                         db.SaveChanges();
                         ViewBag.SuccessMessage = "The user has been added";
@@ -72,14 +65,19 @@ namespace SEP_FingerPrint.Controllers
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string tentk)
-        {            
+        public ActionResult ResetPassword(int id)
+        {
+            //using(Sep2018Entities db = new Sep2018Entities())
+            //{
+            //    var userinfo = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
+            //    return View(userinfo);
+            //}
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string tentk, ResetPasswordModel model)
+        public ActionResult ResetPassword(int id, ResetPasswordModel model)
         {
-            var item = db.TaiKhoans.Where(x => x.TenTK == tentk).First();
+            var item = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
             if (ModelState.IsValid)
             {
                 if (model.matkhau == model.nhaplaimatkhau)
