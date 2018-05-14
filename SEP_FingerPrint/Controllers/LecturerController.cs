@@ -6,9 +6,13 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq.Dynamic;
-using System.Data.Entity;
-using PagedList.Mvc;
-using PagedList;
+using System.Configuration;
+using System.Data.EntityClient;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.ComponentModel;
+using System.Dynamic;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -138,45 +142,6 @@ namespace SEP_FingerPrint.Controllers
             }
         }
 
-
-        public ActionResult FullAttendance(string id)
-        {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(id)).FirstOrDefault();
-            //if (atd != null)
-
-            return View(atd);
-
-            //return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-        }
-        public ActionResult LoadFullData(string id)
-        {
-            List<DiemDanh> _list = new List<DiemDanh>();
-            try
-            {
-
-                _list = db.DiemDanhs.ToList();
-                var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id)
-                             select new[]
-                             {
-                                Convert.ToString( c.MSV ),
-                                Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
-                                Convert.ToString(c.TrangThai).Where(c.MBH="1"),
-                                Convert.ToString(c.TrangThai).Where(c.MBH="2")
-
-                             };
-                return Json(new { aaData = result }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                //ErrorLogers.ErrorLog(ex);
-                return Json(new
-                {
-                    aaData = new List<string[]> { }
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
@@ -250,5 +215,42 @@ namespace SEP_FingerPrint.Controllers
 
 
         }
+        public List<Dictionary<string, object>> Read(DbDataReader reader)
+        {
+            List<Dictionary<string, object>> expandolist = new List<Dictionary<string, object>>();
+            foreach (var item in reader)
+            {
+                IDictionary<string, object> expando = new ExpandoObject();
+                foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(item))
+                {
+                    var obj = propertyDescriptor.GetValue(item);
+                    expando.Add(propertyDescriptor.Name, obj);
+                }
+                expandolist.Add(new Dictionary<string, object>(expando));
+            }
+            return expandolist;
+        }
+        public ActionResult FullAttendance(string id)
+        {
+            DataTable table = new DataTable();
+
+            using (var ctx = new Sep2018Entities())
+            using (var cmd = ctx.Database.Connection.CreateCommand())
+            {
+                ctx.Database.Connection.Open();
+                cmd.CommandText = "PivotAttendance";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@MKH", id));
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var model = this.Read(reader).ToList();
+
+                    return View(model);
+
+                }
+            }
+        }
+
     }
+   
 }
