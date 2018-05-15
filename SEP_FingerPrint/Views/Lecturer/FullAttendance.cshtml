@@ -37,7 +37,7 @@
 
     <script>
         function showTable() {
-            //var time = $("#listTime").val().split(" ", 1);
+        
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -68,24 +68,13 @@
                         "previous": "Trước đó"
                     },
                 },
-                
-
-                //rowCallback: function (row, data, index) {
-
-                //    $(row).find('td:eq(2)').val(selectedEvent.start.format('DD/MM/YYYY'));
-                //    //if (data == 1) {
-                //    //    $(row).find('td:eq(3)').css('background', '#d9f9dd');
-                //    //}
-                //}
-                //rowCallback: function (row, data, index) {
-
-                //    //if (data[2] == "True") {
-                //    //    $(row).find('td:eq(2)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
-                //    //}
-                //    //else {
-                //    //    $(row).find('td:eq(2)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
-                //    //}
-                //}
+                "columnDefs": [
+                    { targets: 0, width: "20px" },
+                    { targets: 1, width: "40px" },
+                    { targets: 2, width: "150px" },
+                    { targets: 3, width: "40px" },
+                    { targets: 4, width: "100px" }   
+                ]  
             });
         }
         $(document).ready(function () {
@@ -104,9 +93,8 @@
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">...</li>
-                <li class="breadcrumb-item active">...</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Điểm danh</li>
             </ol>
         </div>
     </div>
