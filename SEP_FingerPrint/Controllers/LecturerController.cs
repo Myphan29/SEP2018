@@ -95,9 +95,9 @@ namespace SEP_FingerPrint.Controllers
             return (int)editor.TrangThai;
         }
 
-        public ActionResult Attendance(string course, string time = "1")
+        public ActionResult Attendance(string id, string e = "1")
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
 
             if (atd != null)
             {
