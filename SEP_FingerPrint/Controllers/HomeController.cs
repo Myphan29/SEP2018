@@ -38,7 +38,7 @@ namespace SEP_FingerPrint.Controllers
                     Session["Role"] = userdetail.Vaitro;
                     if (Session["Role"].Equals(1))
                     {
-                        Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
+                        Session["TenTK"] = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == userdetail.ID).Vaitro;
                         return RedirectToAction("Course", "Lecturer");
                     }
                     else if (Session["Role"].Equals(2))

@@ -6,14 +6,19 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq.Dynamic;
-using System.Data.Entity;
-using PagedList.Mvc;
-using PagedList;
+using System.Configuration;
+using System.Data.EntityClient;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.ComponentModel;
+using System.Dynamic;
 
 namespace SEP_FingerPrint.Controllers
 {
     public class LecturerController : Controller
     {
+
         private Sep2018Entities db = new Sep2018Entities();
         // Schedule performance -My 
         public ActionResult Schedule(string id)
@@ -122,24 +127,16 @@ namespace SEP_FingerPrint.Controllers
         }
 
 
-        public ActionResult FullAttendance(string course)
-        {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course)).FirstOrDefault();
-            if (atd != null)
-            {
-                return View(atd);
-            }
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-        }
 
-        public ActionResult LoadData(string course, string time)
+
+        public ActionResult LoadData(string id, string e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
                              select new[]
                              {
                                  Convert.ToString( c.MSV ),
@@ -163,40 +160,10 @@ namespace SEP_FingerPrint.Controllers
             }
         }
 
-        public ActionResult LoadFullData(string course)
-        {
-            List<DiemDanh> _list = new List<DiemDanh>();
-            try
-            {
-                _list = db.DiemDanhs.ToList();
-                var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(course)
-                             select new[]
-                             {
-                                 Convert.ToString( c.MSV ),
-                                 Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
-                             };
-                //var result = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(course)).AsEnumerable().Select(c => new
-                //             {
-                //                 id = Convert.ToString( c.MSV ),
-                //                 name = Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
-                //             }).ToList();
-                return Json(new { aaData = result }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                //ErrorLogers.ErrorLog(ex);
-                return Json(new
-                {
-                    aaData = new List<string[]> { }
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
-            string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
         [HttpGet]
@@ -262,5 +229,42 @@ namespace SEP_FingerPrint.Controllers
 
 
         }
+        public List<Dictionary<string, object>> Read(DbDataReader reader)
+        {
+            List<Dictionary<string, object>> expandolist = new List<Dictionary<string, object>>();
+            foreach (var item in reader)
+            {
+                IDictionary<string, object> expando = new ExpandoObject();
+                foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(item))
+                {
+                    var obj = propertyDescriptor.GetValue(item);
+                    expando.Add(propertyDescriptor.Name, obj);
+                }
+                expandolist.Add(new Dictionary<string, object>(expando));
+            }
+            return expandolist;
+        }
+        public ActionResult FullAttendance(string id)
+        {
+            DataTable table = new DataTable();
+
+            using (var ctx = new Sep2018Entities())
+            using (var cmd = ctx.Database.Connection.CreateCommand())
+            {
+                ctx.Database.Connection.Open();
+                cmd.CommandText = "PivotAttendance";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@MKH", id));
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var model = this.Read(reader).ToList();
+
+                    return View(model);
+
+                }
+            }
+        }
+
     }
+   
 }
