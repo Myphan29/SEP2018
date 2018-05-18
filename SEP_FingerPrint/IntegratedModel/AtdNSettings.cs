@@ -9,14 +9,15 @@ namespace SEP_FingerPrint.IntegratedModel
 {
     public class AtdNSettings
     {
-        public List<DiemDanh> zDiemDanh { get; set; }
-        public List<CauHinh>  zCauHinh { get; set; }  
-        public List<BuoiHoc> zBuoiHoc { get; set; }
-        public List<TaiKhoan> zTaiKhoan { get; set; }
-        public List<GiangVien> zGiangVien { get; set; }
-        public List<KhoaHoc> zKhoaHoc { get; set; }
-        public List<DanhSachLop> zDanhSachLop { get; set; }
-        public List<SinhVien> zSinhVien { get; set; }
-
+        public List<BuoiHoc> AnthrBuoiHoc { get; set; }
+        public List<CauHinh> AnthrCauHinh { get; set; }
+        public List<DanhSachLop> AnthrDanhSachLop { get; set; }
+        public List<DiemDanh> AnthrDiemDanh { get; set; }
+        public List<GiangVien> AnthrGiangVien { get; set; }
+        public List<KhoaHoc> AnthrKhoaHoc { get; set; }
+        public List<LichHoc> AnthrLichHoc { get; set; }
+        public List<MonHoc> AnthrMonHoc { get; set; }
+        public List<SinhVien> AnthrSinhVien { get; set; }
+        public List<TaiKhoan> AnthrTaiKhoan { get; set; }
     }
 }

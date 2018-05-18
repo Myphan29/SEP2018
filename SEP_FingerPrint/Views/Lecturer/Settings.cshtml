@@ -1,7 +1,14 @@
 ﻿@{
     ViewBag.Title = "Cài đặt";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    if (Session["ID"] == null)
+    if (Session["ID"] != null)
+    {
+        if (Convert.ToInt32(Session["Role"]) == 2)
+        {
+            Response.Redirect("~/Admin/AddUser");
+        }
+    }
+    else
     {
         Response.Redirect("~/Home/Login");
     }
@@ -14,20 +21,20 @@
         $('#SaveChanges').click(function () {
             if ($('#color-1').is(':checked')) {
                 var data = {
-                    Absent: 'e74c3c',
-                    Attend: '2ecc71'
+                    Absent: '#e74c3c',
+                    Attend: '#2ecc71'
                 }
             }
             if ($('#color-2').is(':checked')) {
                 var data = {
-                    Absent: '3498db',
-                    Attend: 'e74c3c'
+                    Absent: '#3498db',
+                    Attend: '#e74c3c'
                 }
             }
             if ($('#color-3').is(':checked')) {
                 var data = {
-                    Absent: 'f1c40f',
-                    Attend: '7919ff'
+                    Absent: '#f1c40f',
+                    Attend: '#7919ff'
                 }
             }
             //var data = {

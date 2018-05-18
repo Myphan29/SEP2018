@@ -35,7 +35,12 @@ namespace SEP_FingerPrint.Controllers
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
+        public  JsonResult GetHexCode(int id)
+        {
+            var ColorCode = (from f in db.CauHinhs.Where(g => g.ID == id)
+                             select new { f.Absent, f.Attend }).ToList();
+            return new JsonResult { Data = ColorCode, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
         {
@@ -144,17 +149,8 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, string e = "1")      /*(string id, string e = "1")*/
+        public ActionResult Attendance(string id, string e = "1")    
         {
-            //AtdNSettings Fad = new AtdNSettings()
-            //{
-            //    zDiemDanh = db.DiemDanhs.ToList(),
-            //    zCauHinh = db.CauHinhs.ToList(),
-            //    zBuoiHoc = db.BuoiHocs.ToList(),
-            //    zKhoaHoc = db.KhoaHocs.ToList()
-            //};
-            //return View(Fad);
-            ViewData["XXX"] = db.CauHinhs.ToList();
             var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
             if (atd != null)
             {

@@ -21,7 +21,6 @@
     @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
-
     <style>
         tbody tr td {
             color: black;
@@ -35,6 +34,23 @@
     <script>
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
+            @*FetchColorCode();
+            function FetchColorCode() {
+                ColorCode = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/Lecturer/GetHexCode/" + @Session["ID"],
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data, function (x, y) {
+                            ColorCode.push({
+                                absentcolor: y.Absent,
+                                attend
+                            })
+                        })
+                    }
+                })
+            }*@
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -93,10 +109,10 @@
                 ],
                 rowCallback: function (row, data, index) {
                     if (data[7] == 0) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '#ffa3a3', 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Absent', 'display': 'block', 'text-align': 'center' });
                     }
                     if (data[7] == 1) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '#d9f9dd', 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Attend', 'display': 'block', 'text-align': 'center' });
                     }
                     if (data[2] == "True") {
                         $(row).find('td:eq(2)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
@@ -156,7 +172,7 @@
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
-                <li class="breadcrumb-item active">Điểm danh</li>  
+                <li class="breadcrumb-item active">Điểm danh</li>
             </ol>
         </div>
     </div>
@@ -205,4 +221,3 @@
     </div>
     <!-- End Container fluid  -->
 </div>
-
