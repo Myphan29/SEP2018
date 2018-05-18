@@ -39,10 +39,8 @@
                                 title: v.Phong,
                                 start: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioBatDau).format('HH:mm:ss'),
                                 end: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioKetThuc).format('HH:mm:ss'),
-
                             });
                         })
-
                         GenerateCalender(events);
                     },
                     error: function (error) {

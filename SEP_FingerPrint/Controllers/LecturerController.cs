@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
+using SEP_FingerPrint.IntegratedModel;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -34,7 +35,12 @@ namespace SEP_FingerPrint.Controllers
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
+        public  JsonResult GetHexCode(int id)
+        {
+            var ColorCode = (from f in db.CauHinhs.Where(g => g.ID == id)
+                             select new { f.Absent, f.Attend }).ToList();
+            return new JsonResult { Data = ColorCode, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
         {
@@ -56,11 +62,52 @@ namespace SEP_FingerPrint.Controllers
                 }
                 else
                 {
-
                     dc.BuoiHocs.Add(e);
                 }
                 dc.SaveChanges();
                 status = true;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+        public JsonResult ColorChanger(CauHinh e, int id)
+        {
+            var status = false;
+            using (Sep2018Entities gun = new Sep2018Entities())
+            {
+                var v = gun.CauHinhs.Where(a => a.ID == id).FirstOrDefault();
+                if (v != null)
+                {
+                    v.Attend = e.Attend;
+                    v.Absent = e.Absent;
+                }
+
+                else
+                {
+                    e.ID = id;
+                    e.IDtk = id;
+                    gun.CauHinhs.Add(e);
+                }
+                gun.SaveChanges();
+                status = true;
+
+                //var hex = gun.CauHinhs.Where(x => x.ID == id).FirstOrDefault();
+                //    if (hex != null)
+                //    {
+
+                //        gun.SaveChanges();
+                //        status = true;
+                //    }
+                //    else
+                //    {
+                //        var re = new CauHinh();
+                //        re.ID=id;
+                //        pistol.Attend = re.Attend;
+                //        pistol.Absent = re.Absent;
+                //        gun.CauHinhs.Add(re);
+                //        gun.SaveChanges();
+                //        status = true;
+                //    }
+
             }
             return new JsonResult { Data = new { status = status } };
         }
@@ -70,6 +117,14 @@ namespace SEP_FingerPrint.Controllers
             var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
             return View(std);
         }
+        public ActionResult Settings(int id)
+        {
+            var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
+
+
+            return View(thm);
+        }
+
         [HttpPost]
 
         public JsonResult EditAtd(string id)
@@ -94,18 +149,15 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-
-        public ActionResult Attendance(string id, string e = "1")
+        public ActionResult Attendance(string id, string e = "1")    
         {
             var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
-
             if (atd != null)
             {
                 return View(atd);
             }
 
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-            //return HttpNotFound("");
         }
 
 
@@ -147,10 +199,6 @@ namespace SEP_FingerPrint.Controllers
             int idTK = Convert.ToInt32(Session["ID"]);
             string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
-        }
-        public ActionResult Settings()
-        {
-            return View();
         }
         [HttpGet]
         public ActionResult ChangePassword()
@@ -262,5 +310,5 @@ namespace SEP_FingerPrint.Controllers
         }
 
     }
-   
+
 }

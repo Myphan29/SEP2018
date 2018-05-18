@@ -1,12 +1,66 @@
 ﻿@{
-    ViewBag.Title = "Course";
+    ViewBag.Title = "Cài đặt";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    if (Session["ID"] == null)
+    if (Session["ID"] != null)
+    {
+        if (Convert.ToInt32(Session["Role"]) == 2)
+        {
+            Response.Redirect("~/Admin/AddUser");
+        }
+    }
+    else
     {
         Response.Redirect("~/Home/Login");
     }
 }
-<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>
+@model SEP_FingerPrint.Models.TaiKhoan
+@*<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>*@
+<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
+<script>
+    $(document).ready(function () {
+        $('#SaveChanges').click(function () {
+            if ($('#color-1').is(':checked')) {
+                var data = {
+                    Absent: '#e74c3c',
+                    Attend: '#2ecc71'
+                }
+            }
+            if ($('#color-2').is(':checked')) {
+                var data = {
+                    Absent: '#3498db',
+                    Attend: '#e74c3c'
+                }
+            }
+            if ($('#color-3').is(':checked')) {
+                var data = {
+                    Absent: '#f1c40f',
+                    Attend: '#7919ff'
+                }
+            }
+            //var data = {
+            //        ID: '1',
+            //        Absent: '3498db',
+            //        Attend: 'e74c3c'
+            //    }
+            ColorChanger(data);
+        })
+        function ColorChanger(data) {
+            $.ajax({
+                type: "POST",
+                url: '/Lecturer/ColorChanger/@Model.ID',
+                data: data,
+                success: function (data) {
+                    if (data.status) {
+                        alert('Lưu thành công');
+                    }
+                },
+                error: function () {
+                    alert('fail');
+                }
+            })
+        }
+    });
+</script>
 <div class="page-wrapper">
     <!-- Bread crumb -->
     <div class="row page-titles">
@@ -30,7 +84,7 @@
                     Màu nền điểm danh
                 </div>
                 <hr />
-                <p>Hiện diện: </p>
+                <p>Hiện diện/ Vắng: </p>
                 <div class="mvls-radio-button1">
                     <div>
                         <input type="radio" id="color-1" name="ColorGroup1" value="color-1" checked>
@@ -58,53 +112,38 @@
                             </span>
                         </label>
                     </div>
+                </div>
+                <div class="mvls-radio-button1">
+                    <div>
+                        <input type="radio" id="color-5" name="ColorGroup2" value="color-1">
+                        <label for="color-1">
+                            <span>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                            </span>
+                        </label>
+                    </div>
 
                     <div>
-                        <input type="radio" id="color-4" name="ColorGroup1" value="color-4">
-                        <label for="color-4">
+                        <input type="radio" id="color-6" name="ColorGroup2" value="color-2">
+                        <label for="color-2">
+                            <span>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="color-7" name="ColorGroup2" value="color-3">
+                        <label for="color-3">
                             <span>
                                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
                             </span>
                         </label>
                     </div>
                 </div>
-                <p>Vắng: </p>
-                <div class="mvls-radio-button1">
-                    <div>
-                        <input type="radio" id="color-5" name="color" value="color-5" checked>
-                        <label for="color-5">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="color-6" name="color" value="color-6">
-                        <label for="color-6">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="color-7" name="color" value="color-7">
-                        <label for="color-7">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="color-8" name="color" value="color-8">
-                        <label for="color-8">
-                            <span>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-                            </span>
-                        </label>
-                    </div>
+                <hr />
+                <div>
+                    <button id="SaveChanges" class="btn btn-primary">Lưu</button>
                 </div>
             </div>
         </div>

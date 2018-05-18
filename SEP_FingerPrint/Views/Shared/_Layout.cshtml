@@ -139,14 +139,14 @@
                                 <a href="/Lecturer/ChangePassword" aria-expanded="false"><i class="fa fa-wrench"></i><span class="hide-menu">Đổi mật khẩu</span></a>
                             </li>
                             @if (Session["Role"].Equals(1))
-                            {
-                                <li>
-                                    <a href="/Lecturer/Settings" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
-                                </li>
-                            }
+                        {
+                            <li>
+                                <a href="/Lecturer/Settings/@Session["ID"]" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
+                            </li>
+                    }
                         </ul>
                         <div class="mvls-aob">
-                            <a href="/Home/Logout" aria-expanded="false"><i class=""></i><span class="hide-menu" style="color: #ffffff">Đăng xuất</span></a>
+                            <a href="/Home/Logout" aria-expanded="false"><i class="fa fa-power-off"></i><span class="hide-menu" style="color: #ffffff">&ensp;Đăng xuất</span></a>
                         </div>
                     </nav>
                     <!-- End Sidebar navigation -->
@@ -171,8 +171,6 @@
         <script src="~/CustomLib/js/sidebarmenu.js"></script>
         <!--stickey kit -->
         <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-
-
         <script src="~/CustomLib/js/lib/datamap/d3.min.js"></script>
         <script src="~/CustomLib/js/lib/datamap/topojson.js"></script>
         <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel.min.js"></script>
@@ -180,6 +178,5 @@
         <script src="~/CustomLib/js/custom.min.js"></script>
 
         @RenderSection("jsFooter", required: false)
-
     </div>
 </html>
