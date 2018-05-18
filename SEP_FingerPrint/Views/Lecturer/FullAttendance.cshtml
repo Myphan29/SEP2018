@@ -80,8 +80,6 @@
         $(document).ready(function () {
             showTable();
         });
-
-        
     </script>
 </head>
 
@@ -132,8 +130,6 @@
                                 {
                                     <th>@row.Key</th>
                                 }
-
-
                             }
                             <th>Status</th>
                         </tr>
@@ -146,29 +142,21 @@
                             {
                                 int s = 0;
                                 int count = row.Count - 4;
-
                                 <tr>
                                     <td>
                                         @i
                                     </td>
-
-
                                     @foreach (var column in row)
                                     {
                                         if (@column.Value.ToString() == "0")
                                         {
                                             <td style="background: #ffa3a3;text-align: center">@column.Value</td>
-                                           
-
                                         }
                                         else if (@column.Value.ToString() == "1")
                                         {
                                             <td style="background: #d9f9dd;text-align: center">@column.Value</td>
                                             s++;
-
                                         }
-
-
                                         else
                                         {
                                             <td>@column.Value</td>
@@ -176,15 +164,11 @@
 
                                     }
                                     <td>@s/@count</td>
-
                                 </tr>
                                 i++;
 
                             }
-                            
                         }
-
-
                     </tbody>
                 </table>
             </div>
