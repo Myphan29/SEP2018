@@ -15,7 +15,11 @@
     }
     function KdzOff() {
         var x = document.getElementById("mvlsRadioButton");
-        x.style.display = "none";
+        
+        if ($('#chkd').is(':checked')) {
+            x.style.display = "none";
+            $("#mvlsRadioButton").children().prop('disabled', true);
+        }
     }
 </script>
 
@@ -64,7 +68,7 @@
                                 <a style="margin-left: 23px">@Html.RadioButtonFor(model => model.Vaitro, 1, new { Checked = "checked", @onClick = "KdzOn()"})</a>
                                 Giảng viên
                                 &nbsp;
-                                <a>@Html.RadioButtonFor(model => model.Vaitro, 2, new { @onClick = "KdzOff()" })</a>
+                                <a>@Html.RadioButtonFor(model => model.Vaitro, 2, new { id = "chkd" ,@onClick = "KdzOff()" })</a>
                                 Giáo vụ
                             </li>
                         </ul>
