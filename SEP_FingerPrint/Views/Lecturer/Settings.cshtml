@@ -13,7 +13,7 @@
         Response.Redirect("~/Home/Login");
     }
 }
-@model SEP_FingerPrint.Models.GiangVien
+@model SEP_FingerPrint.Models.TaiKhoan
 @*<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>*@
 <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
 <script>
@@ -47,7 +47,7 @@
         function ColorChanger(data) {
             $.ajax({
                 type: "POST",
-                url: '/Lecturer/ColorChanger/@Model.IDConf',
+                url: '/Lecturer/ColorChanger/@Model.ID',
                 data: data,
                 success: function (data) {
                     if (data.status) {

@@ -10,7 +10,7 @@ namespace SEP_FingerPrint.Models
         //[Required(ErrorMessage = "Mời nhập ID")]
         //public int ID { set; get; }
 
-        [Required(ErrorMessage = "Mời nhập họ tên")]
+        //[Required(ErrorMessage = "Mời nhập họ tên")]
         [Display(Name = "Họ tên giảng viên:")]
         public string HoTen { set; get; }
 
