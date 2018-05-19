@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint", "SEP_FingerPrint\SEP_FingerPrint.csproj", "{EC30BBC7-0B86-4241-BE40-1408B990C578}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.UnitTests", "SEP_FingerPrint.UnitTests\SEP_FingerPrint.UnitTests.csproj", "{18D383D3-6075-4482-97CB-13628F8F4DED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.SeleniumTests", "SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.SeleniumTests.csproj", "{1B3C8870-9270-4B11-978D-EA4D72672C19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{EC30BBC7-0B86-4241-BE40-1408B990C578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC30BBC7-0B86-4241-BE40-1408B990C578}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC30BBC7-0B86-4241-BE40-1408B990C578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D383D3-6075-4482-97CB-13628F8F4DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D383D3-6075-4482-97CB-13628F8F4DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D383D3-6075-4482-97CB-13628F8F4DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D383D3-6075-4482-97CB-13628F8F4DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -201,58 +201,68 @@ namespace SEP_FingerPrint.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel p)
         {
-            string message = "";
-            if (p.OldPassword != null && p.NewPassword != null && p.ConfirmPassword != null)
+            if (ModelState.IsValid)
             {
-                if (p.OldPassword == p.NewPassword)
+                string message = "";
+                if (p.OldPassword != null && p.NewPassword != null && p.ConfirmPassword != null)
                 {
-                    message = "Mật khẩu mới không được giống mật khẩu cũ";
-                    Session["CPMessage"] = message;
-                    return View(p);
-                }
-                else
-                {
-                    int id = Convert.ToInt32(Session["ID"]); // Get Session ID after login - HomeController for details
-                    var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
-                    string oldpass = "";
-                    byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5
-                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-                    buffer = md5.ComputeHash(buffer);
-                    for (int i = 0; i < buffer.Length; i++)
+                    if (p.OldPassword == p.NewPassword)
                     {
-                        oldpass += buffer[i].ToString("x2");
-                    }
-                    if (user.matkhau != oldpass)
-                    {
-                        message = "Mật khẩu cũ sai";
-                        Session["CPMessage"] = message; // Session CPMessage k tìm thấy *My*
+                        message = "Mật khẩu mới không được giống mật khẩu cũ";
+                        Session["CPMessage"] = message;
                         return View(p);
                     }
                     else
                     {
-                        string pass = "";
-                        byte[] buffer1 = Encoding.UTF8.GetBytes(p.NewPassword); // Mã hóa MD5
-                        MD5CryptoServiceProvider md51 = new MD5CryptoServiceProvider();
-                        buffer1 = md51.ComputeHash(buffer1);
-                        for (int i = 0; i < buffer1.Length; i++)
+                        int id = Convert.ToInt32(Session["ID"]); // Get Session ID after login - HomeController for details
+                        var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
+                        string oldpass = "";
+                        byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5
+                        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                        buffer = md5.ComputeHash(buffer);
+                        for (int i = 0; i < buffer.Length; i++)
                         {
-                            pass += buffer1[i].ToString("x2");
+                            oldpass += buffer[i].ToString("x2");
                         }
-                        user.matkhau = pass;
-                        db.SaveChanges();
-                        message = "Đỗi mật khẩu thành công";
-                        Session["CPMessage"] = message;
-                        //return RedirectToAction("Course", "Lecturer");
-                        return View(p);
+                        if (user.matkhau != oldpass)
+                        {
+                            message = "Mật khẩu cũ sai";
+                            Session["CPMessage"] = message; // Session CPMessage k tìm thấy *My*
+                            return View(p);
+                        }
+                        //else if (p.ConfirmPassword != p.NewPassword)
+                        //{
+                        //    message = "Mật khẩu mới không giống mật khẩu được xác định";
+                        //    Session["CPMessage"] = message;
+                        //    return View(p);
+                        //}
+                        else
+                        {
+                            string pass = "";
+                            byte[] buffer1 = Encoding.UTF8.GetBytes(p.NewPassword); // Mã hóa MD5
+                            MD5CryptoServiceProvider md51 = new MD5CryptoServiceProvider();
+                            buffer1 = md51.ComputeHash(buffer1);
+                            for (int i = 0; i < buffer1.Length; i++)
+                            {
+                                pass += buffer1[i].ToString("x2");
+                            }
+                            user.matkhau = pass;
+                            db.SaveChanges();
+                            message = "Đỗi mật khẩu thành công";
+                            Session["CPMessage"] = message;
+                            //return RedirectToAction("Course", "Lecturer");
+                            return View(p);
+                        }
                     }
                 }
+                else
+                {
+                    message = "Input all in form";
+                    Session["CPMessage"] = message;
+                    return View(p);
+                }
             }
-            else
-            {
-                message = "Input all in form";
-                Session["CPMessage"] = message;
-                return View(p);
-            }
+            return View(p);
 
 
         }
