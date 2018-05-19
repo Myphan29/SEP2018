@@ -35,12 +35,6 @@ namespace SEP_FingerPrint.Controllers
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public  JsonResult GetHexCode(int id)
-        {
-            var ColorCode = (from f in db.CauHinhs.Where(g => g.ID == id)
-                             select new { f.Absent, f.Attend }).ToList();
-            return new JsonResult { Data = ColorCode, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
         {
@@ -81,12 +75,11 @@ namespace SEP_FingerPrint.Controllers
                     v.Absent = e.Absent;
                 }
 
-                else
-                {
-                    e.ID = id;
-                    e.IDtk = id;
-                    gun.CauHinhs.Add(e);
-                }
+                //else
+                //{
+                //    e.ID = id;
+                //    gun.CauHinhs.Add(e);
+                //}
                 gun.SaveChanges();
                 status = true;
 

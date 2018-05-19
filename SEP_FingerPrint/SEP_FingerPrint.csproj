@@ -234,7 +234,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IntegratedModel.cs" />
     <Compile Include="Models\KhoaHoc.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -263,12 +262,6 @@
     </Compile>
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SinhVien.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -1372,6 +1365,10 @@
     <Content Include="CustomLib\font\fontawesome-webfont.woff" />
     <Content Include="CustomLib\font\fontawesome-webfont.woff2" />
     <Content Include="CustomLib\font\FontAwesome.otf" />
+    <Content Include="CustomLib\fonts\helvetica\HelveticaNeue.eot" />
+    <Content Include="CustomLib\fonts\helvetica\HelveticaNeue.svg" />
+    <Content Include="CustomLib\fonts\helvetica\HelveticaNeue.ttf" />
+    <Content Include="CustomLib\fonts\helvetica\HelveticaNeue.woff" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>

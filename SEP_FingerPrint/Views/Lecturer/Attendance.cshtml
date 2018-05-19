@@ -167,7 +167,7 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Attendance</h3>
+            <h3 class="text-primary">Điểm danh - buổi @Model.MBH</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
@@ -180,41 +180,44 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div style="margin-left: 12px" class="row">
-            <!-- /# column -->
-            <div id="example_length" style="width: 50%">
-                <label for="listTime" style="width: 20%">Chọn buổi học:</label>
-                <select id="listTime" style="width: 20%">
-                    <option>Select time</option>
-                    @{
-                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                        var listSel = db.BuoiHocs.ToList();
-                        foreach (var item in listSel)
-                        {
-                            <option>@item.MBH - @item.Ngay</option>
+        <div class="card">
+            <div style="margin-left: 12px" class="row">
+                <!-- /# column -->
+                <div id="example_length" style="width: 50%">
+                    <label for="listTime" style="width: 20%">Chọn buổi học:</label>
+                    <select id="listTime" style="width: 20%">
+                        <option>Select time</option>
+                        @{
+                            SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
+                            var listSel = db.BuoiHocs.ToList();
+                            foreach (var item in listSel)
+                            {
+                                <option>@item.MBH - @item.Ngay</option>
+                            }
                         }
-                    }
-                </select>
-            </div>
-            <div class="col-lg-12">
-                <a class="btn" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>MSSV</th>
-                            <th>Họ và tên</th>
-                            <th style="text-align:center">Giới tính</th>
-                            <th>Ngày sinh</th>
-                            @*<th>Mã BH</th>*@
-                            @*<th>Ngày</th>*@
-                            @*<th>Giờ</th>*@
-                            <th style="text-align:center">
-                                Trạng thái
-                            </th>
-                            @*<th>Edit</th>*@
-                        </tr>
-                    </thead>
-                </table>
+                    </select>
+                </div>
+                <div class="col-lg-12">
+                    <hr />
+                    <a class="btn btn-primary btn-rounded" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
+                    <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>MSSV</th>
+                                <th>Họ và tên</th>
+                                <th style="text-align:center">Giới tính</th>
+                                <th>Ngày sinh</th>
+                                @*<th>Mã BH</th>*@
+                                @*<th>Ngày</th>*@
+                                @*<th>Giờ</th>*@
+                                <th style="text-align:center">
+                                    Trạng thái
+                                </th>
+                                @*<th>Edit</th>*@
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- End PAge Content -->

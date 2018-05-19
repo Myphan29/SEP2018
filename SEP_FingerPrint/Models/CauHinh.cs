@@ -23,9 +23,7 @@ namespace SEP_FingerPrint.Models
         public int ID { get; set; }
         public string Absent { get; set; }
         public string Attend { get; set; }
-        public int IDtk { get; set; }
     
-        public virtual TaiKhoan TaiKhoan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiangVien> GiangViens { get; set; }
     }

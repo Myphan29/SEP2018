@@ -1,4 +1,0 @@
-namespace SEP_FingerPrint
-{
-
-}

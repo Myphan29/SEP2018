@@ -32,12 +32,12 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>    
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
 
     <script>
         function showTable() {
-        
+
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -73,8 +73,8 @@
                     { targets: 1, width: "40px" },
                     { targets: 2, width: "150px" },
                     { targets: 3, width: "40px" },
-                    { targets: 4, width: "100px" }   
-                ]  
+                    { targets: 4, width: "100px" }
+                ]
             });
         }
         $(document).ready(function () {
@@ -100,77 +100,79 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row">
-            <div class="col-lg-12">
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            @foreach (var row in Model.FirstOrDefault())
-                            {
-                                if (@row.Key == "MSV")
+        <div class="card">
+            <div class="">
+                <div class="col-lg-12">
+                    <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                @foreach (var row in Model.FirstOrDefault())
                                 {
-                                    <th>MSSV</th>
-                                }
-                                else if (@row.Key == "Ho")
-                                {
-                                    <th>Họ</th>
-                                }
-                                else if (@row.Key == "Ten")
-                                {
-                                    <th>Tên</th>
-                                }
-                                else if (@row.Key == "NgaySinh")
-                                {
-                                    <th>Ngày Sinh</th>
-
-                                }
-
-                                else
-                                {
-                                    <th>@row.Key</th>
-                                }
-                            }
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int i = 1;
-
-                            foreach (var row in Model)
-                            {
-                                int s = 0;
-                                int count = row.Count - 4;
-                                <tr>
-                                    <td>
-                                        @i
-                                    </td>
-                                    @foreach (var column in row)
+                                    if (@row.Key == "MSV")
                                     {
-                                        if (@column.Value.ToString() == "0")
-                                        {
-                                            <td style="background: #ffa3a3;text-align: center">@column.Value</td>
-                                        }
-                                        else if (@column.Value.ToString() == "1")
-                                        {
-                                            <td style="background: #d9f9dd;text-align: center">@column.Value</td>
-                                            s++;
-                                        }
-                                        else
-                                        {
-                                            <td>@column.Value</td>
-                                        }
+                                        <th>MSSV</th>
+                                    }
+                                    else if (@row.Key == "Ho")
+                                    {
+                                        <th>Họ</th>
+                                    }
+                                    else if (@row.Key == "Ten")
+                                    {
+                                        <th>Tên</th>
+                                    }
+                                    else if (@row.Key == "NgaySinh")
+                                    {
+                                        <th style="text-align: center">Ngày Sinh</th>
 
                                     }
-                                    <td>@s/@count</td>
-                                </tr>
-                                i++;
 
+                                    else
+                                    {
+                                        <th style="text-align: center">@row.Key</th>
+                                    }
+                                }
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 1;
+
+                                foreach (var row in Model)
+                                {
+                                    int s = 0;
+                                    int count = row.Count - 4;
+                                    <tr>
+                                        <td style="text-align: center">
+                                            @i
+                                        </td>
+                                        @foreach (var column in row)
+                                        {
+                                            if (@column.Value.ToString() == "0")
+                                            {
+                                                <td style="background: #ffa3a3;text-align: center">@column.Value</td>
+                                            }
+                                            else if (@column.Value.ToString() == "1")
+                                            {
+                                                <td style="background: #d9f9dd;text-align: center">@column.Value</td>
+                                                s++;
+                                            }
+                                            else
+                                            {
+                                                <td>@column.Value</td>
+                                            }
+
+                                        }
+                                        <td>@s/@count</td>
+                                    </tr>
+                                    i++;
+
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- End PAge Content -->

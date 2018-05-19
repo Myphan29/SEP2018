@@ -11,7 +11,11 @@ namespace SEP_FingerPrint.Models
         //public int ID { set; get; }
 
         [Required(ErrorMessage = "Mời nhập họ tên")]
-        [Display(Name = "Họ va` tên:")]
+        [Display(Name = "Họ tên giảng viên:")]
+        public string HoTen { set; get; }
+
+        [Required(ErrorMessage = "Mời nhập tên đăng nhập")]
+        [Display(Name = "Tên đăng nhập:")]
         public string TenTK { set; get; }
 
         [Required(ErrorMessage = "Mời nhập mật khẩu")]
@@ -32,6 +36,5 @@ namespace SEP_FingerPrint.Models
         [Required(ErrorMessage = "Mời chọn trạng thái")]
         [Display(Name = "Trạng thái:")]
         public string Trangthai { set; get; }
-
     }
 }

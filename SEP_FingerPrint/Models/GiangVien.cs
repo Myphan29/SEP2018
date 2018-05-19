@@ -26,6 +26,7 @@ namespace SEP_FingerPrint.Models
         public Nullable<bool> GioiTinh { get; set; }
         public string Note { get; set; }
         public int IDTaiKhoan { get; set; }
+        public int IDConf { get; set; }
     
         public virtual CauHinh CauHinh { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
