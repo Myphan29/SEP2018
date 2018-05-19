@@ -474,6 +474,7 @@
     <Content Include="CustomLib\css\lib\toastr\toastr.min.css" />
     <Content Include="CustomLib\css\lib\vector-map\jqvmap.min.css" />
     <Content Include="CustomLib\css\main.css" />
+    <Content Include="CustomLib\css\nice-select.css" />
     <Content Include="CustomLib\css\spinners.css" />
     <Content Include="CustomLib\css\style.css" />
     <Content Include="CustomLib\css\util.css" />
@@ -632,6 +633,7 @@
     <Content Include="CustomLib\img\video-cam.png" />
     <Content Include="CustomLib\img\watch.jpg" />
     <Content Include="CustomLib\js\custom.min.js" />
+    <Content Include="CustomLib\js\jquery.nice-select.js" />
     <Content Include="CustomLib\js\jquery.slimscroll.js" />
     <Content Include="CustomLib\js\lib\barRating\barRating.init.js" />
     <Content Include="CustomLib\js\lib\barRating\jquery.barrating.js" />

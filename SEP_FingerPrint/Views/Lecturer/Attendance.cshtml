@@ -26,31 +26,16 @@
             color: black;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
-    @*<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>*@
+    <script src="~/CustomLib/js/jquery.nice-select.js"></script>
+    <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
     <script>
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
-            @*FetchColorCode();
-            function FetchColorCode() {
-                ColorCode = [];
-                $.ajax({
-                    type: "GET",
-                    url: "/Lecturer/GetHexCode/" + @Session["ID"],
-                    dataType: "json",
-                    success: function (data) {
-                        $.each(data, function (x, y) {
-                            ColorCode.push({
-                                absentcolor: y.Absent,
-                                attendcolor: y.Attend
-                            })
-                        })
-                    }
-                })
-            }*@
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -124,6 +109,9 @@
             });
         }
         $(document).ready(function () {
+            $('select').niceSelect();
+        });
+        $(document).ready(function () {
             showTable();
             $("#listTime").change(function () {
                 var time = $("#listTime").val().split(" ", 1);
@@ -142,7 +130,7 @@
                     var btn = $(this);
                     var id = btn.data('id');
                     $.ajax({
-                        url: "/Lecturer/EditAtd", /*+ time2 + "/" + time*/
+                        url: "/Lecturer/EditAtd",
                         data: { id: id },
                         dataType: "json",
                         type: "POST",
@@ -183,23 +171,23 @@
         <div class="card">
             <div style="margin-left: 12px" class="row">
                 <!-- /# column -->
-                <div id="example_length" style="width: 50%">
-                    <label for="listTime" style="width: 20%">Chọn buổi học:</label>
-                    <select id="listTime" style="width: 20%">
-                        <option>Select time</option>
+                <a style="line-height:25px" class="btn btn-outline-primary" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
+                &nbsp;&nbsp;
+                <div id="example_length">
+                    <select id="listTime">
+                        <option>Chọn buổi học</option>
                         @{
                             SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
                             var listSel = db.BuoiHocs.ToList();
                             foreach (var item in listSel)
                             {
-                                <option>@item.MBH - @item.Ngay</option>
+                                <option>@item.MBH - @item.Ngay.ToShortDateString()</option>
                             }
                         }
                     </select>
                 </div>
                 <div class="col-lg-12">
                     <hr />
-                    <a class="btn btn-primary btn-rounded" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
                     <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
                         <thead>
                             <tr>
