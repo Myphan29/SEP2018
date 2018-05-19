@@ -8440,7 +8440,7 @@ tbody tr td {
             }
 
     .mvls-radio-button1 input[type="radio"]#color-1 + label span {
-        background-color: #e74c3c;
+        background-color: #2ecc71;
     }
 
     .mvls-radio-button1 input[type="radio"]#color-2 + label span {
@@ -8456,7 +8456,7 @@ tbody tr td {
     }
 
     .mvls-radio-button1 input[type="radio"]#color-5 + label span {
-        background-color: #2ecc71;
+        background-color: #e74c3c;
     }
 
     .mvls-radio-button1 input[type="radio"]#color-6 + label span {

@@ -49,7 +49,6 @@ namespace SEP_FingerPrint.Controllers
                 using (Sep2018Entities db = new Sep2018Entities())
                 {
                     //int LastestID = db.TaiKhoans.Max(k => k.ID);
-                    int TemporaryID;
                     if (db.TaiKhoans.Any(x => x.TenTK == model.TenTK))
                     {
                         //ViewBag.DuplicateMessage = "This name has already used.";
