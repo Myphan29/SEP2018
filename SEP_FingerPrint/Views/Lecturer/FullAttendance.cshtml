@@ -1,0 +1,195 @@
+﻿@model List<Dictionary<string, object>>
+@{
+    ViewBag.Title = "FullAttendance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
+    if (Session["ID"] != null)
+    {
+        if (Convert.ToInt32(Session["Role"]) == 2)
+        {
+            Response.Redirect("~/Admin/AddUser");
+        }
+    }
+    else
+    {
+        Response.Redirect("~/Home/Login");
+    }
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FullAttendance</title>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
+    <style>
+        tbody tr td {
+            color: black;
+            max-width: 200px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
+
+    <script>
+        function showTable() {
+        
+            $("#example").DataTable({
+                "processing": true,
+                "serverSide": false,
+                "pagingType": "full_numbers",
+                "ordering": true,
+                "info": true,
+                "searching": true,
+                "bFilter": false,
+                "bDestroy": true,
+                "bLengthChange": true,
+                "bPaginate": true,
+                "sEmptyTable": "Loading data from server",
+                language: {
+                    "search": "Tìm kiếm:",
+                    "searchPlaceholder": "Nhập dữ liệu cần tìm",
+                    "loadingRecords": "Đang tải dữ liệu...",
+                    "processing": "Đang xử lý...",
+                    "emptyTable": "Không tìm thấy dữ liệu",
+                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ dữ liệu",
+                    "infoEmpty": "Hiển thị 0 trong tổng số 0 dữ liệu",
+                    "infoFiltered": "(lọc từ tổng số _MAX_ dữ liệu)",
+                    "lengthMenu": "Hiển thị _MENU_ dữ liệu",
+                    "zeroRecords": "Không tìm thấy dữ liệu nào phù hợp",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp theo",
+                        "previous": "Trước đó"
+                    },
+                },
+                "columnDefs": [
+                    { targets: 0, width: "20px" },
+                    { targets: 1, width: "40px" },
+                    { targets: 2, width: "150px" },
+                    { targets: 3, width: "40px" },
+                    { targets: 4, width: "100px" }   
+                ]  
+            });
+        }
+        $(document).ready(function () {
+            showTable();
+        });
+
+        
+    </script>
+</head>
+
+<div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Attendance</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Điểm danh</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+            <div class="col-lg-12">
+                <table id="example" class="ui celled table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            @foreach (var row in Model.FirstOrDefault())
+                            {
+                                if (@row.Key == "MSV")
+                                {
+                                    <th>MSSV</th>
+                                }
+                                else if (@row.Key == "Ho")
+                                {
+                                    <th>Họ</th>
+                                }
+                                else if (@row.Key == "Ten")
+                                {
+                                    <th>Tên</th>
+                                }
+                                else if (@row.Key == "NgaySinh")
+                                {
+                                    <th>Ngày Sinh</th>
+
+                                }
+
+                                else
+                                {
+                                    <th>@row.Key</th>
+                                }
+
+
+                            }
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+
+                            foreach (var row in Model)
+                            {
+                                int s = 0;
+                                int count = row.Count - 4;
+
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+
+
+                                    @foreach (var column in row)
+                                    {
+                                        if (@column.Value.ToString() == "0")
+                                        {
+                                            <td style="background: #ffa3a3;text-align: center">@column.Value</td>
+                                           
+
+                                        }
+                                        else if (@column.Value.ToString() == "1")
+                                        {
+                                            <td style="background: #d9f9dd;text-align: center">@column.Value</td>
+                                            s++;
+
+                                        }
+
+
+                                        else
+                                        {
+                                            <td>@column.Value</td>
+                                        }
+
+                                    }
+                                    <td>@s/@count</td>
+
+                                </tr>
+                                i++;
+
+                            }
+                            
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End PAge Content -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

@@ -6,14 +6,19 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq.Dynamic;
-using System.Data.Entity;
-using PagedList.Mvc;
-using PagedList;
+using System.Configuration;
+using System.Data.EntityClient;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
+using System.ComponentModel;
+using System.Dynamic;
 
 namespace SEP_FingerPrint.Controllers
 {
     public class LecturerController : Controller
     {
+
         private Sep2018Entities db = new Sep2018Entities();
         // Schedule performance -My 
         public ActionResult Schedule(string id)
@@ -21,18 +26,18 @@ namespace SEP_FingerPrint.Controllers
             var khoabieu = db.BuoiHocs.Where(p => p.MKH == id).FirstOrDefault();
             return View(khoabieu);
         }
-      
+
         public JsonResult GetEvents(string id)
         {
-                  var events = (from e in db.BuoiHocs.Where(p=>p.MKH==id)
-                              select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau,e.GioKetThuc }).ToList();
-                ;
-                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            var events = (from e in db.BuoiHocs.Where(p => p.MKH == id)
+                          select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau, e.GioKetThuc }).ToList();
+            ;
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        
+
         [HttpPost]
-        public JsonResult SaveEvent( BuoiHoc e)
-        { 
+        public JsonResult SaveEvent(BuoiHoc e)
+        {
             var status = false;
             using (Sep2018Entities dc = new Sep2018Entities())
             {
@@ -42,7 +47,7 @@ namespace SEP_FingerPrint.Controllers
                     var v = dc.BuoiHocs.Where(a => a.MBH == e.MBH).FirstOrDefault();
                     if (v != null)
                     {
-                        v.Phong= e.Phong;
+                        v.Phong = e.Phong;
                         v.Ngay = e.Ngay;
                         v.GioBatDau = e.GioBatDau;
                         v.GioKetThuc = e.GioKetThuc;
@@ -51,7 +56,7 @@ namespace SEP_FingerPrint.Controllers
                 }
                 else
                 {
-                  
+
                     dc.BuoiHocs.Add(e);
                 }
                 dc.SaveChanges();
@@ -59,31 +64,67 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-
-
-        public ActionResult Attendance(string course, string time = "1")
+        [HttpGet]
+        public ActionResult RollupEditor(string id)
         {
-            var atd = db.BuoiHocs.Where(x => x.MKH.Equals(course) && x.MBH.Equals(time)).FirstOrDefault();
+            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
+            return View(std);
+        }
+        [HttpPost]
+
+        public JsonResult EditAtd(string id)
+        {
+            var pistol = AtdChanger(id);
+            return Json(new
+            {
+                status = pistol
+            });
+        }
+        public int AtdChanger(string id)
+        {
+            var editor = db.DiemDanhs.Find(id);
+            if (editor.TrangThai == 0)
+            {
+                editor.TrangThai = 1;
+            }
+            else if (editor.TrangThai == 1)
+            {
+                editor.TrangThai = 0;
+            }
+            db.SaveChanges();
+            return (int)editor.TrangThai;
+        }
+
+        public ActionResult Attendance(string id, string e = "1")
+        {
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
+
             if (atd != null)
             {
                 return View(atd);
             }
+
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
             //return HttpNotFound("");
         }
 
-        public ActionResult LoadData(string course, string time)
+
+
+
+        public ActionResult LoadData(string id, string e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(course) && c.BuoiHoc.MBH.Equals(time)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
                              select new[]
                              {
-                                 Convert.ToString( c.ID ),
+                                 Convert.ToString( c.MSV ),
                                  Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
+                                 Convert.ToString( c.SinhVien.GioiTinh ),
+                                 Convert.ToString( c.SinhVien.NgaySinh.ToString().Split(' ')[0] ),
                                  Convert.ToString( c.MBH ),
                                  Convert.ToString( c.Ngay ),
                                  Convert.ToString( c.Gio ),
@@ -100,10 +141,11 @@ namespace SEP_FingerPrint.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
-            string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
         public ActionResult Settings()
@@ -173,5 +215,42 @@ namespace SEP_FingerPrint.Controllers
 
 
         }
+        public List<Dictionary<string, object>> Read(DbDataReader reader)
+        {
+            List<Dictionary<string, object>> expandolist = new List<Dictionary<string, object>>();
+            foreach (var item in reader)
+            {
+                IDictionary<string, object> expando = new ExpandoObject();
+                foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(item))
+                {
+                    var obj = propertyDescriptor.GetValue(item);
+                    expando.Add(propertyDescriptor.Name, obj);
+                }
+                expandolist.Add(new Dictionary<string, object>(expando));
+            }
+            return expandolist;
+        }
+        public ActionResult FullAttendance(string id)
+        {
+            DataTable table = new DataTable();
+
+            using (var ctx = new Sep2018Entities())
+            using (var cmd = ctx.Database.Connection.CreateCommand())
+            {
+                ctx.Database.Connection.Open();
+                cmd.CommandText = "PivotAttendance";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@MKH", id));
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var model = this.Read(reader).ToList();
+
+                    return View(model);
+
+                }
+            }
+        }
+
     }
+   
 }

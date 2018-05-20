@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SEP_FingerPrint.Models.GiangVien>
+
+@{
+    ViewBag.Title = "Edit";
+
+    if (Session["ID"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
+    <style>
+        tbody tr td {
+            color: black;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#listUser').DataTable();
+        });
+    </script>
+</head>
+@section jsFooter{
+    <script src="~/CustomLib/js/user.js"></script>
+
+}
+    <div class="page-wrapper">
+
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">User</h3>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">User</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <!-- Start Page Content -->
+            <div class="row">
+                <!-- /# column -->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>User</h4>
+                        </div>
+                        @*<div class="card-body">*@
+                        <div class="table-responsive" style="padding: 20px">
+                            <table id="listUser" class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Tài khoản</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.HoTen</td>
+                                        <td>@item.TaiKhoan.TenTK</td>
+                                        <td>
+                                            <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.TaiKhoan.ID">@item.TaiKhoan.Trangthai</button>
+                                        </td>
+                                       
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+

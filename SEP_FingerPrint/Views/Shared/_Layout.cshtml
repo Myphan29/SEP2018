@@ -37,13 +37,26 @@
                 <nav class="navbar top-navbar navbar-expand-md navbar-light">
                     <!-- Logo -->
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="">
-                            <!-- Logo icon -->
-                            <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
-                            <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
-                        </a>
+                        @if (Session["Role"].Equals(1))
+                        {
+                            <a class="navbar-brand" href="/Lecturer/Course">
+                                <!-- Logo icon -->
+                                <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                <!--End Logo icon -->
+                                <!-- Logo text -->
+                                <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="navbar-brand" href="/Admin/Teach">
+                                <!-- Logo icon -->
+                                <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                <!--End Logo icon -->
+                                <!-- Logo text -->
+                                <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                            </a>
+                        }
                     </div>
                     <!-- End Logo -->
                     <div class="navbar-collapse">
@@ -106,18 +119,19 @@
                                 <li>
                                     <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
                                 </li>
-                                <li>
-                                    <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Unknown</span></a>
-                                </li>
+                                @*<li>
+                                        <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Unknown</span></a>
+                                    </li>*@
                             }
                             else
                             {
                                 <li>
                                     <a href="/Admin/AddUser" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Thêm tài khoản</span></a>
-                                    <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Xem giảng viên</span></a>
+                                    <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Quản lý giảng viên</span></a>
+                                    <a href="/Admin/Edit" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kích hoạt tài khoản</span></a>
                                 </li>
                             }
                             <li class="nav-label">SETTING</li>
@@ -161,21 +175,11 @@
 
         <script src="~/CustomLib/js/lib/datamap/d3.min.js"></script>
         <script src="~/CustomLib/js/lib/datamap/topojson.js"></script>
-        <script src="~/CustomLib/js/lib/datamap/datamaps.world.min.js"></script>
-        <script src="~/CustomLib/js/lib/datamap/datamap-init.js"></script>
-
-        <script src="~/CustomLib/js/lib/weather/jquery.simpleWeather.min.js"></script>
-        <script src="~/CustomLib/js/lib/weather/weather-init.js"></script>
         <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel.min.js"></script>
         <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel-init.js"></script>
-
-
-        <script src="~/CustomLib/js/lib/chartist/chartist.min.js"></script>
-        <script src="~/CustomLib/js/lib/chartist/chartist-plugin-tooltip.min.js"></script>
-        <script src="~/CustomLib/js/lib/chartist/chartist-init.js"></script>
-        <!--Custom JavaScript -->
         <script src="~/CustomLib/js/custom.min.js"></script>
 
+        @RenderSection("jsFooter", required: false)
 
     </div>
 </html>

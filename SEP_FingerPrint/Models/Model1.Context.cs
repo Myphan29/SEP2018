@@ -12,6 +12,8 @@ namespace SEP_FingerPrint.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Sep2018Entities : DbContext
     {
@@ -26,6 +28,7 @@ namespace SEP_FingerPrint.Models
         }
     
         public virtual DbSet<BuoiHoc> BuoiHocs { get; set; }
+        public virtual DbSet<CauHinh> CauHinhs { get; set; }
         public virtual DbSet<DanhSachLop> DanhSachLops { get; set; }
         public virtual DbSet<DiemDanh> DiemDanhs { get; set; }
         public virtual DbSet<GiangVien> GiangViens { get; set; }
@@ -35,5 +38,14 @@ namespace SEP_FingerPrint.Models
         public virtual DbSet<SinhVien> SinhViens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
+    
+        public virtual int PivotAttendance(string mKH)
+        {
+            var mKHParameter = mKH != null ?
+                new ObjectParameter("MKH", mKH) :
+                new ObjectParameter("MKH", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PivotAttendance", mKHParameter);
+        }
     }
 }

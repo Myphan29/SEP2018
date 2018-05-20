@@ -45,16 +45,16 @@ namespace SEP_FingerPrint.Models
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu cũ")]
         [Required(ErrorMessage = "Please type password")]
-        [StringLength(30, MinimumLength = 8, ErrorMessage = "At least 8 character")]
         public string OldPassword { set; get; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới")]
         [Required(ErrorMessage = "Please type password")]
-        [StringLength(30, MinimumLength = 8, ErrorMessage = "At least 8 character")]
+        [StringLength(30, MinimumLength = 6, ErrorMessage = "At least 6 character")]
         public string NewPassword { set; get; }
 
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Please type password")]
         [Display(Name = "Xác nhận lại mật khẩu mới")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { set; get; }

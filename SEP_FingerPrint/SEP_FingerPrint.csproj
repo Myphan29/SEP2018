@@ -220,6 +220,9 @@
     <Compile Include="Models\BuoiHoc.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CauHinh.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DanhSachLop.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -787,6 +790,7 @@
     <Content Include="CustomLib\js\main.js" />
     <Content Include="CustomLib\js\scripts.js" />
     <Content Include="CustomLib\js\sidebarmenu.js" />
+    <Content Include="CustomLib\js\user.js" />
     <Content Include="CustomLib\Schedule\fullcalendar.css" />
     <Content Include="CustomLib\Schedule\fullcalendar.js" />
     <Content Include="CustomLib\Schedule\fullcalendar.min.css" />
@@ -1401,7 +1405,12 @@
     <Content Include="Views\Admin\AddUser.cshtml" />
     <Content Include="Views\Lecturer\Settings.cshtml" />
     <Content Include="Views\Admin\Teach.cshtml" />
+    <Content Include="Views\ForgotPasswordView.cshtml" />
     <Content Include="Views\Admin\ResetPassword.cshtml" />
+    <Content Include="Views\Lecturer\FullAttendance.cshtml" />
+    <Content Include="Views\Lecturer\RollupEditor.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
