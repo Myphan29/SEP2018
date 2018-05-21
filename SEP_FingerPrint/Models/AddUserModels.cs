@@ -6,23 +6,25 @@ using System.ComponentModel.DataAnnotations;
 namespace SEP_FingerPrint.Models
 {
     public class Account
-    {      
-        [Required(ErrorMessage = "Mời nhập tên đăng nhập")]
-        [StringLength(100, ErrorMessage = "Tên đăng nhập phải có ít nhất 6 kí tự", MinimumLength = 6)]
-        [Display(Name = "Họ va` tên:")]
+    {
+        //[Required(ErrorMessage = "Mời nhập ID")]
+        //public int ID { set; get; }
+
+        //[Required(ErrorMessage = "Mời nhập họ tên")]
+        [Display(Name = "Họ tên giảng viên:")]
+        public string HoTen { set; get; }
+
+        [Required(ErrorMessage = "Mời nhập tên đăng nhập")]
+        [Display(Name = "Tên đăng nhập:")]
         public string TenTK { set; get; }
 
-        
-        [Display(Name = "Họ tên ")]
-        [StringLength(100, ErrorMessage = "Họ tên phải có ít nhất 6 kí tự", MinimumLength = 7)]
-        public string HoTen { get; set; }
-
         [Required(ErrorMessage = "Mời nhập mật khẩu")]
-        [StringLength(100, ErrorMessage = " Mật khẩu phải có ít nhất 6 kí tự", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = "Mật khẩu:")]
         public string matkhau { set; get; }
 
-        [Required(ErrorMessage = "Mời nhập lại mật khẩu")]       
+        [Required(ErrorMessage = "Mời nhập lại mật khẩu")]
+        [StringLength(100, ErrorMessage = "The {0} must be the same {2} characters long.", MinimumLength = 6)]
         [Compare("matkhau", ErrorMessage = "Mật khẩu không khớp.")]
         [Display(Name = "Mật khẩu:")]
         public string nhaplaimatkhau { set; get; }
@@ -34,6 +36,5 @@ namespace SEP_FingerPrint.Models
         [Required(ErrorMessage = "Mời chọn trạng thái")]
         [Display(Name = "Trạng thái:")]
         public string Trangthai { set; get; }
-
     }
 }

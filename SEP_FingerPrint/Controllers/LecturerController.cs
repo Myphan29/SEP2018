@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
+using SEP_FingerPrint.IntegratedModel;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -34,7 +35,6 @@ namespace SEP_FingerPrint.Controllers
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
         {
@@ -56,11 +56,51 @@ namespace SEP_FingerPrint.Controllers
                 }
                 else
                 {
-
                     dc.BuoiHocs.Add(e);
                 }
                 dc.SaveChanges();
                 status = true;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+        public JsonResult ColorChanger(CauHinh e, int id)
+        {
+            var status = false;
+            using (Sep2018Entities gun = new Sep2018Entities())
+            {
+                var v = gun.CauHinhs.Where(a => a.ID == id).FirstOrDefault();
+                if (v != null)
+                {
+                    v.Attend = e.Attend;
+                    v.Absent = e.Absent;
+                }
+
+                //else
+                //{
+                //    e.ID = id;
+                //    gun.CauHinhs.Add(e);
+                //}
+                gun.SaveChanges();
+                status = true;
+
+                //var hex = gun.CauHinhs.Where(x => x.ID == id).FirstOrDefault();
+                //    if (hex != null)
+                //    {
+
+                //        gun.SaveChanges();
+                //        status = true;
+                //    }
+                //    else
+                //    {
+                //        var re = new CauHinh();
+                //        re.ID=id;
+                //        pistol.Attend = re.Attend;
+                //        pistol.Absent = re.Absent;
+                //        gun.CauHinhs.Add(re);
+                //        gun.SaveChanges();
+                //        status = true;
+                //    }
+
             }
             return new JsonResult { Data = new { status = status } };
         }
@@ -70,6 +110,14 @@ namespace SEP_FingerPrint.Controllers
             var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
             return View(std);
         }
+        public ActionResult Settings(int id)
+        {
+            var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
+
+
+            return View(thm);
+        }
+
         [HttpPost]
 
         public JsonResult EditAtd(string id)
@@ -94,18 +142,15 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-
-        public ActionResult Attendance(string id, string e = "1")
+        public ActionResult Attendance(string id, string e = "1")    
         {
             var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
-
             if (atd != null)
             {
                 return View(atd);
             }
 
             return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
-            //return HttpNotFound("");
         }
 
 
@@ -121,6 +166,7 @@ namespace SEP_FingerPrint.Controllers
                              where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
                              select new[]
                              {
+                                 Convert.ToString( c.ID),
                                  Convert.ToString( c.MSV ),
                                  Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
                                  Convert.ToString( c.SinhVien.GioiTinh ),
@@ -148,10 +194,6 @@ namespace SEP_FingerPrint.Controllers
             string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
-        public ActionResult Settings()
-        {
-            return View();
-        }
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -160,58 +202,68 @@ namespace SEP_FingerPrint.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel p)
         {
-            string message = "";
-            if (p.OldPassword != null && p.NewPassword != null && p.ConfirmPassword != null)
+            if (ModelState.IsValid)
             {
-                if (p.OldPassword == p.NewPassword)
+                string message = "";
+                if (p.OldPassword != null && p.NewPassword != null && p.ConfirmPassword != null)
                 {
-                    message = "Mật khẩu mới không được giống mật khẩu cũ";
-                    Session["CPMessage"] = message;
-                    return View(p);
-                }
-                else
-                {
-                    int id = Convert.ToInt32(Session["ID"]); // Get Session ID after login - HomeController for details
-                    var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
-                    string oldpass = "";
-                    byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5
-                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-                    buffer = md5.ComputeHash(buffer);
-                    for (int i = 0; i < buffer.Length; i++)
+                    if (p.OldPassword == p.NewPassword)
                     {
-                        oldpass += buffer[i].ToString("x2");
-                    }
-                    if (user.matkhau != oldpass)
-                    {
-                        message = "Mật khẩu cũ sai";
-                        Session["CPMessage"] = message; // Session CPMessage k tìm thấy *My*
+                        message = "Mật khẩu mới không được giống mật khẩu cũ";
+                        Session["CPMessage"] = message;
                         return View(p);
                     }
                     else
                     {
-                        string pass = "";
-                        byte[] buffer1 = Encoding.UTF8.GetBytes(p.NewPassword); // Mã hóa MD5
-                        MD5CryptoServiceProvider md51 = new MD5CryptoServiceProvider();
-                        buffer1 = md51.ComputeHash(buffer1);
-                        for (int i = 0; i < buffer1.Length; i++)
+                        int id = Convert.ToInt32(Session["ID"]); // Get Session ID after login - HomeController for details
+                        var user = db.TaiKhoans.FirstOrDefault(x => x.ID == id);
+                        string oldpass = "";
+                        byte[] buffer = Encoding.UTF8.GetBytes(p.OldPassword); // Mã hóa MD5
+                        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                        buffer = md5.ComputeHash(buffer);
+                        for (int i = 0; i < buffer.Length; i++)
                         {
-                            pass += buffer1[i].ToString("x2");
+                            oldpass += buffer[i].ToString("x2");
                         }
-                        user.matkhau = pass;
-                        db.SaveChanges();
-                        message = "Đỗi mật khẩu thành công";
-                        Session["CPMessage"] = message;
-                        //return RedirectToAction("Course", "Lecturer");
-                        return View(p);
+                        if (user.matkhau != oldpass)
+                        {
+                            message = "Mật khẩu cũ sai";
+                            Session["CPMessage"] = message; // Session CPMessage k tìm thấy *My*
+                            return View(p);
+                        }
+                        //else if (p.ConfirmPassword != p.NewPassword)
+                        //{
+                        //    message = "Mật khẩu mới không giống mật khẩu được xác định";
+                        //    Session["CPMessage"] = message;
+                        //    return View(p);
+                        //}
+                        else
+                        {
+                            string pass = "";
+                            byte[] buffer1 = Encoding.UTF8.GetBytes(p.NewPassword); // Mã hóa MD5
+                            MD5CryptoServiceProvider md51 = new MD5CryptoServiceProvider();
+                            buffer1 = md51.ComputeHash(buffer1);
+                            for (int i = 0; i < buffer1.Length; i++)
+                            {
+                                pass += buffer1[i].ToString("x2");
+                            }
+                            user.matkhau = pass;
+                            db.SaveChanges();
+                            message = "Đỗi mật khẩu thành công";
+                            Session["CPMessage"] = message;
+                            //return RedirectToAction("Course", "Lecturer");
+                            return View(p);
+                        }
                     }
                 }
+                else
+                {
+                    message = "Input all in form";
+                    Session["CPMessage"] = message;
+                    return View(p);
+                }
             }
-            else
-            {
-                message = "Input all in form";
-                Session["CPMessage"] = message;
-                return View(p);
-            }
+            return View(p);
 
 
         }
@@ -252,5 +304,5 @@ namespace SEP_FingerPrint.Controllers
         }
 
     }
-   
+
 }

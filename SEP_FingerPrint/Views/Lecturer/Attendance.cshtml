@@ -18,20 +18,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Attendance</title>
-    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
-
     <style>
         tbody tr td {
             color: black;
         }
     </style>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>*@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
-    @*<script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>*@
+    <script src="~/CustomLib/js/jquery.nice-select.js"></script>
+    <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
     <script>
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
@@ -76,37 +76,45 @@
                 },
                 "columns": [
                     { "render": function (data, type, row) { return row[0]; } },
-                    { "render": function (data, type, row) { return (row[1]); } },
+                    { "render": function (data, type, row) { return row[1]; } },
                     { "render": function (data, type, row) { return (row[2]); } },
                     { "render": function (data, type, row) { return (row[3]); } },
-                    //{ "render": function (data, type, row) { return (row[4]); } },
+                    { "render": function (data, type, row) { return (row[4]); } },
                     //{ "render": function (data, type, row) { return (row[5]); } },
                     //{ "render": function (data, type, row) { return (row[6]); } },
-                    { "render": function (data, type, row) { return (row[7]); } },
-                    {
+                    //{ "render": function (data, type, row) { return (row[7]); } },
+                    { "render": function (data, type, row) { return (row[8]); } },
+                    { "render": function (data, type, row) { return (row[8]); } },
+                    @*{
                         "bSortable": false,
                         "sClass": "TextCenter",
                         "render": function (data, type, row) {
-                            return '<button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@Model.ID">@Model.TrangThai</button>';
+                            //return '<button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@Model.ID">@Model.TrangThai</button>';
+                            return { "render": function (data, type, row) { return (row[8]); } };
                         }, "targets": 0,
-                    }
+                    }*@
                 ],
                 rowCallback: function (row, data, index) {
-                    if (data[7] == 0) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '#ffa3a3', 'display': 'block', 'text-align': 'center' });
+                    if (data[8] == 0) {
+                        $(row).find('td:eq(5)').text("").addClass('fa fa-close').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Absent', 'display': 'block', 'text-align': 'center' });
                     }
-                    if (data[7] == 1) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '#d9f9dd', 'display': 'block', 'text-align': 'center' });
+                    if (data[8] == 1) {
+                        $(row).find('td:eq(5)').text("").addClass('fa fa-check').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Attend', 'display': 'block', 'text-align': 'center' });
                     }
-                    if (data[2] == "True") {
-                        $(row).find('td:eq(2)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
+                    if (data[3] == "True") {
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
                     }
                     else {
-                        $(row).find('td:eq(2)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
                     }
+                    $(row).find('td:eq(0)').css({ 'text-align': 'center' });
+                    $(row).find('td:eq(1)').css({ 'text-align': 'center' });
                 }
             });
         }
+        $(document).ready(function () {
+            $('select').niceSelect();
+        });
         $(document).ready(function () {
             showTable();
             $("#listTime").change(function () {
@@ -126,7 +134,7 @@
                     var btn = $(this);
                     var id = btn.data('id');
                     $.ajax({
-                        url: "/Lecturer/EditAtd", /*+ time2 + "/" + time*/
+                        url: "/Lecturer/EditAtd",
                         data: { id: id },
                         dataType: "json",
                         type: "POST",
@@ -151,12 +159,12 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Attendance</h3>
+            <h3 class="text-primary">Điểm danh - buổi @Model.MBH</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
-                <li class="breadcrumb-item active">Điểm danh</li>  
+                <li class="breadcrumb-item active">Điểm danh</li>
             </ol>
         </div>
     </div>
@@ -164,45 +172,48 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row">
-            <!-- /# column -->
-            <div id="example_length" style="width: 50%">
-                <label for="listTime" style="width: 20%">Chọn buổi học:</label>
-                <select id="listTime" style="width: 20%">
-                    <option>Select time</option>
-                    @{
-                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                        var listSel = db.BuoiHocs.ToList();
-                        foreach (var item in listSel)
-                        {
-                            <option>@item.MBH - @item.Ngay</option>
+        <div class="card">
+            <div style="margin-left: 12px" class="row">
+                <!-- /# column -->
+                <a style="line-height:25px" class="btn btn-outline-primary" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
+                &nbsp;&nbsp;
+                <div id="example_length">
+                    <select id="listTime">
+                        <option>Chọn buổi học</option>
+                        @{
+                            SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
+                            var listSel = db.BuoiHocs.ToList();
+                            foreach (var item in listSel)
+                            {
+                                <option>@item.MBH - @item.Ngay.ToShortDateString()</option>
+                            }
                         }
-                    }
-                </select>
-            </div>
-            <div class="col-lg-12">
-                <a class="btn" href="~/Lecturer/RollupEditor/@Model.MBH">Sửa điểm danh</a>
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>MSSV</th>
-                            <th>Họ và tên</th>
-                            <th style="text-align:center">Giới tính</th>
-                            <th>Ngày sinh</th>
-                            @*<th>Mã BH</th>*@
-                            @*<th>Ngày</th>*@
-                            @*<th>Giờ</th>*@
-                            <th style="text-align:center">
-                                Trạng thái
-                            </th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                </table>
+                    </select>
+                </div>
+                <div class="col-lg-12">
+                    <hr />
+                    <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">STT</th>
+                                <th style="text-align: center">MSSV</th>
+                                <th>Họ tên</th>
+                                <th style="text-align:center">Giới tính</th>
+                                <th style="text-align: center">Ngày sinh</th>
+                                @*<th>Mã BH</th>*@
+                                @*<th>Ngày</th>*@
+                                @*<th>Giờ</th>*@
+                                <th style="text-align:center">
+                                    Trạng thái
+                                </th>
+                                <th>Sửa</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- End PAge Content -->
     </div>
     <!-- End Container fluid  -->
 </div>
-
