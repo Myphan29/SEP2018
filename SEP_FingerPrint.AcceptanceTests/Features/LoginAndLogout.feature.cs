@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace SEP_FingerPrint.SeleniumTests.Features
+namespace SEP_FingerPrint.AcceptanceTests.Features
 {
     using TechTalk.SpecFlow;
     
@@ -18,7 +18,7 @@ namespace SEP_FingerPrint.SeleniumTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.3.2.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class US01_LogInAndLogOutFeature
+    public partial class LoginAndLogoutFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -44,7 +44,7 @@ namespace SEP_FingerPrint.SeleniumTests.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "US01_LogInAndLogOut", "\tIn order to post project\r\n\tAs a user\r\n\tI want to Log into the website", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LoginAndLogout", "\tIn order to attendance\r\n\tAs a user\r\n\tI want to Log into the website", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -59,9 +59,9 @@ namespace SEP_FingerPrint.SeleniumTests.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "US01_LogInAndLogOut")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "LoginAndLogout")))
             {
-                global::SEP_FingerPrint.SeleniumTests.Features.US01_LogInAndLogOutFeature.FeatureSetup(null);
+                global::SEP_FingerPrint.AcceptanceTests.Features.LoginAndLogoutFeature.FeatureSetup(null);
             }
         }
         
@@ -86,24 +86,24 @@ namespace SEP_FingerPrint.SeleniumTests.Features
         {
 #line 5
 #line 6
- testRunner.Given("User is at the Loginpage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("User is at the Login Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login successful")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "US01_LogInAndLogOut")]
-        public virtual void LoginSuccessful()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account teacher successful")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountTeacherSuccessful()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login successful", ((string[])(null)));
-#line 9
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account teacher successful", ((string[])(null)));
+#line 8
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
+#line 9
+ testRunner.When("User enter UserName = \'t150001\' and Password = \'123456\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.When("User", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
- testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see the button đăng xuất and name of me", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

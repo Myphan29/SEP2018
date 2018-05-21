@@ -1,11 +1,11 @@
-﻿Feature: SpecFlowFeature1
-	In order to avoid silly mistakes
-	As a math idiot
-	I want to be told the sum of two numbers
+﻿Feature: LoginAndLogout
+	In order to attendance
+	As a user
+	I want to Log into the website
+Background: 
+	Given User is at the Login Page
 
-@mytag
-Scenario: Add two numbers
-	Given I have entered 50 into the calculator
-	And I have entered 70 into the calculator
-	When I press add
-	Then the result should be 120 on the screen
+Scenario: Login with account teacher successful
+	When User enter UserName = 't150001' and Password = '123456'
+	Then I can see the button đăng xuất and name of me
+	
