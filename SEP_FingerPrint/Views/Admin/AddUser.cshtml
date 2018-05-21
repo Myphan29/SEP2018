@@ -78,10 +78,10 @@
                             <li style="font-size: 15px">
                                 Trạng thái:
                                 @Html.RadioButtonFor(model => model.Trangthai, "Enable")
-                                Kích hoạt
+                                Enable
                                 &nbsp;
                                 @Html.RadioButtonFor(model => model.Trangthai, "Disable")
-                                Khóa
+                                Disable
                                 <br>
                                 @Html.ValidationMessageFor(model => model.Trangthai, "", new { @class = "text-danger" })
                             </li>
