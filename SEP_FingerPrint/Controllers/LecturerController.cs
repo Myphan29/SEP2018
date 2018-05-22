@@ -166,6 +166,7 @@ namespace SEP_FingerPrint.Controllers
                              where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
                              select new[]
                              {
+                                 Convert.ToString( c.ID),
                                  Convert.ToString( c.MSV ),
                                  Convert.ToString( c.SinhVien.Ho +" "+ c.SinhVien.Ten ),
                                  Convert.ToString( c.SinhVien.GioiTinh ),
