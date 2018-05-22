@@ -4,7 +4,7 @@ using System.Configuration;
 using System.IO;
 using Holf.AllForOne;
 
-namespace PPCRental.UITests.Selenium.Config
+namespace SEP_FingerPrint.SeleniumTests.Config
 {
     public class IisExpressWebServer 
     {

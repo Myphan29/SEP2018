@@ -5,7 +5,7 @@ using Microsoft.Build.Execution;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Logging;
 
-namespace PPCRental.UITests.Selenium.Config
+namespace SEP_FingerPrint.SeleniumTests.Config
 {
     public class MsBuildDeployer
     {

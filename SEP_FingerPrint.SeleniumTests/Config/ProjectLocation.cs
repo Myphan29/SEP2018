@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace PPCRental.UITests.Selenium.Config
+namespace SEP_FingerPrint.SeleniumTests.Config
 {
     public interface IProjectLocation
     {

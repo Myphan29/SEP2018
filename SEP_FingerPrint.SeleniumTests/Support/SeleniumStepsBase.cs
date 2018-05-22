@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace PPCRental.UITests.Selenium.Support
+namespace SEP_FingerPrint.SeleniumTests.Support
 {
     public abstract class SeleniumStepsBase
     {

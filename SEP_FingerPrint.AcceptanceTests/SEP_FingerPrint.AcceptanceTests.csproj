@@ -167,9 +167,9 @@
       <Project>{98712b8b-cede-4e5e-821e-617496fee783}</Project>
       <Name>SEP_FingerPrint.AcceptanceTests.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.UITests.Selenium.csproj">
+    <ProjectReference Include="..\SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.SeleniumTests.csproj">
       <Project>{1b3c8870-9270-4b11-978d-ea4d72672c19}</Project>
-      <Name>SEP_FingerPrint.UITests.Selenium</Name>
+      <Name>SEP_FingerPrint.SeleniumTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\SEP_FingerPrint\SEP_FingerPrint.csproj">
       <Project>{ec30bbc7-0b86-4241-be40-1408b990c578}</Project>
