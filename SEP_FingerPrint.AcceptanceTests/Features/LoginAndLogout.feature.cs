@@ -139,7 +139,7 @@ this.FeatureBackground();
 #line 17
  testRunner.When("User enter UserName = asdasda and Password = 123456", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
- testRunner.Then("Appear message \"Tài khoản hoặc mật khẩu không đúng.\" because wrong username", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Appear message \"Tài khoản không tồn tại.\" because wrong username", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -175,7 +175,7 @@ this.FeatureBackground();
 #line 25
  testRunner.When("User enter UserName = t150004 and Password = 123456 (trạng thái: \"disable\")", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
- testRunner.Then("Appear message \"Tài khoản đang bị khóa.\" because account was disable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Appear message \"Tài khoản đang bị khoá.\" because account was disable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -15,7 +15,7 @@ Scenario: Login with account admin successful
 
 Scenario: Login with account unsuccessful with wrong username
 	When User enter UserName = asdasda and Password = 123456
-	Then Appear message "Tài khoản hoặc mật khẩu không đúng." because wrong username
+	Then Appear message "Tài khoản không tồn tại." because wrong username
 
 Scenario: Login with account unsuccessful with wrong password
 	When User enter UserName = t150001 and Password = 454546546546
@@ -23,7 +23,7 @@ Scenario: Login with account unsuccessful with wrong password
 
 Scenario: Login with account unsuccessful because disable
 	When User enter UserName = t150004 and Password = 123456 (trạng thái: "disable")
-	Then Appear message "Tài khoản đang bị khóa." because account was disable
+	Then Appear message "Tài khoản đang bị khoá." because account was disable
 
 Scenario: Login with account unsuccessful because account don't exist
 	When User enter UserName = asdasd and Password =adsadadas 
