@@ -11,12 +11,12 @@ namespace SEP_FingerPrint.Models
         [Key]
         [Required(ErrorMessage = "Mời nhập lại mật khẩu")]
         [StringLength(100, ErrorMessage = "{0} phải có ít nhât {2} kí tự.", MinimumLength = 6)]
-        [Display(Name = "Mật khẩu:")]
+        [Display(Name = "Password")]
         public string matkhau { set; get; }
 
         [Required(ErrorMessage = "Mời nhập lại mật khẩu")]      
         [Compare("matkhau", ErrorMessage = "Mật khẩu không khớp.")]
-        [Display(Name = "Mật khẩu:")]
+        [Display(Name = "ConfirmPassword")]
         public string nhaplaimatkhau { set; get; }
     }
 }

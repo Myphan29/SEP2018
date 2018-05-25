@@ -1,0 +1,1 @@
+﻿#error (28:1): Feature file already contains a scenario with name 'Reset password user unsuccesfull'
