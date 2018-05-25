@@ -2,9 +2,9 @@
 using System.Configuration;
 using System.Diagnostics;
 using OpenQA.Selenium;
-using PPCRental.UITests.Selenium.Config;
+using SEP_FingerPrint.SeleniumTests.Config;
 
-namespace PPCRental.UITests.Selenium.Support
+namespace SEP_FingerPrint.SeleniumTests.Support
 {
     public class SeleniumController
     {

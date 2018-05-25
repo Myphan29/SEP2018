@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint", "SEP_Fing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.UnitTests", "SEP_FingerPrint.UnitTests\SEP_FingerPrint.UnitTests.csproj", "{18D383D3-6075-4482-97CB-13628F8F4DED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.UITests.Selenium", "SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.UITests.Selenium.csproj", "{1B3C8870-9270-4B11-978D-EA4D72672C19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.SeleniumTests", "SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.SeleniumTests.csproj", "{1B3C8870-9270-4B11-978D-EA4D72672C19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.AcceptanceTests", "SEP_FingerPrint.AcceptanceTests\SEP_FingerPrint.AcceptanceTests.csproj", "{36A25670-40E4-4B83-A5FA-AC411F811BCE}"
 EndProject

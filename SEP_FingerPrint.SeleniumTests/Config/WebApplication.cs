@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PPCRental.UITests.Selenium.Config
+namespace SEP_FingerPrint.SeleniumTests.Config
 {
     /// <summary>
     /// Defines a web application that exists at a location and can be deployed to a certain port number.

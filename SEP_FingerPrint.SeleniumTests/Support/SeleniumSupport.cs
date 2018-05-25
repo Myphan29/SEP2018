@@ -1,9 +1,9 @@
 ﻿using System.Configuration;
 using System.Text;
 using TechTalk.SpecFlow;
-using PPCRental.UITests.Selenium.Config;
+using SEP_FingerPrint.SeleniumTests.Config;
 
-namespace PPCRental.UITests.Selenium.Support
+namespace SEP_FingerPrint.SeleniumTests.Support
 {
     [Binding]
     public static class SeleniumSupport

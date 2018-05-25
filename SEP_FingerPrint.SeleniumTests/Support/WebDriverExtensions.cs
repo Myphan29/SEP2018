@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 
-namespace PPCRental.UITests.Selenium.Support
+namespace SEP_FingerPrint.SeleniumTests.Support
 {
     public static class WebDriverExtensions
     {

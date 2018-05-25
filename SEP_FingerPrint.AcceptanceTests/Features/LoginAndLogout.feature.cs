@@ -101,9 +101,135 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line 9
- testRunner.When("User enter UserName = \'t150001\' and Password = \'123456\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("User enter UserName = t150001 and Password = 123456 of teacher", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("I can see the button đăng xuất and name of me", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account admin successful")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountAdminSuccessful()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account admin successful", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 13
+ testRunner.When("User enter UserName = admin and Password = 123456 of admin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+ testRunner.Then("I can see the button đăng xuất and name of admin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful with wrong username")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulWithWrongUsername()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful with wrong username", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 17
+ testRunner.When("User enter UserName = asdasda and Password = 123456", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
+ testRunner.Then("Appear message \"Tài khoản không tồn tại.\" because wrong username", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful with wrong password")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulWithWrongPassword()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful with wrong password", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 21
+ testRunner.When("User enter UserName = t150001 and Password = 454546546546", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("Appear message \"Tài khoản hoặc mật khẩu không đúng.\" because wrong password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful because disable")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulBecauseDisable()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful because disable", ((string[])(null)));
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 25
+ testRunner.When("User enter UserName = t150004 and Password = 123456 (trạng thái: \"disable\")", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("Appear message \"Tài khoản đang bị khoá.\" because account was disable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful because account don\'t exist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulBecauseAccountDontExist()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful because account don\'t exist", ((string[])(null)));
+#line 28
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 29
+ testRunner.When("User enter UserName = asdasd and Password =adsadadas", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+ testRunner.Then("Appear message \"Tài khoản không tồn tại.\" because account don\'t exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful because don\'t type username")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulBecauseDontTypeUsername()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful because don\'t type username", ((string[])(null)));
+#line 32
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 33
+ testRunner.When("User enter UserName = and Password = adsadadas", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.Then("Appear message \"Hãy điền tên tài khoản\" becasause user don\'t type username", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Login with account unsuccessful because don\'t type password")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "LoginAndLogout")]
+        public virtual void LoginWithAccountUnsuccessfulBecauseDontTypePassword()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with account unsuccessful because don\'t type password", ((string[])(null)));
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 37
+ testRunner.When("User enter UserName =asdasdasd and Password =", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 38
+ testRunner.Then("Appear message \"Hãy điền mật khẩu\" user don\'t type password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
