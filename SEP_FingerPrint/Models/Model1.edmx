@@ -4,26 +4,34 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Sep2018Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Sep2018Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BuoiHoc">
           <Key>
             <PropertyRef Name="MBH" />
           </Key>
           <Property Name="MBH" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Phong" Type="nvarchar" MaxLength="50" />
-          <Property Name="Ngay" Type="date" />
-          <Property Name="GioBatDau" Type="time" Precision="7" />
-          <Property Name="GioKetThuc" Type="time" Precision="7" />
+          <Property Name="Phong" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ngay" Type="date" Nullable="false" />
+          <Property Name="GioBatDau" Type="time" Precision="7" Nullable="false" />
+          <Property Name="GioKetThuc" Type="time" Precision="7" Nullable="false" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="note" Type="nvarchar" MaxLength="50" />
           <Property Name="MLH" Type="varchar" MaxLength="10" />
-          <Property Name="MKH" Type="varchar" MaxLength="10" />
+          <Property Name="MKH" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Absent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Attend" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DanhSachLop">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="MSV" Type="varchar" MaxLength="10" />
           <Property Name="MKH" Type="varchar" MaxLength="10" />
@@ -38,6 +46,7 @@
           <Property Name="TrangThai" Type="int" />
           <Property Name="MSV" Type="varchar" MaxLength="10" />
           <Property Name="MBH" Type="varchar" MaxLength="10" />
+          <Property Name="MKH" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="GiangVien">
           <Key>
@@ -48,7 +57,8 @@
           <Property Name="NgaySinh" Type="date" />
           <Property Name="GioiTinh" Type="bit" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
-          <Property Name="IDTaiKhoan" Type="int" />
+          <Property Name="IDTaiKhoan" Type="int" Nullable="false" />
+          <Property Name="IDConf" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -97,13 +107,14 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenTK" Type="varchar" MaxLength="50" />
-          <Property Name="matkhau" Type="varchar" MaxLength="100" />
+          <Property Name="TenTK" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="matkhau" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Vaitro" Type="int" Nullable="false" />
           <Property Name="Trangthai" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_BuoiHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="1" />
           <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
@@ -150,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DiemDanh_BuoiHoc">
+        <Association Name="FK_DiemDanh_BuoiHoc1">
           <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="0..1" />
           <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
           <ReferentialConstraint>
@@ -159,6 +170,18 @@
             </Principal>
             <Dependent Role="DiemDanh">
               <PropertyRef Name="MBH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiemDanh_KhoaHoc">
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhoaHoc">
+              <PropertyRef Name="MKH" />
+            </Principal>
+            <Dependent Role="DiemDanh">
+              <PropertyRef Name="MKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -174,8 +197,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GiangVien_CauHinh">
+          <End Role="CauHinh" Type="Self.CauHinh" Multiplicity="1" />
+          <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CauHinh">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiangVien">
+              <PropertyRef Name="IDConf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GiangVien_TaiKhoan">
-          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
           <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaiKhoan">
@@ -222,8 +257,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="PivotAttendance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MKH" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Sep2018ModelStoreContainer">
           <EntitySet Name="BuoiHoc" EntityType="Self.BuoiHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CauHinh" EntityType="Self.CauHinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhSachLop" EntityType="Self.DanhSachLop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiemDanh" EntityType="Self.DiemDanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiangVien" EntityType="Self.GiangVien" Schema="dbo" store:Type="Tables" />
@@ -248,13 +318,21 @@
             <End Role="SinhVien" EntitySet="SinhVien" />
             <End Role="DanhSachLop" EntitySet="DanhSachLop" />
           </AssociationSet>
-          <AssociationSet Name="FK_DiemDanh_BuoiHoc" Association="Self.FK_DiemDanh_BuoiHoc">
+          <AssociationSet Name="FK_DiemDanh_BuoiHoc1" Association="Self.FK_DiemDanh_BuoiHoc1">
             <End Role="BuoiHoc" EntitySet="BuoiHoc" />
+            <End Role="DiemDanh" EntitySet="DiemDanh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiemDanh_KhoaHoc" Association="Self.FK_DiemDanh_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
             <End Role="DiemDanh" EntitySet="DiemDanh" />
           </AssociationSet>
           <AssociationSet Name="FK_DiemDanh_SinhVien" Association="Self.FK_DiemDanh_SinhVien">
             <End Role="SinhVien" EntitySet="SinhVien" />
             <End Role="DiemDanh" EntitySet="DiemDanh" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiangVien_CauHinh" Association="Self.FK_GiangVien_CauHinh">
+            <End Role="CauHinh" EntitySet="CauHinh" />
+            <End Role="GiangVien" EntitySet="GiangVien" />
           </AssociationSet>
           <AssociationSet Name="FK_GiangVien_TaiKhoan" Association="Self.FK_GiangVien_TaiKhoan">
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
@@ -273,7 +351,8 @@
             <End Role="LichHoc" EntitySet="LichHoc" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Sep2018Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -282,23 +361,32 @@
             <PropertyRef Name="MBH" />
           </Key>
           <Property Name="MBH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Phong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ngay" Type="DateTime" Precision="0" />
-          <Property Name="GioBatDau" Type="Time" Precision="7" />
-          <Property Name="GioKetThuc" Type="Time" Precision="7" />
+          <Property Name="Phong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GioBatDau" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="GioKetThuc" Type="Time" Nullable="false" Precision="7" />
           <Property Name="TrangThai" Type="Boolean" />
           <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MLH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_BuoiHoc_KhoaHoc" FromRole="BuoiHoc" ToRole="KhoaHoc" />
           <NavigationProperty Name="LichHoc" Relationship="Self.FK_BuoiHoc_LichHoc" FromRole="BuoiHoc" ToRole="LichHoc" />
-          <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_BuoiHoc" FromRole="BuoiHoc" ToRole="DiemDanh" />
+          <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_BuoiHoc1" FromRole="BuoiHoc" ToRole="DiemDanh" />
+        </EntityType>
+        <EntityType Name="CauHinh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Absent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Attend" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GiangViens" Relationship="Self.FK_GiangVien_CauHinh" FromRole="CauHinh" ToRole="GiangVien" />
         </EntityType>
         <EntityType Name="DanhSachLop">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -315,7 +403,9 @@
           <Property Name="TrangThai" Type="Int32" />
           <Property Name="MSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MBH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BuoiHoc" Relationship="Self.FK_DiemDanh_BuoiHoc" FromRole="DiemDanh" ToRole="BuoiHoc" />
+          <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BuoiHoc" Relationship="Self.FK_DiemDanh_BuoiHoc1" FromRole="DiemDanh" ToRole="BuoiHoc" />
+          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_DiemDanh_KhoaHoc" FromRole="DiemDanh" ToRole="KhoaHoc" />
           <NavigationProperty Name="SinhVien" Relationship="Self.FK_DiemDanh_SinhVien" FromRole="DiemDanh" ToRole="SinhVien" />
         </EntityType>
         <EntityType Name="GiangVien">
@@ -327,7 +417,9 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="GioiTinh" Type="Boolean" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDTaiKhoan" Type="Int32" />
+          <Property Name="IDTaiKhoan" Type="Int32" Nullable="false" />
+          <Property Name="IDConf" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CauHinh" Relationship="Self.FK_GiangVien_CauHinh" FromRole="GiangVien" ToRole="CauHinh" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_GiangVien_TaiKhoan" FromRole="GiangVien" ToRole="TaiKhoan" />
           <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KhoaHoc_GiangVien" FromRole="GiangVien" ToRole="KhoaHoc" />
         </EntityType>
@@ -345,6 +437,7 @@
           <Property Name="MGV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BuoiHocs" Relationship="Self.FK_BuoiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BuoiHoc" />
           <NavigationProperty Name="DanhSachLops" Relationship="Self.FK_DanhSachLop_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhSachLop" />
+          <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_KhoaHoc" FromRole="KhoaHoc" ToRole="DiemDanh" />
           <NavigationProperty Name="GiangVien" Relationship="Self.FK_KhoaHoc_GiangVien" FromRole="KhoaHoc" ToRole="GiangVien" />
           <NavigationProperty Name="MonHoc" Relationship="Self.FK_KhoaHoc_MonHoc" FromRole="KhoaHoc" ToRole="MonHoc" />
           <NavigationProperty Name="LichHocs" Relationship="Self.FK_LichHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="LichHoc" />
@@ -388,14 +481,15 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenTK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="matkhau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TenTK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="matkhau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Vaitro" Type="Int32" Nullable="false" />
           <Property Name="Trangthai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="GiangViens" Relationship="Self.FK_GiangVien_TaiKhoan" FromRole="TaiKhoan" ToRole="GiangVien" />
         </EntityType>
         <Association Name="FK_BuoiHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="1" />
           <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
@@ -418,7 +512,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DiemDanh_BuoiHoc">
+        <Association Name="FK_DiemDanh_BuoiHoc1">
           <End Role="BuoiHoc" Type="Self.BuoiHoc" Multiplicity="0..1" />
           <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
           <ReferentialConstraint>
@@ -427,6 +521,18 @@
             </Principal>
             <Dependent Role="DiemDanh">
               <PropertyRef Name="MBH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiangVien_CauHinh">
+          <End Role="CauHinh" Type="Self.CauHinh" Multiplicity="1" />
+          <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CauHinh">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiangVien">
+              <PropertyRef Name="IDConf" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -454,6 +560,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DiemDanh_KhoaHoc">
+          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
+          <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhoaHoc">
+              <PropertyRef Name="MKH" />
+            </Principal>
+            <Dependent Role="DiemDanh">
+              <PropertyRef Name="MKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DiemDanh_SinhVien">
           <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
           <End Role="DiemDanh" Type="Self.DiemDanh" Multiplicity="*" />
@@ -467,7 +585,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GiangVien_TaiKhoan">
-          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
           <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaiKhoan">
@@ -516,6 +634,7 @@
         </Association>
         <EntityContainer Name="Sep2018Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BuoiHocs" EntityType="Self.BuoiHoc" />
+          <EntitySet Name="CauHinhs" EntityType="Self.CauHinh" />
           <EntitySet Name="DanhSachLops" EntityType="Self.DanhSachLop" />
           <EntitySet Name="DiemDanhs" EntityType="Self.DiemDanh" />
           <EntitySet Name="GiangViens" EntityType="Self.GiangVien" />
@@ -532,9 +651,13 @@
             <End Role="LichHoc" EntitySet="LichHocs" />
             <End Role="BuoiHoc" EntitySet="BuoiHocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DiemDanh_BuoiHoc" Association="Self.FK_DiemDanh_BuoiHoc">
+          <AssociationSet Name="FK_DiemDanh_BuoiHoc1" Association="Self.FK_DiemDanh_BuoiHoc1">
             <End Role="BuoiHoc" EntitySet="BuoiHocs" />
             <End Role="DiemDanh" EntitySet="DiemDanhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiangVien_CauHinh" Association="Self.FK_GiangVien_CauHinh">
+            <End Role="CauHinh" EntitySet="CauHinhs" />
+            <End Role="GiangVien" EntitySet="GiangViens" />
           </AssociationSet>
           <AssociationSet Name="FK_DanhSachLop_KhoaHoc" Association="Self.FK_DanhSachLop_KhoaHoc">
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
@@ -543,6 +666,10 @@
           <AssociationSet Name="FK_DanhSachLop_SinhVien" Association="Self.FK_DanhSachLop_SinhVien">
             <End Role="SinhVien" EntitySet="SinhViens" />
             <End Role="DanhSachLop" EntitySet="DanhSachLops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiemDanh_KhoaHoc" Association="Self.FK_DiemDanh_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="DiemDanh" EntitySet="DiemDanhs" />
           </AssociationSet>
           <AssociationSet Name="FK_DiemDanh_SinhVien" Association="Self.FK_DiemDanh_SinhVien">
             <End Role="SinhVien" EntitySet="SinhViens" />
@@ -564,7 +691,51 @@
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="LichHoc" EntitySet="LichHocs" />
           </AssociationSet>
+          <FunctionImport Name="PivotAttendance">
+            <Parameter Name="MKH" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Sep2018Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Sep2018Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -583,6 +754,15 @@
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="MLH" ColumnName="MLH" />
                 <ScalarProperty Name="MKH" ColumnName="MKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CauHinhs">
+            <EntityTypeMapping TypeName="Sep2018Model.CauHinh">
+              <MappingFragment StoreEntitySet="CauHinh">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Absent" ColumnName="Absent" />
+                <ScalarProperty Name="Attend" ColumnName="Attend" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -605,6 +785,7 @@
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MSV" ColumnName="MSV" />
                 <ScalarProperty Name="MBH" ColumnName="MBH" />
+                <ScalarProperty Name="MKH" ColumnName="MKH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -617,6 +798,7 @@
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="IDTaiKhoan" ColumnName="IDTaiKhoan" />
+                <ScalarProperty Name="IDConf" ColumnName="IDConf" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -671,12 +853,38 @@
               <MappingFragment StoreEntitySet="TaiKhoan">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TenTK" ColumnName="TenTK" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="matkhau" ColumnName="matkhau" />
                 <ScalarProperty Name="Vaitro" ColumnName="Vaitro" />
                 <ScalarProperty Name="Trangthai" ColumnName="Trangthai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PivotAttendance" FunctionName="Sep2018Model.Store.PivotAttendance" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Sep2018Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Sep2018Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Sep2018Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Sep2018Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sep2018Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Sep2018Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sep2018Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Sep2018Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Sep2018Model.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -20,8 +20,10 @@ namespace SEP_FingerPrint.Models
         public Nullable<int> TrangThai { get; set; }
         public string MSV { get; set; }
         public string MBH { get; set; }
+        public string MKH { get; set; }
     
         public virtual BuoiHoc BuoiHoc { get; set; }
+        public virtual KhoaHoc KhoaHoc { get; set; }
         public virtual SinhVien SinhVien { get; set; }
     }
 }

@@ -149,6 +149,8 @@ namespace SEP_FingerPrint.Controllers
         {
             int idTK = Convert.ToInt32(Session["ID"]);
             string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            API.GetAPI api = new API.GetAPI();
+            api.getCourse(idGV);
             return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
         }
         public ActionResult Settings()

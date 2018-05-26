@@ -10,16 +10,10 @@
 namespace SEP_FingerPrint.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DanhSachLop
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int ID { get; set; }
-        public string Note { get; set; }
-        public string MSV { get; set; }
-        public string MKH { get; set; }
-    
-        public virtual KhoaHoc KhoaHoc { get; set; }
-        public virtual SinhVien SinhVien { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
