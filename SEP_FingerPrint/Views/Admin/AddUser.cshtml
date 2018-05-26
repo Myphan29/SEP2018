@@ -10,15 +10,19 @@
 }
 <script>
     function KdzOn() {
-        var x = document.getElementById("mvlsRadioButton");
+        var x = document.getElementById("mvlsRadioButton1");
         x.style.display = "block";
+        var m = document.getElementById("mvlsRadioButton2");
+        m.style.display = "block";
     }
     function KdzOff() {
-        var x = document.getElementById("mvlsRadioButton");
-        
+        var x = document.getElementById("mvlsRadioButton1");
+        var m = document.getElementById("mvlsRadioButton2");
         if ($('#chkd').is(':checked')) {
             x.style.display = "none";
-            $("#mvlsRadioButton").children().prop('disabled', true);
+            m.style.display = "none";
+            $("#mvlsRadioButton1").children().prop('disabled', true);
+            $("#mvlsRadioButton2").children().prop('disabled', true);
         }
     }
 </script>
@@ -89,13 +93,21 @@
                     </div>
                     <hr />
                     <div id="mvls-block-def">
-                        <ul id="mvlsRadioButton">
+                        <ul id="mvlsRadioButton1">
+                            <li style="width: 20px"><i class="ti ti-id-badge" id="" aria-hidden="true"></i></li>
+                            <li class="form-group">
+                                @Html.TextBoxFor(model => model.MGV, new { placeholder = "Mã giảng viên", @class = "form-control", @autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(model => model.MGV, "", new { @class = "text-danger" })
+                            </li>
+                        </ul>
+                        <ul id="mvlsRadioButton2">
                             <li style="width: 20px"><i class="ti ti-user" id="" aria-hidden="true"></i></li>
                             <li class="form-group">
                                 @Html.TextBoxFor(model => model.HoTen, new { placeholder = "Họ tên giảng viên", @class = "form-control", @autofocus = "autofocus" })
                                 @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
                             </li>
                         </ul>
+
                         <ul>
                             <li style="width: 20px"><i class="fa fa-user" id="" aria-hidden="true"></i></li>
                             <li class="form-group">
