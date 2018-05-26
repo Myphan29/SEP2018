@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Attendance";
+﻿@model List<Dictionary<string, object>>
+@{
+    ViewBag.Title = "FullAttendance";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Layout = null;
     if (Session["ID"] != null)
@@ -14,10 +15,10 @@
         Response.Redirect("~/Home/Login");
     }
 }
-@model SEP_FingerPrint.Models.BuoiHoc
+
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Attendance</title>
+    <title>FullAttendance</title>
     @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
@@ -25,16 +26,18 @@
     <style>
         tbody tr td {
             color: black;
+            max-width: 200px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
 
     <script>
         function showTable() {
-            //var time = $("#listTime").val().split(" ", 1);
+
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -43,12 +46,6 @@
                 "info": true,
                 "searching": true,
                 "bFilter": false,
-                //"scrollX": "100%",
-                //"scrollY": ($(window).height() - 500),
-                //"sScrollXInner": "100%",
-                //"bScrollCollapse": true,
-                //"sAjaxSource": 'http://localhost:49354/Lecturer/LoadData/@Model.MKH/'+time,
-                "sAjaxSource": '@Url.Action("LoadFullData", "Lecturer")/@Model.MKH',
                 "bDestroy": true,
                 "bLengthChange": true,
                 "bPaginate": true,
@@ -71,39 +68,17 @@
                         "previous": "Trước đó"
                     },
                 },
-                "columns": [
-                    { "render": function (data, type, row) { return row[0]; } },
-                    { "render": function (data, type, row) { return (row[1]); } },
-                    { "render": function (data, type, row) { return (row[2]); } },
-                    { "render": function (data, type, row) { return (row[3]); } },
-                    { "render": function (data, type, row) { return (row[4]); } },
-                    { "render": function (data, type, row) { return (row[5]); } },
-                    //{
-                    //    "bSortable": false,
-                    //    "sClass": "TextCenter",
-                    //    "render": function (data, type, row) {
-                    //        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;<a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
-                    //    }, "targets": 0,
-                    //}
-                ],
-                rowCallback: function (row, data, index) {
-                    if (data[5] == 0) {
-                        $(row).find('td:eq(3)').css('background', '#ffa3a3');
-                    }
-                    if (data[5] == 1) {
-                        $(row).find('td:eq(3)').css('background', '#d9f9dd');
-                    }
-                }
+                "columnDefs": [
+                    { targets: 0, width: "20px" },
+                    { targets: 1, width: "40px" },
+                    { targets: 2, width: "150px" },
+                    { targets: 3, width: "40px" },
+                    { targets: 4, width: "100px" }
+                ]
             });
         }
         $(document).ready(function () {
             showTable();
-            @*$("#listTime").change(function () {
-                var time = $("#listTime").val().split(" ", 1);
-                var redirectURL = '@Url.Action("Attendance","Lecturer")';
-                window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.MKH/' + time;
-                //showTable();
-            })*@
         });
     </script>
 </head>
@@ -116,9 +91,8 @@
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">...</li>
-                <li class="breadcrumb-item active">...</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Điểm danh</li>
             </ol>
         </div>
     </div>
@@ -126,55 +100,79 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row">
-            <!-- /# column -->
-            @*<div id="example_length" style="width: 50%">
-                <label for="listTime" style="width: 20%">Chọn buổi học:</label>
-                <select id="listTime" style="width: 20%">
-                    <option>Select time</option>
-                    @{
-                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                        var listSel = db.BuoiHocs.ToList();
-                        foreach (var item in listSel)
-                        {
-                            <option>@item.MBH - @item.Ngay</option>
-                        }
-                    }
-                </select>
-            </div>*@
-            <div class="col-lg-12">
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>MSSV</th>
-                            <th>Họ và tên</th>
-                            @{
-                                SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                                var bh = db.BuoiHocs.ToList();
-                                foreach (var item in bh)
+        <div class="card">
+            <div class="">
+                <div class="col-lg-12">
+                    <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                @foreach (var row in Model.FirstOrDefault())
                                 {
-                                    <th>@item.Ngay.ToString().Split(' ')[0]</th>
+                                    if (@row.Key == "MSV")
+                                    {
+                                        <th>MSSV</th>
+                                    }
+                                    else if (@row.Key == "Ho")
+                                    {
+                                        <th>Họ</th>
+                                    }
+                                    else if (@row.Key == "Ten")
+                                    {
+                                        <th>Tên</th>
+                                    }
+                                    else if (@row.Key == "NgaySinh")
+                                    {
+                                        <th style="text-align: center">Ngày Sinh</th>
+
+                                    }
+
+                                    else
+                                    {
+                                        <th style="text-align: center">@row.Key</th>
+                                    }
+                                }
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 1;
+
+                                foreach (var row in Model)
+                                {
+                                    int s = 0;
+                                    int count = row.Count - 4;
+                                    <tr>
+                                        <td style="text-align: center">
+                                            @i
+                                        </td>
+                                        @foreach (var column in row)
+                                        {
+                                            if (@column.Value.ToString() == "0")
+                                            {
+                                                <td class="fa fa-close" style="display:table-cell;background: #ffa3a3;text-align: center"></td>
+                                            }
+                                            else if (@column.Value.ToString() == "1")
+                                            {
+                                                <td  class="fa fa-check" style="display:table-cell;background: #d9f9dd;text-align: center"></td>
+                                                s++;
+                                            }
+                                            else
+                                            {
+                                                <td>@column.Value</td>
+                                            }
+
+                                        }
+                                        <td>@s/@count</td>
+                                    </tr>
+                                    i++;
+
                                 }
                             }
-                            <th>MSSV</th>
-                            <th>MSSV</th>
-                            <th>MSSV</th>
-                        </tr>
-                    </thead>
-                    @*<tbody>
-                        <tr>
-                            <td>123456</td>
-                            <td>Trần Nguyễn Nhật Minh</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>123456</td>
-                            <td>123456</td>
-                            <td>123456</td>
-                        </tr>
-                    </tbody>*@
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- End PAge Content -->

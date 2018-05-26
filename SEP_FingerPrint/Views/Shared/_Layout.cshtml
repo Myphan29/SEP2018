@@ -23,161 +23,163 @@
 
 
 </head>
-<div>
-    <div class="fix-header fix-sidebar">
-        <!-- Preloader - style you can find in spinners.css -->
-        <div class="preloader">
-            <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-            </svg>
-        </div>
-        <div id="main-wrapper">
-            <!-- header header  -->
-            <div class="header">
-                <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                    <!-- Logo -->
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="">
-                            <!-- Logo icon -->
-                            <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
-                            <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
-                        </a>
-                    </div>
-                    <!-- End Logo -->
-                    <div class="navbar-collapse">
-                        <!-- toggle and nav items -->
-                        <ul class="navbar-nav mr-auto mt-md-0">
-                            <!-- This is  -->
-                            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                            <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-
-                        </ul>
-                        <!-- User profile and search -->
-                        @*<ul class="navbar-nav my-lg-0">
-
-                            <!-- Search -->
-                            <li class="nav-item hidden-sm-down search-box">
-                                <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
-                                <form class="app-search">
-                                    <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a>
-                                </form>
-                            </li>
-                            <!-- Profile -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/CustomLib/img/user-avt.jpg" alt="user" class="profile-pic" /></a>
-                                <div class="dropdown-menu dropdown-menu-right animated zoomIn">
-                                    <ul class="dropdown-user">
-                                        <li><a href="#"><i class="ti-user"></i> Profile</a></li>
-                                        <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Lecturer", new { @class = "fa fa-wrench" })</li>
-                                        <li>@Html.ActionLink("Log Out", "Logout", "Home", new { @class = "fa fa-power-off" })</li>
-
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>*@
-                    </div>
-                </nav>
+<body>
+    <div>
+        <div class="fix-header fix-sidebar">
+            <!-- Preloader - style you can find in spinners.css -->
+            <div class="preloader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                </svg>
             </div>
-            <!-- End header header -->
-            <!-- Left Sidebar  -->
-            <div class="left-sidebar">
-                <!-- Sidebar scroll-->
-                <div class="scroll-sidebar">
-                    <!-- Sidebar navigation-->
-                    <nav class="sidebar-nav">
-                        <div class="mvls-user-cp">
-                            <div class="mvls-user-avt">
-                                <img src="~/CustomLib/img/user-avt.jpg" />
-                            </div>
-                            <p style="margin-top: 35px">@Session["MSGV"]</p>
+            <div id="main-wrapper">
+                <!-- header header  -->
+                <div class="header">
+                    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                        <!-- Logo -->
+                        <div class="navbar-header">
                             @if (Session["Role"].Equals(1))
-                        {
-                            <p style="margin-top: -10px">@Session["TenGV"]</p>}
+                            {
+                                <a class="navbar-brand" href="/Lecturer/Course">
+                                    <!-- Logo icon -->
+                                    <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                    <!--End Logo icon -->
+                                    <!-- Logo text -->
+                                    <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="navbar-brand" href="/Admin/Teach">
+                                    <!-- Logo icon -->
+                                    <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                    <!--End Logo icon -->
+                                    <!-- Logo text -->
+                                    <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
+                                </a>
+                            }
                         </div>
-                        <ul id="sidebarnav">
-                            <li class="nav-devider"></li>
+                        <!-- End Logo -->
+                        <div class="navbar-collapse">
+                            <!-- toggle and nav items -->
+                            <ul class="navbar-nav mr-auto mt-md-0">
+                                <!-- This is  -->
+                                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                                <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
 
-                            <li class="nav-label">Features</li>
-                            @if (Session["Role"].Equals(1))
-                        {
-                            <li>
-                                <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
-                            </li>
-                            <li>
-                                <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
-                            </li>
-                            <li>
-                                <a href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Unknown</span></a>
-                            </li>
-                    }
-                    else
-                    {
-                            <li>
-                                <a href="/Admin/AddUser" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Thêm tài khoản</span></a>
-                                <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Quản lý giảng viên</span></a>
-                                <a href="/Admin/Edit" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kích hoạt tài khoản</span></a>
-                            </li>
-                }
-                            <li class="nav-label">SETTING</li>
-                            <li>
-                                <a href="/Lecturer/ChangePassword" aria-expanded="false"><i class="fa fa-wrench"></i><span class="hide-menu">Đổi mật khẩu</span></a>
-                            </li>
-                            @if (Session["Role"].Equals(1))
-                        {
-                            <li>
-                                <a href="/Lecturer/Settings" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
-                            </li>
-                    }
-                        </ul>
-                        <div class="mvls-aob">
-                            <a href="/Home/Logout" aria-expanded="false"><i class=""></i><span class="hide-menu" style="color: #ffffff">Đăng xuất</span></a>
+                            </ul>
+                            <!-- User profile and search -->
+                            @*<ul class="navbar-nav my-lg-0">
+
+                                    <!-- Search -->
+                                    <li class="nav-item hidden-sm-down search-box">
+                                        <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
+                                        <form class="app-search">
+                                            <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a>
+                                        </form>
+                                    </li>
+                                    <!-- Profile -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/CustomLib/img/user-avt.jpg" alt="user" class="profile-pic" /></a>
+                                        <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                            <ul class="dropdown-user">
+                                                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                                                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                                                <li>@Html.ActionLink("Change Password", "ChangePassword", "Lecturer", new { @class = "fa fa-wrench" })</li>
+                                                <li>@Html.ActionLink("Log Out", "Logout", "Home", new { @class = "fa fa-power-off" })</li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>*@
                         </div>
                     </nav>
-                    <!-- End Sidebar navigation -->
                 </div>
-                <!-- End Sidebar scroll-->
+                <!-- End header header -->
+                <!-- Left Sidebar  -->
+                <div class="left-sidebar">
+                    <!-- Sidebar scroll-->
+                    <div class="scroll-sidebar">
+                        <!-- Sidebar navigation-->
+                        <nav class="sidebar-nav">
+                            <div class="mvls-user-cp">
+                                <div class="mvls-user-avt">
+                                    <img src="~/CustomLib/img/user-avt.jpg" />
+                                </div>
+                                <p style="margin-top: 35px">@Session["MSGV"]</p>
+                                @if (Session["Role"].Equals(1))
+                                {
+                                    <p style="margin-top: -10px">@Session["TenGV"]</p>}
+                            </div>
+                            <ul id="sidebarnav">
+                                <li class="nav-devider"></li>
+
+                                <li class="nav-label">Features</li>
+                                @if (Session["Role"].Equals(1))
+                                {
+                                    <li>
+                                        <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
+                                    </li>
+                                    @*<li>
+                                            <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Unknown</span></a>
+                                        </li>*@
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Admin/AddUser" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Thêm tài khoản</span></a>
+                                        <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Quản lý giảng viên</span></a>
+                                        <a href="/Admin/Edit" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kích hoạt tài khoản</span></a>
+                                    </li>
+                                }
+                                <li class="nav-label">SETTING</li>
+                                <li>
+                                    <a href="/Lecturer/ChangePassword" aria-expanded="false"><i class="fa fa-wrench"></i><span class="hide-menu">Đổi mật khẩu</span></a>
+                                </li>
+                                @if (Session["Role"].Equals(1))
+                                {
+                                    <li>
+                                        <a href="/Lecturer/Settings/@Session["ID"]" aria-expanded="false"><i class="fa ti-settings"></i><span class="hide-menu">Cài đặt</span></a>
+                                    </li>
+                                }
+                            </ul>
+                            <div class="mvls-aob">
+                                <a href="/Home/Logout" aria-expanded="false"><i class="fa fa-power-off"></i><span class="hide-menu" style="color: #ffffff">&ensp;Đăng xuất</span></a>
+                            </div>
+                        </nav>
+                        <!-- End Sidebar navigation -->
+                    </div>
+                    <!-- End Sidebar scroll-->
+                </div>
+                <!-- End Left Sidebar  -->
+                @RenderBody()
+                <!-- footer -->
+                <footer class="footer" style="margin: 0; margin-bottom: 20px; position: inherit"> Marvellous Team © 2018 All rights reserved</footer>
+                <!-- End footer -->
             </div>
-            <!-- End Left Sidebar  -->
-            @RenderBody()
-            <!-- footer -->
-            <footer class="footer" style="margin: 0; margin-bottom: 20px; position: inherit"> Marvellous Team © 2018 All rights reserved</footer>
-            <!-- End footer -->
+            <!-- End Wrapper -->
+            <!-- All Jquery -->
+            <!--<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>-->
+            <!-- Bootstrap tether Core JavaScript -->
+            <script src="~/CustomLib/js/lib/bootstrap/js/popper.min.js"></script>
+            <script src="~/CustomLib/js/lib/bootstrap/js/bootstrap.min.js"></script>
+            <!-- slimscrollbar scrollbar JavaScript -->
+            <script src="~/CustomLib/js/jquery.slimscroll.js"></script>
+            <!--Menu sidebar -->
+            <script src="~/CustomLib/js/sidebarmenu.js"></script>
+            <!--stickey kit -->
+            <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
+            <script src="~/CustomLib/js/lib/datamap/d3.min.js"></script>
+            <script src="~/CustomLib/js/lib/datamap/topojson.js"></script>
+            <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel.min.js"></script>
+            <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel-init.js"></script>
+            <script src="~/CustomLib/js/custom.min.js"></script>
+
+            @RenderSection("jsFooter", required: false)
         </div>
-        <!-- End Wrapper -->
-        <!-- All Jquery -->
-        <!--<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>-->
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="~/CustomLib/js/lib/bootstrap/js/popper.min.js"></script>
-        <script src="~/CustomLib/js/lib/bootstrap/js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="~/CustomLib/js/jquery.slimscroll.js"></script>
-        <!--Menu sidebar -->
-        <script src="~/CustomLib/js/sidebarmenu.js"></script>
-        <!--stickey kit -->
-        <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-
-
-        <script src="~/CustomLib/js/lib/datamap/d3.min.js"></script>
-        <script src="~/CustomLib/js/lib/datamap/topojson.js"></script>
-        <script src="~/CustomLib/js/lib/datamap/datamaps.world.min.js"></script>
-        <script src="~/CustomLib/js/lib/datamap/datamap-init.js"></script>
-
-        <script src="~/CustomLib/js/lib/weather/jquery.simpleWeather.min.js"></script>
-        <script src="~/CustomLib/js/lib/weather/weather-init.js"></script>
-        <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel.min.js"></script>
-        <script src="~/CustomLib/js/lib/owl-carousel/owl.carousel-init.js"></script>
-
-
-        <script src="~/CustomLib/js/lib/chartist/chartist.min.js"></script>
-        <script src="~/CustomLib/js/lib/chartist/chartist-plugin-tooltip.min.js"></script>
-        <script src="~/CustomLib/js/lib/chartist/chartist-init.js"></script>
-        <!--Custom JavaScript -->
-        <script src="~/CustomLib/js/custom.min.js"></script>
-
-        @RenderSection("jsFooter", required: false)
-
     </div>
+</body>
 </html>

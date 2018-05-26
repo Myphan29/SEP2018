@@ -26,7 +26,7 @@ namespace SEP_FingerPrint.Controllers
             if (ModelState.IsValid)
             {
                 var result = Login(model.UserName, MD5Hash(model.Password));
-                if (result==true)
+                if (result == 1)
                 {
                     var userSession = new UserLogin();
                     Session.Add("USER_SESSION", userSession);
@@ -38,24 +38,52 @@ namespace SEP_FingerPrint.Controllers
                     Session["Role"] = userdetail.Vaitro;
                     if (Session["Role"].Equals(1))
                     {
-                        Session["TenGV"] = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == userdetail.ID).HoTen;
+                        Session["TenTK"] = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == userdetail.ID).Vaitro;
                         return RedirectToAction("Course", "Lecturer");
                     }
-                    else
+                    else if (Session["Role"].Equals(2))
                     {
                         return RedirectToAction("Teach", "Admin");
                     }
-
-                   
                 }
-                else
+                else if (result == 0)
                 {
-                    ModelState.AddModelError("", "Đăng nhập không thành công.");
+                    ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                }
+                else if (result == -1)
+                {
+                    ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                }
+                else if (result == -2)
+                {
+                    ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng.");
                 }
             }
             return View(model);
         }
-       
+        public int Login(string Tentk, string passWord)
+        {
+            var result = db.TaiKhoans.SingleOrDefault(x => x.TenTK == Tentk);
+            if (result == null)
+            {
+                return 0;
+            }
+            else
+            {
+                if (result.Trangthai == "Disable")
+                {
+                    return -1;
+                }
+                else
+                {
+                    if (result.matkhau == passWord)
+                        return 1;
+                    else
+                        return -2;
+                }
+            }
+        }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -90,19 +118,7 @@ namespace SEP_FingerPrint.Controllers
         {
             return db.TaiKhoans.SingleOrDefault(x => x.TenTK == userName);
         }
-        public bool Login(string userName, string passWord)
-        {
-            var result = db.TaiKhoans.Count(x => x.TenTK == userName && x.matkhau == passWord);
-            if (result > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
+       
+        
     }
 }

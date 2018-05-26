@@ -9,79 +9,80 @@
     }
 }
 <head>
-    <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
+    <style>
+        tbody tr td {
+            color: black;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#listUser').DataTable();
+        });
+    </script>
 </head>
 @section jsFooter{
     <script src="~/CustomLib/js/user.js"></script>
 
 }
-<div class="page-wrapper">
+    <div class="page-wrapper">
 
-    <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">User</h3>
-        </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
-                <li class="breadcrumb-item active">User</li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <form class="navbar-form navbar-left" role="search" action="@Url.Action("Search","Admin")" method="get">
-            <div class="form-group" id="Search">
-                <h3><input type="text" class="form-control" placeholder="Search" name="text"></h3>
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">User</h3>
             </div>
-            <h3>
-                <button type="submit" class="btn btn-success" id="SubmitSearch">Search</button>
-                <a class="btn btn-primary" href="/Admin/AddUser">Thêm mới</a>
-            </h3>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">User</li>
+                </ol>
+            </div>
+        </div>
 
-        </form>
-    </div>
-    @*<div class="row form-group">
-            <div class="col-md-12 align-self-auto">
-                <div class="col-md-4">
-                    <h3> <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" /></h3>
-                </div>
-                <div class="col-md-4">
-                    <h3>
-                        <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                        <a class="btn btn-primary" href="/Admin/AddUser">Thêm mới</a>
-                    </h3>
+        <div class="container-fluid">
+            <!-- Start Page Content -->
+            <div class="row">
+                <!-- /# column -->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>User</h4>
+                        </div>
+                        @*<div class="card-body">*@
+                        <div class="table-responsive" style="padding: 20px">
+                            <table id="listUser" class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Tài khoản</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@item.HoTen</td>
+                                        <td>@item.TaiKhoan.TenTK</td>
+                                        <td>
+                                            <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.TaiKhoan.ID">@item.TaiKhoan.Trangthai</button>
+                                        </td>
+                                       
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>*@
-
-    <div class="col-md-12 align-self-auto">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Tên</th>
-                        <th>Tài khoản</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                </thead>
-
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-
-                        <td>@item.HoTen</td>
-                        <td>@item.TaiKhoan.TenTK</td>
-                        <td>
-                            <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.TaiKhoan.ID">@item.TaiKhoan.Trangthai</button>
-                        </td>
-                    </tr>
-                }
-
-            </table>
         </div>
-    </div>
-</div>
-
+        </div>
+        
 

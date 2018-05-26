@@ -1,0 +1,66 @@
+﻿@model SEP_FingerPrint.Models.ResetPasswordModels
+@{
+
+    ViewBag.Title = "Reset Password";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["ID"] != null)
+    {
+        if (Convert.ToInt32(Session["Role"]) == 2)
+        {
+            Response.Redirect("~/Admin/ResetPassword");
+        }
+    }
+}
+<div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Reset mật khẩu</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Reset mật khẩu</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <div class="header-main">
+            <h2 style="text-align: center; width: 20% auto" id="myHeader">Reset mật khẩu</h2>
+            <div class="header-bottom">
+                <div class="header-right w3agile" style="width: auto ">
+                    <div class="header-left-bottom agileinfo">
+                        <form action="#" method="post">
+                            @*@Html.AntiForgeryToken()*@
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @*<div class="icon1">
+                                @Html.TextBoxFor(model => model.TenTK, new { placeholder = "Nhập Họ tên", @class = "input100", @autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(model => model.TenTK, "", new { @class = "text-danger" })
+                            </div>*@
+                            <div class="icon1">
+                                @*<input type="password" placeholder="Mật khẩu" name="password" required="" />*@
+                                @Html.PasswordFor(model => model.matkhau, new { placeholder = "Nhập mật khẩu", @class = "input100", @autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="icon1">
+                                @*<input type="password" placeholder="Mật khẩu" name="password" required="" />*@
+                                @Html.PasswordFor(model => model.nhaplaimatkhau, new { placeholder = "Nhập mật khẩu", @class = "input100", @autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(model => model.nhaplaimatkhau, "", new { @class = "text-danger" })
+                            </div>
+                            <div style="text-align: center">
+
+                                <div class="bottom" style="text-align: center">
+                                    <input type="submit" id="button" value="Reset" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

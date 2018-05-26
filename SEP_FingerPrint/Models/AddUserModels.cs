@@ -7,11 +7,15 @@ namespace SEP_FingerPrint.Models
 {
     public class Account
     {
-        [Required(ErrorMessage = "Mời nhập ID")]
-        public string ID { set; get; }
+        //[Required(ErrorMessage = "Mời nhập ID")]
+        //public int ID { set; get; }
 
-        [Required(ErrorMessage = "Mời nhập họ tên")]
-        [Display(Name = "Họ va` tên:")]
+        //[Required(ErrorMessage = "Mời nhập họ tên")]
+        [Display(Name = "Họ tên giảng viên:")]
+        public string HoTen { set; get; }
+
+        [Required(ErrorMessage = "Mời nhập tên đăng nhập")]
+        [Display(Name = "Tên đăng nhập:")]
         public string TenTK { set; get; }
 
         [Required(ErrorMessage = "Mời nhập mật khẩu")]

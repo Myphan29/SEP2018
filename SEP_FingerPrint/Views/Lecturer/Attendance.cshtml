@@ -14,25 +14,36 @@
         Response.Redirect("~/Home/Login");
     }
 }
-@model SEP_FingerPrint.Models.BuoiHoc
+@model SEP_FingerPrint.Models.DiemDanh
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Attendance</title>
-    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css" rel="stylesheet" />
-
     <style>
         tbody tr td {
             color: black;
         }
     </style>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>*@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
-
+    <script src="~/CustomLib/Attendance/jquery.nice-select.js"></script>
+    @*<link href="~/CustomLib/Attendance/nice-select.min.css" rel="stylesheet" />*@
+    <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
+        function eSwitch() {
+            currentVal = document.getElementById('eSwitch').value;
+            if (currentVal == "Off") {
+                document.getElementById("eSwitch").text('On');
+            } else {
+                document.getElementById("eSwitch").text('Off');
+            }
+        }
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
             $("#example").DataTable({
@@ -47,8 +58,8 @@
                 //"scrollY": ($(window).height() - 500),
                 //"sScrollXInner": "100%",
                 //"bScrollCollapse": true,
-                //"sAjaxSource": 'http://localhost:49354/Lecturer/LoadData/@Model.MKH/'+time,
-                "sAjaxSource": '@Url.Action("LoadData", "Lecturer")/@Model.MKH/@Model.MBH',
+                //"sAjaxSource": 'http://localhost:49354/Lecturer/LoadData/@Model.BuoiHoc.MKH/'+time,
+                "sAjaxSource": '@Url.Action("LoadData", "Lecturer")/@Model.BuoiHoc.MKH/@Model.BuoiHoc.MBH',
                 //"fnServerParams": function (aoData) {
                 //    aoData.push({ "name": "id", "value": "1" });
                 //},
@@ -76,45 +87,110 @@
                 },
                 "columns": [
                     { "render": function (data, type, row) { return row[0]; } },
-                    { "render": function (data, type, row) { return (row[1]); } },
+                    { "render": function (data, type, row) { return row[1]; } },
                     { "render": function (data, type, row) { return (row[2]); } },
                     { "render": function (data, type, row) { return (row[3]); } },
-                    //{ "render": function (data, type, row) { return (row[4]); } },
+                    { "render": function (data, type, row) { return (row[4]); } },
                     //{ "render": function (data, type, row) { return (row[5]); } },
                     //{ "render": function (data, type, row) { return (row[6]); } },
-                    { "render": function (data, type, row) { return (row[7]); } },
-                    //{
-                    //    "bSortable": false,
-                    //    "sClass": "TextCenter",
-                    //    "render": function (data, type, row) {
-                    //        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;<a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
-                    //    }, "targets": 0,
-                    //}
+                    //{ "render": function (data, type, row) { return (row[7]); } },
+                    { "render": function (data, type, row) { return (row[8]); } },
+                    {
+                        "bSortable": false,
+                        "sClass": "TextCenter",
+                        "targets": 0,
+                        "render": function (data, type, row) {
+                            //return '<a class="btn btn-" ></a>';
+                            //return '<div class= "tg-list-item" ><input class="tgl tgl-flat" id="cb5" type="checkbox" /><label class="tgl-btn" data-tg-on="Vắng" data-tg-off="Hiện diện" for="cb5"></label></div>';
+                            if (row[8] == 0) {
+                                return '<button class="fa fa-close btn btn-danger"></button>';
+                            } else {
+                                return '<button class="fa fa-check btn btn-primary"></button>';
+                            }
+                        }, 
+                       
+                    }
                 ],
                 rowCallback: function (row, data, index) {
-                    if (data[7] == 0) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '#ffa3a3', 'display': 'block', 'text-align': 'center' });
+                    if (data[8] == 0) {
+                        $(row).find('td:eq(5)').text("").addClass('fa fa-close').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Absent', 'display': 'block', 'text-align': 'center' });
                     }
-                    if (data[7] == 1) {
-                        $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '#d9f9dd', 'display': 'block', 'text-align': 'center' });
+                    if (data[8] == 1) {
+                        $(row).find('td:eq(5)').text("").addClass('fa fa-check').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Attend', 'display': 'block', 'text-align': 'center' });
                     }
-                    if (data[2] == "True") {
-                        $(row).find('td:eq(2)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
+                    if (data[3] == "True") {
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
                     }
                     else {
-                        $(row).find('td:eq(2)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
                     }
+                    $(row).find('td:eq(0)').css({ 'text-align': 'center' });
+                    $(row).find('td:eq(1)').css({ 'text-align': 'center' });
+                    $(row).find('td:eq(5)').css({ 'text-align': 'center' });
+                    $("#edit").hide();
+                    $(row).find('td:eq(6)').hide();
+                    $(".tgl-btn").click(function () {
+                        $(row).find('td:eq(6)').toggle();
+                        $(row).find('td:eq(5)').toggle();
+                        $("#edit").toggle();
+                        $("#done").toggle();
+                        //$("#done").text('Sửa');
+                        //$(row).find('td:eq(5)').addClass('btn btn-primary');
+                    });
+                    //if ($('.tgl-btn').data('clicked')) {
+                    //    $(row).find('td:eq(5)').hide();
+                    //    $(row).find('td:eq(6)').show();
+                    //    $("#edit").show();
+                    //} else {
+                    //    $(row).find('td:eq(5)').show();
+                    //    $(row).find('td:eq(6)').hide();
+                    //    $("#edit").hide();
+                    //    $("#done").show();
+                    ////}
+                    //$(".tgl-btn").toggle(function () {
+                    //    if ($('.tgl-btn').attr("data-tg-on") == 'Sửa điểm danh') {
+
+                    //    }
+                    //    $(row).find('td:eq(5)').hide();
+                    //    $(row).find('td:eq(6)').show();
+                    //    $("#edit").show();
+                    //});
                 }
             });
         }
+
+        $(document).ready(function () {
+            $('select').niceSelect();
+        });
         $(document).ready(function () {
             showTable();
             $("#listTime").change(function () {
                 var time = $("#listTime").val().split(" ", 1);
-                var redirectURL = '@Url.Action("Attendance","Lecturer")';
-                window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.MKH/' + time;
+                var redirectURL = '@Url.Action("Attendance", "Lecturer")';
+                window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.BuoiHoc.MKH/' + time;
                 //showTable();
             })
+
+            $('#editAtd').off('click').on('click', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data('id');
+                $.ajax({
+                    url: "/Lecturer/EditAtd",
+                    data: { id: id },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status == 0) {
+                            btn.text('Vắng');
+                        }
+                        else {
+                            btn.text('Hiện diện');
+                        }
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -123,13 +199,12 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Attendance</h3>
+            <h3 class="text-primary">Điểm danh - buổi @Model.MBH</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">...</li>
-                <li class="breadcrumb-item active">...</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Điểm danh</li>
             </ol>
         </div>
     </div>
@@ -137,37 +212,51 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row">
-            <!-- /# column -->
-            <div id="example_length" style="width: 50%">
-                <label for="listTime" style="width: 20%">Chọn buổi học:</label>
-                <select id="listTime" style="width: 20%">
-                    <option>Select time</option>
-                    @{
-                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                        var listSel = db.BuoiHocs.ToList();
-                        foreach (var item in listSel)
-                        {
-                            <option>@item.MBH - @item.Ngay</option>
+        <div class="card">
+            <div style="margin-left: 12px" class="row">
+                <!-- /# column -->
+                @*<input id="eSwitch" style="line-height:25px; position: absolute; right: 30px" type="button" class="btn btn-outline-primary" value="On" onclick="eSwitch();" href="~/Lecturer/RollupEditor/@Model.MBH">*@
+
+                <div class="tg-list-item">
+                    @*<h4>Skewed</h4>*@
+                    <input class="tgl tgl-skewed" id="cb3" type="checkbox" />
+                    <label class="tgl-btn" data-tg-on="Hoàn thành" data-tg-off="Sửa điểm danh" for="cb3"></label>
+                </div>
+
+                <div id="example_length">
+                    <select id="listTime">
+                        <option>Chọn buổi học</option>
+                        @{
+                            SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
+                            var listSel = db.BuoiHocs.ToList();
+                            foreach (var item in listSel)
+                            {
+                                <option>@item.MBH - @item.Ngay.ToShortDateString()</option>
+                            }
                         }
-                    }
-                </select>
-            </div>
-            <div class="col-lg-12">
-                <table id="example" class="ui celled table" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>MSSV</th>
-                            <th>Họ và tên</th>
-                            <th style="text-align:center">Giới tính</th>
-                            <th>Ngày sinh</th>
-                            @*<th>Mã BH</th>*@
-                            @*<th>Ngày</th>*@
-                            @*<th>Giờ</th>*@
-                            <th style="text-align:center">Trạng thái</th>
-                        </tr>
-                    </thead>
-                </table>
+                    </select>
+                </div>
+                <div class="col-lg-12">
+                    <hr />
+                    <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">STT</th>
+                                <th style="text-align: center">MSSV</th>
+                                <th>Họ tên</th>
+                                <th style="text-align:center">Giới tính</th>
+                                <th style="text-align: center">Ngày sinh</th>
+                                @*<th>Mã BH</th>*@
+                                @*<th>Ngày</th>*@
+                                @*<th>Giờ</th>*@
+                                <th id="done" style="text-align:center">
+                                    Trạng thái
+                                </th>
+                                <th id="edit" style="text-align: center">Sửa</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- End PAge Content -->

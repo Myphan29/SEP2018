@@ -14,12 +14,14 @@
 <head>
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+
     <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
     <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
     <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
-    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     <script>
         $(document).ready(function () {
             var events = [];
@@ -37,10 +39,8 @@
                                 title: v.Phong,
                                 start: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioBatDau).format('HH:mm:ss'),
                                 end: moment(v.Ngay).format('YYYY-MM-DD') + "T" + moment(v.GioKetThuc).format('HH:mm:ss'),
-
                             });
                         })
-
                         GenerateCalender(events);
                     },
                     error: function (error) {
@@ -112,8 +112,9 @@
                 openAddEditForm();
             })
 
-            $('#dtp1').datepicker({
-
+            $('#txtDay').datepicker({
+                uiLibrary: 'bootstrap4',
+                format:'dd/mm/yyyy'
             });
 
 
@@ -133,23 +134,23 @@
             $('#btnSave').click(function () {
                 //Validation/
                 if ($('#txtSubject').val().trim() == "") {
-                    alert('Subject required');
+                    alert('Yêu cầu nhập phòng');
                     return;
                 }
                 if ($('#txtStartTime').val().trim() == "") {
-                    alert('Start time required');
+                    alert('Yêu cầu nhập giờ bắt đầu ');
                     return;
                 }
                 if ($('#txtEndTime').val().trim() == "") {
-                    alert('End date and time required');
+                    alert('Yêu cầu nhập giờ kết thúc');
                     return;
                 }
 
                 else {
-                    var startDate = moment($('#txtStartTime').val(), "DD/MM/YYYY HH:mm A").toDate();
-                    var endDate = moment($('#txtEndTime').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var startDate = moment($('#txtStartTime').val(), "HH:mm A").toDate();
+                    var endDate = moment($('#txtEndTime').val(), "HH:mm A").toDate();
                     if (startDate > endDate) {
-                        alert('Invalid end time');
+                        alert('Giờ kết thúc phải lớn hơn giờ bắt đầu');
                         return;
                     }
                 }
@@ -179,7 +180,7 @@
                         }
                     },
                     error: function () {
-                        alert('Failed');
+                        alert('Dữ liệu nhập vào sai định dạng');
                     }
                 })
             }
@@ -188,6 +189,7 @@
 
 
 </head>
+@Html.AntiForgeryToken()
 <div class="page-wrapper">
     <!-- Bread crumb -->
     <div class="row page-titles">
@@ -258,26 +260,26 @@
 
                                     <div class="form-group">
                                         <label>Ngày</label>
-                                        <div class="input-group date" id="dtp1">
+                                        <div class="input-group date">
                                             <input type="text" id="txtDay" class="form-control" />
-                                            <span class="input-group-addon">
-                                                @*<span class="fa fa-calendar-o"></span>*@
-                                            </span>
                                         </div>
+                                      
+
                                     </div>
+
                                     <div class="form-group">
                                         <label>Giờ bắt đầu</label>
                                         <div class="input-group date">
                                             <input type="text" id="txtStartTime" class="form-control" />
-
                                         </div>
+                                       
                                     </div>
                                     <div class="form-group">
                                         <label>Giờ kết thúc</label>
                                         <div class="input-group date">
                                             <input type="text" id="txtEndTime" class="form-control" />
-
                                         </div>
+                                       
                                     </div>
                                     <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -292,6 +294,4 @@
     </div>
 
 </div>
-
-
 

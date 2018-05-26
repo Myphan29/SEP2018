@@ -36,6 +36,7 @@ namespace SEP_FingerPrint.Models
         public virtual DbSet<LichHoc> LichHocs { get; set; }
         public virtual DbSet<MonHoc> MonHocs { get; set; }
         public virtual DbSet<SinhVien> SinhViens { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
     
         public virtual int PivotAttendance(string mKH)
