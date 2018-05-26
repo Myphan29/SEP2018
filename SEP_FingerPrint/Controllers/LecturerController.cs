@@ -191,11 +191,11 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
-            string idGV = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             API.GetAPI api = new API.GetAPI();
-            api.getCourse(idGV);
-            string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
-            return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
+            api.getCourse(mgv);
+            //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
+            return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
         }
         [HttpGet]
         public ActionResult ChangePassword()
