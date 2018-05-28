@@ -77,7 +77,7 @@ namespace SEP_FingerPrint.Controllers
                             ImportTeacherAfterCreateAccount.IDConf = ID_Keeper;
                             int y = ImportTeacherAfterCreateAccount.IDConf;
                             ImportTeacherAfterCreateAccount.HoTen = user.HoTen;
-                            ImportTeacherAfterCreateAccount.MGV = user.TenTK;
+                            ImportTeacherAfterCreateAccount.MGV = model.MGV;
                             db.GiangViens.Add(ImportTeacherAfterCreateAccount);
                             // assign config
                             ImportTeacherConfig.ID = ID_Keeper;

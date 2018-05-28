@@ -14,6 +14,10 @@ namespace SEP_FingerPrint.Models
         [Display(Name = "Họ tên giảng viên:")]
         public string HoTen { set; get; }
 
+        [Display(Name = "Mã giảng viên:")]
+        public string MGV { set; get; }
+
+
         [Required(ErrorMessage = "Mời nhập tên đăng nhập")]
         [Display(Name = "Tên đăng nhập:")]
         public string TenTK { set; get; }
