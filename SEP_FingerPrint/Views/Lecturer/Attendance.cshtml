@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Attendance";
+    ViewBag.Title = "Điểm danh";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Layout = null;
     if (Session["ID"] != null)
@@ -36,16 +36,12 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
-        function eSwitch() {
-            currentVal = document.getElementById('eSwitch').value;
-            if (currentVal == "Off") {
-                document.getElementById("eSwitch").text('On');
-            } else {
-                document.getElementById("eSwitch").text('Off');
-            }
-        }
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
+            //var tmpID = [];
+            //$('#listID').find('option').each(function () {
+            //    tmpID.push($(this).val())
+            //});
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -100,15 +96,12 @@
                         "sClass": "TextCenter",
                         "targets": 0,
                         "render": function (data, type, row) {
-                            //return '<a class="btn btn-" ></a>';
-                            //return '<div class= "tg-list-item" ><input class="tgl tgl-flat" id="cb5" type="checkbox" /><label class="tgl-btn" data-tg-on="Vắng" data-tg-off="Hiện diện" for="cb5"></label></div>';
                             if (row[8] == 0) {
-                                return '<button class="fa fa-close btn btn-danger"></button>';
+                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="@Model.ID" type="checkbox" /><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="@Model.ID"></label></div>';
                             } else {
-                                return '<button class="fa fa-check btn btn-primary"></button>';
+                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="@Model.ID" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="@Model.ID"></label></div>';
                             }
-                        }, 
-                       
+                        }
                     }
                 ],
                 rowCallback: function (row, data, index) {
@@ -128,14 +121,13 @@
                     $(row).find('td:eq(1)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(5)').css({ 'text-align': 'center' });
                     $("#edit").hide();
+                    $("div.tg-list-item").show();
                     $(row).find('td:eq(6)').hide();
                     $(".tgl-btn").click(function () {
                         $(row).find('td:eq(6)').toggle();
                         $(row).find('td:eq(5)').toggle();
                         $("#edit").toggle();
                         $("#done").toggle();
-                        //$("#done").text('Sửa');
-                        //$(row).find('td:eq(5)').addClass('btn btn-primary');
                     });
                     //if ($('.tgl-btn').data('clicked')) {
                     //    $(row).find('td:eq(5)').hide();
@@ -157,8 +149,7 @@
                     //});
                 }
             });
-        }
-
+            }
         $(document).ready(function () {
             $('select').niceSelect();
         });
@@ -170,27 +161,6 @@
                 window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.BuoiHoc.MKH/' + time;
                 //showTable();
             })
-
-            $('#editAtd').off('click').on('click', function (e) {
-                e.preventDefault();
-                var btn = $(this);
-                var id = btn.data('id');
-                $.ajax({
-                    url: "/Lecturer/EditAtd",
-                    data: { id: id },
-                    dataType: "json",
-                    type: "POST",
-                    success: function (response) {
-                        console.log(response);
-                        if (response.status == 0) {
-                            btn.text('Vắng');
-                        }
-                        else {
-                            btn.text('Hiện diện');
-                        }
-                    }
-                });
-            });
         });
     </script>
 </head>
@@ -215,10 +185,7 @@
         <div class="card">
             <div style="margin-left: 12px" class="row">
                 <!-- /# column -->
-                @*<input id="eSwitch" style="line-height:25px; position: absolute; right: 30px" type="button" class="btn btn-outline-primary" value="On" onclick="eSwitch();" href="~/Lecturer/RollupEditor/@Model.MBH">*@
-
-                <div class="tg-list-item">
-                    @*<h4>Skewed</h4>*@
+                <div style="position:absolute; right: 30px; display: none" class="tg-list-item">
                     <input class="tgl tgl-skewed" id="cb3" type="checkbox" />
                     <label class="tgl-btn" data-tg-on="Hoàn thành" data-tg-off="Sửa điểm danh" for="cb3"></label>
                 </div>
@@ -235,6 +202,17 @@
                             }
                         }
                     </select>
+                    @*<select id="listID" style="display:none">
+                        <option>Chọn buổi học</option>
+                        @{
+                            SEP_FingerPrint.Models.Sep2018Entities db2 = new SEP_FingerPrint.Models.Sep2018Entities();
+                            var listId = db.DiemDanhs.Where(x => x.MBH == Model.MBH).ToList();
+                            foreach (var item in listId)
+                            {
+                                <option>@item.MSV</option>
+                            }
+                        }
+                    </select>*@
                 </div>
                 <div class="col-lg-12">
                     <hr />
@@ -263,3 +241,5 @@
     </div>
     <!-- End Container fluid  -->
 </div>
+
+
