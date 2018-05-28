@@ -74,33 +74,8 @@ namespace SEP_FingerPrint.Controllers
                     v.Attend = e.Attend;
                     v.Absent = e.Absent;
                 }
-
-                //else
-                //{
-                //    e.ID = id;
-                //    gun.CauHinhs.Add(e);
-                //}
                 gun.SaveChanges();
                 status = true;
-
-                //var hex = gun.CauHinhs.Where(x => x.ID == id).FirstOrDefault();
-                //    if (hex != null)
-                //    {
-
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-                //    else
-                //    {
-                //        var re = new CauHinh();
-                //        re.ID=id;
-                //        pistol.Attend = re.Attend;
-                //        pistol.Absent = re.Absent;
-                //        gun.CauHinhs.Add(re);
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-
             }
             return new JsonResult { Data = new { status = status } };
         }
@@ -212,7 +187,6 @@ namespace SEP_FingerPrint.Controllers
             List<KhoaHoc> kh = initData(mgv);
             return PartialView("_LoadCourse", kh);
         }
-
         [HttpGet]
         public ActionResult ChangePassword()
         {
