@@ -69,10 +69,7 @@
 */
 @font-face {
     font-family: 'HelveticaNeue';
-    src: url('../fonts/helvetica/HelveticaNeue.ttf') format('truetype'), 
-         url('../fonts/helvetica/HelveticaNeue.svg') format('svg'),
-         url('../fonts/helvetica/HelveticaNeue.woff') format('woff'),
-         url('../fonts/helvetica/HelveticaNeue.eot') format('embedded-opentype');
+    src: url('../fonts/helvetica/HelveticaNeue.ttf') format('truetype'), url('../fonts/helvetica/HelveticaNeue.svg') format('svg'), url('../fonts/helvetica/HelveticaNeue.woff') format('woff'), url('../fonts/helvetica/HelveticaNeue.eot') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -2062,6 +2059,7 @@ textarea {
         .mini-sidebar .sidebar-nav #sidebarnav li {
             position: relative;
         }
+
         .mini-sidebar .sidebar-nav #sidebarnav > li > ul {
             position: absolute;
             left: 60px;
@@ -2256,6 +2254,7 @@ textarea {
     font-weight: 400;
     border-radius: 4px;
     font-size: 75%;
+    font-family: HelveticaNeue;
 }
 
 .label-rounded {
@@ -8379,7 +8378,7 @@ tbody tr td {
 .content_component-text-detail {
     margin: 0 auto;
     width: 70%;
-}  
+}
 
 .mvls-aob {
     position: fixed;
@@ -8391,12 +8390,14 @@ tbody tr td {
     text-align: center;
     line-height: 40px;
 }
+
 @media (min-width: 768px) {
     .mini-sidebar .mvls-aob {
         width: 60px;
         height: 39px;
     }
 }
+
 .cp-block-1 {
     width: 300px;
     height: 550px;
@@ -8482,15 +8483,16 @@ tbody tr td {
     margin: 0 auto;
     margin-left: -15px;
 }
+
     #mvls-block-def ul {
         width: 420px;
         margin: 0 auto;
     }
 
-    #mvls-block-def ul li {
-        list-style-type: none;
-        display:inline-block
-    }
+        #mvls-block-def ul li {
+            list-style-type: none;
+            display: inline-block
+        }
 
 
 /* */
@@ -8503,6 +8505,7 @@ tbody tr td {
 .tg-list-item {
     margin: 0 2em;
 }
+
 .tgl {
     display: none;
 }
@@ -8526,6 +8529,7 @@ tbody tr td {
             height: 2.6em;
             position: relative;
             cursor: pointer;
+            font-family: HelveticaNeue;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -9177,7 +9181,167 @@ tbody tr td {
 }
 
 
-.render_return {
-    width: 80px;
-    margin: 0 auto;
+.always-right {
+    position: absolute;
+    right: 27px;
+    margin-top: -8px;
 }
+
+.face-button {
+    height: 40px;
+    display: inline-block;
+    border: 3px solid #2f3d4a;
+    font-family: HelveticaNeue;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #2f3d4a;
+    overflow: hidden;
+    width: 160px;
+    top: 15px;
+}
+
+    .face-button .icon {
+        margin-right: 6px;
+    }
+
+    .face-button .face-primary {
+        display: block;
+        padding: 0 32px;
+        line-height: 40px;
+        transition: margin .4s;
+    }
+
+    .face-button .face-secondary {
+        display: block;
+        padding: 0 32px;
+        line-height: 35px;
+        transition: margin .4s;
+    }
+
+    .face-button .face-primary {
+        background-color: #2f3d4a;
+        color: #fff;
+    }
+
+    .face-button:hover .face-primary {
+        margin-top: -40px;
+    }
+
+.ll-skin-nigran {
+    font-size: 90%;
+}
+
+    .ll-skin-nigran .ui-widget {
+        font-family: "Helvetica Neue","Trebuchet MS",Tahoma,Verdana,Arial,sans-serif;
+        background: #29a2d9;
+        border: none;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        box-shadow: 0 1px 3px #252525;
+    }
+
+    .ll-skin-nigran .ui-datepicker {
+        padding: 0;
+    }
+
+    .ll-skin-nigran .ui-datepicker-header {
+        border: none;
+        border-bottom: 1px solid #2d97cb;
+        background: transparent;
+        font-weight: normal;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+        .ll-skin-nigran .ui-datepicker-header .ui-state-hover {
+            background: transparent;
+            border-color: transparent;
+            cursor: pointer;
+            border-radius: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+        }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-title {
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev-hover,
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-next-hover,
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-next,
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev {
+        top: 1.7em;
+        border: none;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev-hover {
+        left: 2px;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-next-hover {
+        right: 2px;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-next span,
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev span {
+        background-image: url(images/ui-icons_ffffff_256x240.png);
+        background-position: -32px -32px;
+        margin-top: 0;
+        top: 0;
+        font-weight: normal;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev span {
+        background-position: -96px -32px;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-prev-hover span {
+        background-position: -96px -48px;
+    }
+
+    .ll-skin-nigran .ui-datepicker .ui-datepicker-next-hover span {
+        background-position: -32px -48px;
+    }
+
+    .ll-skin-nigran .ui-datepicker table {
+        margin: 0;
+    }
+
+    .ll-skin-nigran .ui-datepicker th {
+        padding: 3em 0;
+        color: #9fd9f1;
+        font-size: 8px;
+        font-weight: normal;
+        text-shadow: 0 0 2px #45c4f8;
+        text-transform: uppercase;
+        border: none;
+        border-top: 1px solid #3fabdc;
+    }
+
+    .ll-skin-nigran .ui-datepicker td {
+        border: none;
+        padding: 0;
+    }
+
+    .ll-skin-nigran td .ui-state-default {
+        background: transparent;
+        border: none;
+        text-align: center;
+        padding: 1em 0;
+        margin: 0;
+        font-weight: normal;
+        color: #efefef;
+        font-size: 12px;
+    }
+
+    .ll-skin-nigran td .ui-state-active,
+    .ll-skin-nigran td .ui-state-hover {
+        background: #1b7fb0;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+    }
