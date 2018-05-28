@@ -1428,6 +1428,8 @@
     <Content Include="Views\Lecturer\RollupEditor.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Search.cshtml" />
+    <Content Include="Views\Lecturer\_LoadCourse.cshtml" />
+    <Content Include="Views\Lecturer\CreateSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
