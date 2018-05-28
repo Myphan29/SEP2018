@@ -14,7 +14,7 @@ namespace SEP_FingerPrint.Models
     
     public partial class DanhSachLop
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Note { get; set; }
         public string MSV { get; set; }
         public string MKH { get; set; }

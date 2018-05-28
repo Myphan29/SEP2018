@@ -166,12 +166,26 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
-            string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
-            return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
+            string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
+            return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
         }
-        public ActionResult CreateSchedule()
+
+        public List<KhoaHoc> initData(string mgv)
         {
-            return View();
+            List<KhoaHoc> kh = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
+            return kh;
+        }
+
+        public PartialViewResult LoadCourse()
+        {
+            System.Threading.Thread.Sleep(3000); //DEMO ONLY
+            int idTK = Convert.ToInt32(Session["ID"]);
+            string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            API.GetAPI api = new API.GetAPI();
+            api.getCourse(mgv);
+            List<KhoaHoc> kh = initData(mgv);
+            return PartialView("_LoadCourse", kh);
         }
         [HttpGet]
         public ActionResult ChangePassword()

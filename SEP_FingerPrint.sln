@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.UnitTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.SeleniumTests", "SEP_FingerPrint.SeleniumTests\SEP_FingerPrint.SeleniumTests.csproj", "{1B3C8870-9270-4B11-978D-EA4D72672C19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.AcceptanceTests", "SEP_FingerPrint.AcceptanceTests\SEP_FingerPrint.AcceptanceTests.csproj", "{36A25670-40E4-4B83-A5FA-AC411F811BCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP_FingerPrint.AcceptanceTests.Common", "SEP_FingerPrint.AcceptanceTests.Common\SEP_FingerPrint.AcceptanceTests.Common.csproj", "{98712B8B-CEDE-4E5E-821E-617496FEE783}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3C8870-9270-4B11-978D-EA4D72672C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A25670-40E4-4B83-A5FA-AC411F811BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A25670-40E4-4B83-A5FA-AC411F811BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A25670-40E4-4B83-A5FA-AC411F811BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A25670-40E4-4B83-A5FA-AC411F811BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98712B8B-CEDE-4E5E-821E-617496FEE783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98712B8B-CEDE-4E5E-821E-617496FEE783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98712B8B-CEDE-4E5E-821E-617496FEE783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98712B8B-CEDE-4E5E-821E-617496FEE783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
