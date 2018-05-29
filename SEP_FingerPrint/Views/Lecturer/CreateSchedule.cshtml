@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Tạo lịch học";
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Session["ID"] == null)
@@ -12,6 +11,24 @@
 <!-- Bootstrap Date-Picker Plugin -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<script src="~/CustomLib/Attendance/jquery.nice-select.js"></script>
+<link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            multidate: true
+        };
+        date_input.datepicker(options);
+    });
+    $(document).ready(function () {
+        $('select').niceSelect();
+    });
+</script>
 <div class="page-wrapper">
     <!-- Bread crumb -->
     <div class="row page-titles">
@@ -31,22 +48,36 @@
         <!-- Start Page Content -->
         <div class="row">
             <!-- /# column -->
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-title">
                         <h4>Tạo lịch học</h4>
                     </div>
+                    <hr />
                     <div class="card-body">
-                        <form method="post">
+                        <form>
+                            <div>
+                                <select id="listCourse">
+                                    <option>Chọn môn học</option>
+                                    @{
+                                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
+                                        var listCourse = db.KhoaHocs.ToList();
+                                        foreach (var item in listCourse)
+                                        {
+                                            <option>@item.MKH</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
                             <div class="form-group">
-                                <!-- Date input -->
-                                <label class="control-label" for="date">Date</label>
                                 <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
                             </div>
-                            <div class="form-group">
-                                <!-- Submit button -->
-                                <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-                            </div>
+
+
+
+                            @*<div class="form-group">
+                                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+                                </div>*@
                         </form>
                     </div>
                 </div>
@@ -56,21 +87,4 @@
     </div>
     <!-- End Container fluid  -->
 </div>
-<link href="~/CustomLib/css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
-<link href="~/CustomLib/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
-<script src="~/CustomLib/js/lib/calendar-2/pignose.calendar.min.js"></script>
-<script src="~/CustomLib/js/lib/calendar-2/pignose.init.js"></script>
-<script>
-    $(document).ready(function () {
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        var options = {
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            multidate: true
-        };
-        date_input.datepicker(options);
-    })
-</script>
 

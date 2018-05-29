@@ -170,7 +170,10 @@ namespace SEP_FingerPrint.Controllers
             //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
         }
-
+        public ActionResult CreateSchedule()
+        {
+            return View();
+        }
         public List<KhoaHoc> initData(string mgv)
         {
             List<KhoaHoc> kh = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
