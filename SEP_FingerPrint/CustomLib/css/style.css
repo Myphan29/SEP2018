@@ -9345,3 +9345,95 @@ tbody tr td {
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
     }
+
+#blokm {
+    justify-content:flex-end;
+    display: flex;
+}
+
+
+/* */
+:root {
+    --color-dark: #161616;
+    --color-ocean: #416dea;
+    --color-grass: #3dd28d;
+    --color-snow: #FFFFFF;
+    --color-salmon: #F32C52;
+    --color-sun: #feee7d;
+    --color-alge: #7999a9;
+    --color-flower: #353866;
+    --color-smoke: #e4e4e4;
+    --font-face: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.kbutton {
+    display: flex;
+    overflow: hidden;
+    margin: 10px;
+    padding: 12px 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all 150ms linear;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none !important;
+    text-transform: none;
+    text-transform: capitalize;
+    color: #fff;
+    border: 0 none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 160px;
+    box-shadow: 2px 5px 10px var(--color-smoke);
+}
+
+    .kbutton:hover {
+        transition: all 150ms linear;
+        opacity: .85;
+    }
+
+    .kbutton:active {
+        transition: all 150ms linear;
+        opacity: .75;
+    }
+
+    .kbutton:focus {
+        outline: 1px dotted #959595;
+        outline-offset: -4px;
+    }
+
+    .kbutton.-regular {
+        color: #202129;
+        background-color: #f2f2f2;
+    }
+
+        .kbutton.-regular:hover {
+            color: #202129;
+            background-color: #e1e2e2;
+            opacity: 1;
+        }
+
+        .kbutton.-regular:active {
+            background-color: #d5d6d6;
+            opacity: 1;
+        }
+
+    .kbutton.-dark {
+        color: var(--color-snow);
+        background: var(--color-dark);
+    }
+
+        .kbutton.-dark:focus {
+            outline: 1px dotted white;
+            outline-offset: -4px;
+        }
