@@ -117,9 +117,12 @@
                                 <li class="nav-label">Features</li>
                                 @if (Session["Role"].Equals(1))
                                 {
-                                    <li>
-                                        <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
-                                    </li>
+                                <li>
+                                    <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
+                                </li>
+                                <li>
+                                    <a href="/Lecturer/CreateSchedule" aria-expanded="false"><i class="fa fa-edit"></i><span class="hide-menu">Tạo lịch học</span></a>
+                                </li>
                                     @*<li>
                                             <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
                                         </li>

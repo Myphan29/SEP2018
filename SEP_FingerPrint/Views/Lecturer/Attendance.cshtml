@@ -97,9 +97,9 @@
                         "targets": 0,
                         "render": function (data, type, row) {
                             if (row[8] == 0) {
-                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="@Model.ID" type="checkbox" /><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="@Model.ID"></label></div>';
+                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="switch' + row[0] +'" type="checkbox" /><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="switch'+ row[0] +'"></label></div>';
                             } else {
-                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="@Model.ID" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="@Model.ID"></label></div>';
+                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="switch'+ row[0] +'" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="switch'+ row[0] +'"></label></div>';
                             }
                         }
                     }
