@@ -112,10 +112,10 @@
                         $(row).find('td:eq(5)').text("").addClass('fa fa-check').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Attend', 'display': 'block', 'text-align': 'center' });
                     }
                     if (data[3] == "True") {
-                        $(row).find('td:eq(3)').text("").addClass('fa fa-mars').css({ 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-male').css({ 'display': 'block', 'text-align': 'center', 'font-size': '20px' });
                     }
                     else {
-                        $(row).find('td:eq(3)').text("").addClass('fa fa-venus').css({ 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(3)').text("").addClass('fa fa-female').css({ 'display': 'block', 'text-align': 'center', 'font-size': '20px'  });
                     }
                     $(row).find('td:eq(0)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(1)').css({ 'text-align': 'center' });
