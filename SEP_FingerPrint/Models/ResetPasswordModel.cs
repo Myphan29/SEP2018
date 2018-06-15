@@ -9,7 +9,7 @@ namespace SEP_FingerPrint.Models
     public class ResetPasswordModel
     {
         [Key]
-        [Required(ErrorMessage = "Mời nhập lại mật khẩu")]
+        [Required(ErrorMessage = "Mời nhập mật khẩu")]
         [StringLength(100, ErrorMessage = "{0} phải có ít nhât {2} kí tự.", MinimumLength = 6)]
         [Display(Name = "Password")]
         public string matkhau { set; get; }

@@ -1,103 +1,87 @@
 ﻿using System;
-using TechTalk.SpecFlow;
-using OpenQA;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
+using TechTalk.SpecFlow;
+
 namespace SEP_FingerPrint.SeleniumTests
 {
     [Binding]
     public class ResetPasswordSteps
     {
-        public IWebDriver _driver = new ChromeDriver();
-        [Given(@"I was in the Login view")]
-        public void GivenIWasInTheLoginView()
+        public IWebDriver driver = new ChromeDriver();
+        [Given(@"I was in admin view")]
+        public void GivenIWasInAdminView()
         {
-            _driver.Url = "http://localhost:49354";
+            driver.Navigate().GoToUrl("localhost:49354");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("admin");
+            driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("123456");
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
         
-        [Given(@"I filled the username and password field")]
-        public void GivenIFilledTheUsernameAndPasswordField()
+        [Given(@"I click teacher list")]
+        public void GivenIClickTeacherList()
         {
-            _driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("admin");
-            _driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("123456");
+            driver.FindElement(By.XPath("//*[@id='sidebarnav']/li[3]/a[3]/span")).Click();
         }
         
-        [Given(@"I press Login")]
-        public void GivenIPressLogin()
+        [When(@"I press reset password of the user")]
+        public void WhenIPressResetPasswordOfTheUser()
         {
-            _driver.FindElement(By.XPath("//*[@id='login']")).Click();
+            IWebElement element = driver.FindElement(By.Id("4"));
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element).Click().Build().Perform();
         }
         
-        [Given(@"I should be Logged in and arrive at admin profile view")]
-        public void GivenIShouldBeLoggedInAndArriveAtAdminProfileView()
+        [When(@"I fill new password,confirmation and see the message succesfull")]
+        public void WhenIFillNewPasswordConfirmationAndSeeTheMessageSuccesfull()
         {
-            _driver.Url = "http://localhost:49354/Admin/Teach";
+            driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("123456879");
+            driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("123456789");         
+            driver.FindElement(By.XPath("//*[@id='0button']")).Text.CompareTo("The password has been reseted");
         }
         
-        [When(@"I press reset password of user")]
-        public void WhenIPressResetPasswordOfUser()
+        [When(@"I logout admin account")]
+        public void WhenILogoutAdminAccount()
         {
-            _driver.FindElement(By.XPath("//*[@id='listGV']/tbody/tr[1]/td[5]/a")).Click(); //MH
+            driver.FindElement(By.XPath("//*[@id='main - wrapper']/div[2]/div/div[1]/nav/div[2]/a/span")).Click();
         }
         
-        [When(@"I fill new password")]
-        public void WhenIFillNewPassword()
+        [Then(@"I login by that user account successfull")]
+        public void ThenILoginByThatUserAccountSuccessfull()
         {
-            _driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("123456789");
+            driver.Navigate().GoToUrl("localhost:49354");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("T150004");
+            driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("123456789");
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
+            driver.Close();
         }
         
-        [When(@"I fill password confirmation")]
-        public void WhenIFillPasswordConfirmation()
+        [Then(@"I fill wrong condition new password,confirmation and see the message unsuccesfull")]
+        public void ThenIFillWrongConditionNewPasswordConfirmationAndSeeTheMessageUnsuccesfull()
         {
-            _driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("123456789");
+            driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("123");
+            driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("123");
+            driver.FindElement(By.XPath("//*[@id='0button']")).Text.CompareTo("Password phải có ít nhất 6 kí tự");
+            driver.Close();
         }
         
-        [When(@"I click change password button")]
-        public void WhenIClickChangePasswordButton()
+        [Then(@"I fill new password,confirmation doesn't match the password and see the message unsuccesfull")]
+        public void ThenIFillNewPasswordConfirmationDoesnTMatchThePasswordAndSeeTheMessageUnsuccesfull()
         {
-            _driver.FindElement(By.XPath("//*[@id='button']")).Click();
+            driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("123456");
+            driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("123");
+            driver.FindElement(By.XPath("//*[@id='0button']")).Text.CompareTo("Mật khẩu không khớp");
+            driver.Close();
         }
         
-        [When(@"I fill new password doesn't match condition")]
-        public void WhenIFillNewPasswordDoesnTMatchCondition()
+        [Then(@"I fill no new password,confirmation and see the message unsuccesfull")]
+        public void ThenIFillNoNewPasswordConfirmationAndSeeTheMessageUnsuccesfull()
         {
-            _driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("123");
-        }
-        
-        [When(@"I click reset password button")]
-        public void WhenIClickResetPasswordButton()
-        {
-            _driver.FindElement(By.XPath("//*[@id='button']")).Click();
-        }
-        
-        [When(@"I fill password confirmation doesn't match new password")]
-        public void WhenIFillPasswordConfirmationDoesnTMatchNewPassword()
-        {
-            _driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("1234567");
-        }
-        
-        [When(@"I fill new password nothing")]
-        public void WhenIFillNewPasswordNothing()
-        {
-            _driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("");
-        }
-        
-        [When(@"I fill password confirmation nothing")]
-        public void WhenIFillPasswordConfirmationNothing()
-        {
-            _driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("");
-        }
-        
-        [Then(@"I see password is changed successfully message")]
-        public void ThenISeePasswordIsChangedSuccessfullyMessage()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"I see password is changed unsuccessfully message")]
-        public void ThenISeePasswordIsChangedUnsuccessfullyMessage()
-        {
-            ScenarioContext.Current.Pending();
+            driver.FindElement(By.XPath("//*[@id='matkhau']")).SendKeys("");
+            driver.FindElement(By.XPath("//*[@id='nhaplaimatkhau']")).SendKeys("");
+            driver.FindElement(By.XPath("//*[@id='0button']")).Text.CompareTo("Mời nhập mật khẩu");
+            driver.Close();
         }
     }
 }

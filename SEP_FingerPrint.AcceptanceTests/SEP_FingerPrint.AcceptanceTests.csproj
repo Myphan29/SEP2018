@@ -142,6 +142,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\ChangeStatus.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeStatus.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\LoginAndLogout.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,11 +157,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\SeeInformationProject.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeeInformationProject.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\StaticalAttendance.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaticalAttendance.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\ChangeStatus.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ChangeStatus.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LoginAndLogout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -165,6 +184,14 @@
     <None Include="Features\ResetPassword.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ResetPassword.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\SeeInformationProject.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SeeInformationProject.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\StaticalAttendance.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>StaticalAttendance.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
