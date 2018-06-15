@@ -82,7 +82,7 @@
                     },
                 },
                 "columns": [
-                    { "render": function (data, type, row) { return row[0]; } },
+                    //{ "render": function (data, type, row) { return row[0]; } },
                     { "render": function (data, type, row) { return row[1]; } },
                     { "render": function (data, type, row) { return (row[2]); } },
                     { "render": function (data, type, row) { return (row[3]); } },
@@ -93,47 +93,74 @@
                     { "render": function (data, type, row) { return (row[8]); } },
                     {
                         "bSortable": false,
-                        "sClass": "TextCenter",
+                        //"sClass": "TextCenter",
                         "targets": 0,
                         "render": function (data, type, row) {
                             if (row[8] == 0) {
-                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="switch' + row[0] +'" type="checkbox" /><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="switch'+ row[0] +'"></label></div>';
+                                return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="' + row[0] +'" type="checkbox" /><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
                             } else {
-                                return '<div class="tg-list-item"><input class="tgl2 tgl2-light" id="switch'+ row[0] +'" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="Hiện diện" data-tg-off="Vắng" for="switch'+ row[0] +'"></label></div>';
+                                return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="'+ row[0] +'" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
                             }
                         }
                     }
                 ],
                 rowCallback: function (row, data, index) {
                     if (data[8] == 0) {
-                        $(row).find('td:eq(5)').text("").addClass('fa fa-close').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Absent', 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '@Session["Clr0"]', 'display': 'block', 'text-align': 'center' });
                     }
                     if (data[8] == 1) {
-                        $(row).find('td:eq(5)').text("").addClass('fa fa-check').css({ 'background': '@Model.KhoaHoc.GiangVien.CauHinh.Attend', 'display': 'block', 'text-align': 'center' });
+                        $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '@Session["Clr1"]', 'display': 'block', 'text-align': 'center' });
                     }
                     if (data[3] == "True") {
-                        $(row).find('td:eq(3)').text("").addClass('fa fa-male').css({ 'display': 'block', 'text-align': 'center', 'font-size': '20px' });
+                        $(row).find('td:eq(2)').text("").addClass('fa fa-male').css({ 'display': 'block', 'text-align': 'center'});
                     }
                     else {
-                        $(row).find('td:eq(3)').text("").addClass('fa fa-female').css({ 'display': 'block', 'text-align': 'center', 'font-size': '20px'  });
+                        $(row).find('td:eq(2)').text("").addClass('fa fa-female').css({ 'display': 'block', 'text-align': 'center' });
                     }
                     $(row).find('td:eq(0)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(1)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(5)').css({ 'text-align': 'center' });
-                    $("#edit").hide();
+                    //$("#edit").hide();
                     $("div.tg-list-item").show();
-                    $(row).find('td:eq(6)').hide();
+                    $(row).find('td:eq(5)').show();
                     $(".tgl-btn").click(function () {
-                        $(row).find('td:eq(6)').toggle();
                         $(row).find('td:eq(5)').toggle();
-                        $("#edit").toggle();
-                        $("#done").toggle();
+                        $(row).find('td:eq(4)').toggle();
+                        //$("#edit").toggle();
+                        //$("#done").toggle();
+                    });
+
+                    $(".tgl2-btn").click(function () {
+                        if ($('input.tgl2').is(':checked')) {
+                            $.ajax({
+                                url: "/Lecturer/EditAtd",
+                                data: { id: id },
+                                dataType: "json",
+                                type: "POST",
+                                success: function (response) {
+                                    console.log(response);
+                                    $(row).find('td:eq(4)').addClass('fa fa-check');
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                url: "/Lecturer/EditAtd",
+                                data: { id: id },
+                                dataType: "json",
+                                type: "POST",
+                                success: function (response) {
+                                    console.log(response);
+                                    $(row).find('td:eq(4)').addClass('fa fa-close');
+                                }
+                            });
+                        }
                     });
                 }
             });
             }
         $(document).ready(function () {
             $('select').niceSelect();
+
         });
         $(document).ready(function () {
             showTable();
@@ -201,9 +228,9 @@
                     <table id="example" class="table table-hover table-bordered dataTable" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="text-align: center">STT</th>
+                                @*<th style="text-align: center">STT</th>*@
                                 <th style="text-align: center">MSSV</th>
-                                <th>Họ tên</th>
+                                <th style="text-align: center">Họ tên</th>
                                 <th style="text-align:center">Giới tính</th>
                                 <th style="text-align: center">Ngày sinh</th>
                                 @*<th>Mã BH</th>*@
@@ -212,7 +239,7 @@
                                 <th id="done" style="text-align:center">
                                     Trạng thái
                                 </th>
-                                <th id="edit" style="text-align: center">Sửa</th>
+                                <th id="edit" style="text-align: center; display: none">Sửa</th>
                             </tr>
                         </thead>
                     </table>

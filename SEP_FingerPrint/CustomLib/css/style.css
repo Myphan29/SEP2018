@@ -8505,7 +8505,11 @@ tbody tr td {
 .tg-list-item {
     margin: 0 2em;
 }
-
+.tg-list-item2 {
+    display: block;
+    margin-left: 100px;
+    margin-top: 7px;
+}
 .tgl {
     display: none;
 }

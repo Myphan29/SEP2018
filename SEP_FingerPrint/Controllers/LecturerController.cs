@@ -292,9 +292,7 @@ namespace SEP_FingerPrint.Controllers
                 using (var reader = cmd.ExecuteReader())
                 {
                     var model = this.Read(reader).ToList();
-
                     return View(model);
-
                 }
             }
         }
