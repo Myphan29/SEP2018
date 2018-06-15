@@ -74,33 +74,8 @@ namespace SEP_FingerPrint.Controllers
                     v.Attend = e.Attend;
                     v.Absent = e.Absent;
                 }
-
-                //else
-                //{
-                //    e.ID = id;
-                //    gun.CauHinhs.Add(e);
-                //}
                 gun.SaveChanges();
                 status = true;
-
-                //var hex = gun.CauHinhs.Where(x => x.ID == id).FirstOrDefault();
-                //    if (hex != null)
-                //    {
-
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-                //    else
-                //    {
-                //        var re = new CauHinh();
-                //        re.ID=id;
-                //        pistol.Attend = re.Attend;
-                //        pistol.Absent = re.Absent;
-                //        gun.CauHinhs.Add(re);
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-
             }
             return new JsonResult { Data = new { status = status } };
         }
@@ -191,8 +166,29 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Course()
         {
             int idTK = Convert.ToInt32(Session["ID"]);
-            string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
-            return View(db.KhoaHocs.Where(p => p.MGV == idGV).ToList());
+            string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
+            return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
+        }
+        public ActionResult CreateSchedule()
+        {
+            return View();
+        }
+        public List<KhoaHoc> initData(string mgv)
+        {
+            List<KhoaHoc> kh = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
+            return kh;
+        }
+
+        public PartialViewResult LoadCourse()
+        {
+            System.Threading.Thread.Sleep(3000); //DEMO ONLY
+            int idTK = Convert.ToInt32(Session["ID"]);
+            string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
+            API.GetAPI api = new API.GetAPI();
+            api.getCourse(mgv);
+            List<KhoaHoc> kh = initData(mgv);
+            return PartialView("_LoadCourse", kh);
         }
         [HttpGet]
         public ActionResult ChangePassword()

@@ -203,6 +203,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\apiGetCourseModel.cs" />
+    <Compile Include="API\apiGetMemberModel.cs" />
+    <Compile Include="API\GetAPI.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -270,9 +273,7 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TaiKhoan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1389,6 +1390,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1425,6 +1428,8 @@
     <Content Include="Views\Lecturer\RollupEditor.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Search.cshtml" />
+    <Content Include="Views\Lecturer\_LoadCourse.cshtml" />
+    <Content Include="Views\Lecturer\CreateSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

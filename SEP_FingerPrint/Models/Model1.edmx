@@ -31,7 +31,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="MSV" Type="varchar" MaxLength="10" />
           <Property Name="MKH" Type="varchar" MaxLength="10" />
@@ -397,7 +397,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
