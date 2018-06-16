@@ -37,6 +37,7 @@ namespace SEP_FingerPrint.Controllers
                     Session["TenTK"] = userdetail.TenTK;
                     Session["Role"] = userdetail.Vaitro;
                     Session["MGV"] = db.GiangViens.FirstOrDefault(x => x.IDTaiKhoan == userdetail.ID).MGV;
+                    Session["TenGV"] = db.GiangViens.FirstOrDefault(x => x.IDTaiKhoan == userdetail.ID).HoTen; // ?? :D ?? Hổng hiểu :"<
                     Session["Clr0"] = db.CauHinhs.FirstOrDefault(x => x.ID == userdetail.ID).Absent;
                     Session["Clr1"] = db.CauHinhs.FirstOrDefault(x => x.ID == userdetail.ID).Attend;
                     if (Session["Role"].Equals(1))
