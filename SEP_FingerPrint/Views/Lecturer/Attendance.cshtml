@@ -31,17 +31,12 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
     <script src="~/CustomLib/Attendance/jquery.nice-select.js"></script>
-    @*<link href="~/CustomLib/Attendance/nice-select.min.css" rel="stylesheet" />*@
     <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
         function showTable() {
             var time = $("#listTime").val().split(" ", 1);
-            //var tmpID = [];
-            //$('#listID').find('option').each(function () {
-            //    tmpID.push($(this).val())
-            //});
             $("#example").DataTable({
                 "processing": true,
                 "serverSide": false,
@@ -82,18 +77,18 @@
                     },
                 },
                 "columns": [
-                    //{ "render": function (data, type, row) { return row[0]; } },
+                    //{
+                    //    "render": function (data, type, row) {
+                    //        return rows.count();
+                    //    }
+                    //},
                     { "render": function (data, type, row) { return row[1]; } },
                     { "render": function (data, type, row) { return (row[2]); } },
                     { "render": function (data, type, row) { return (row[3]); } },
                     { "render": function (data, type, row) { return (row[4]); } },
-                    //{ "render": function (data, type, row) { return (row[5]); } },
-                    //{ "render": function (data, type, row) { return (row[6]); } },
-                    //{ "render": function (data, type, row) { return (row[7]); } },
                     { "render": function (data, type, row) { return (row[8]); } },
                     {
                         "bSortable": false,
-                        //"sClass": "TextCenter",
                         "targets": 0,
                         "render": function (data, type, row) {
                             if (row[8] == 0) {
@@ -117,50 +112,59 @@
                     else {
                         $(row).find('td:eq(2)').text("").addClass('fa fa-female').css({ 'display': 'block', 'text-align': 'center' });
                     }
+                    //Edit attendance function
+                    //$(".tgl2-btn").click(function () {
+                    //    if ($('input.' + row[0] + '').prop('checked', true)) {
+                            
+                    //    } else if ($('input.' + row[0] + '').prop('checked', false)) {
+                           
+                    //    }
+                    //});
+
+                    var editor = {
+                        init: function () {
+                            editor.registerEvents();
+                        },
+                        registerEvents: function () {
+                            $('.tgl2').off('click').on('click', function (e) {
+                                e.preventDefault();
+                                var btn = $(this);
+                                var id = btn.data('id');
+                                $.ajax({
+                                    url: "/Lecturer/EditAtd",
+                                    data: { id: id },
+                                    dataType: "json",
+                                    type: "POST",
+                                    success: function (response) {
+                                        console.log(response);
+                                        if (response.status == 0) {
+                                            $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '@Session["Clr0"]', 'display': 'block', 'text-align': 'center' });
+                                        }
+                                        else {
+                                             $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '@Session["Clr1"]', 'display': 'block', 'text-align': 'center' });
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                    editor.init();
+
+                    //
                     $(row).find('td:eq(0)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(1)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(5)').css({ 'text-align': 'center' });
-                    //$("#edit").hide();
                     $("div.tg-list-item").show();
-                    $(row).find('td:eq(5)').show();
+                    $(row).find('td:eq(5)').hide();
                     $(".tgl-btn").click(function () {
-                        $(row).find('td:eq(5)').toggle();
-                        $(row).find('td:eq(4)').toggle();
-                        //$("#edit").toggle();
-                        //$("#done").toggle();
-                    });
-
-                    $(".tgl2-btn").click(function () {
-                        if ($('input.tgl2').is(':checked')) {
-                            $.ajax({
-                                url: "/Lecturer/EditAtd",
-                                data: { id: id },
-                                dataType: "json",
-                                type: "POST",
-                                success: function (response) {
-                                    console.log(response);
-                                    $(row).find('td:eq(4)').addClass('fa fa-check');
-                                }
-                            });
-                        } else {
-                            $.ajax({
-                                url: "/Lecturer/EditAtd",
-                                data: { id: id },
-                                dataType: "json",
-                                type: "POST",
-                                success: function (response) {
-                                    console.log(response);
-                                    $(row).find('td:eq(4)').addClass('fa fa-close');
-                                }
-                            });
-                        }
+                            $(row).find('td:eq(5)').toggle();
+                            $(row).find('td:eq(4)').toggle();
                     });
                 }
             });
             }
         $(document).ready(function () {
             $('select').niceSelect();
-
         });
         $(document).ready(function () {
             showTable();
@@ -198,7 +202,6 @@
                     <input class="tgl tgl-skewed" id="cb3" type="checkbox" />
                     <label class="tgl-btn" data-tg-on="Hoàn thành" data-tg-off="Sửa điểm danh" for="cb3"></label>
                 </div>
-
                 <div id="example_length">
                     <select id="listTime">
                         <option>Chọn buổi học</option>
@@ -211,17 +214,6 @@
                             }
                         }
                     </select>
-                    @*<select id="listID" style="display:none">
-                        <option>Chọn buổi học</option>
-                        @{
-                            SEP_FingerPrint.Models.Sep2018Entities db2 = new SEP_FingerPrint.Models.Sep2018Entities();
-                            var listId = db.DiemDanhs.Where(x => x.MBH == Model.MBH).ToList();
-                            foreach (var item in listId)
-                            {
-                                <option>@item.MSV</option>
-                            }
-                        }
-                    </select>*@
                 </div>
                 <div class="col-lg-12">
                     <hr />
@@ -233,9 +225,6 @@
                                 <th style="text-align: center">Họ tên</th>
                                 <th style="text-align:center">Giới tính</th>
                                 <th style="text-align: center">Ngày sinh</th>
-                                @*<th>Mã BH</th>*@
-                                @*<th>Ngày</th>*@
-                                @*<th>Giờ</th>*@
                                 <th id="done" style="text-align:center">
                                     Trạng thái
                                 </th>
