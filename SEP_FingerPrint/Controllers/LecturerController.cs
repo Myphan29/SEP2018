@@ -79,6 +79,22 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
+        public JsonResult AtdChangeee(DiemDanh i)
+        {
+            var responde = false;
+            using (Sep2018Entities owl = new Sep2018Entities())
+            {
+                var atdList = owl.DiemDanhs.Where(x => x.ID == i.ID).FirstOrDefault();
+                if (atdList != null)
+                {
+                    atdList.ID = i.ID;
+                    atdList.TrangThai = i.TrangThai;
+                }
+                owl.SaveChanges();
+                responde = true;
+            }
+            return new JsonResult { Data = new { status = responde } };
+        }
         [HttpGet]
         public ActionResult RollupEditor(string id)
         {
@@ -88,8 +104,6 @@ namespace SEP_FingerPrint.Controllers
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
-
-
             return View(thm);
         }
 
@@ -292,9 +306,7 @@ namespace SEP_FingerPrint.Controllers
                 using (var reader = cmd.ExecuteReader())
                 {
                     var model = this.Read(reader).ToList();
-
                     return View(model);
-
                 }
             }
         }

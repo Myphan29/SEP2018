@@ -580,6 +580,7 @@
     <Content Include="CustomLib\img\maximize.png" />
     <Content Include="CustomLib\img\minimize.png" />
     <Content Include="CustomLib\img\nature.jpg" />
+    <Content Include="CustomLib\img\newlogo.png" />
     <Content Include="CustomLib\img\newyork.jpg" />
     <Content Include="CustomLib\img\paris.jpg" />
     <Content Include="CustomLib\img\paypal.png" />
