@@ -35,9 +35,8 @@ namespace SEP_FingerPrint.SeleniumTests
         
         [Given(@"I press month")]
         public void GivenIPressMonth()
-        {
-            driver.FindElement(By.XPath("//*[@id='calendar']/div[1]/div[2]/div/button[1]")).Click();
-            IWebElement element = driver.FindElement(By.Name("PM01"));
+        {            
+            IWebElement element = driver.FindElement(By.XPath("//*[@id='calendar']/div[1]/div[2]/div/button[1]"));
             Actions actions = new Actions(driver);
             actions.MoveToElement(element).Click().Build().Perform();
         }
@@ -45,20 +44,26 @@ namespace SEP_FingerPrint.SeleniumTests
         [Given(@"I press week")]
         public void GivenIPressWeek()
         {
-            driver.FindElement(By.XPath("//*[@id='calendar'/div[1]/div[2]/div/button[2]")).Click();           
+            IWebElement element = driver.FindElement(By.XPath("//*[@id='calendar']/div[1]/div[2]/div/button[2]"));
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element).Click().Build().Perform();
         }
 
         [Given(@"I press day")]
         public void GivenIPressDay()
         {
 
-            driver.FindElement(By.XPath("//*[@id='calendar'/div[1]/div[2]/div/button[3]")).Click();
+            IWebElement element = driver.FindElement(By.XPath("//*[@id'calendar']/div[1]/div[2]/div/button[3]"));
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element).Click().Build().Perform();
         }
         
         [Given(@"I press list")]
         public void GivenIPressList()
         {
-            driver.FindElement(By.XPath("//*[@id='calendar'/div[1]/div[2]/div/button[4]")).Click();           
+            IWebElement element = driver.FindElement(By.XPath("//*[@id='calendar']/div[1]/div[2]/div/button[4]"));
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element).Click().Build().Perform();
         }
 
         [Then(@"I finally see the list")]
