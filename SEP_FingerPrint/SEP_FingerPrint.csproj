@@ -638,6 +638,8 @@
     <Content Include="CustomLib\js\custom.min.js" />
     <Content Include="CustomLib\Attendance\jquery.nice-select.js" />
     <Content Include="CustomLib\js\jquery.slimscroll.js" />
+    <Content Include="CustomLib\js\jquery.timepicker.css" />
+    <Content Include="CustomLib\js\jquery.timepicker.min.js" />
     <Content Include="CustomLib\js\lib\barRating\barRating.init.js" />
     <Content Include="CustomLib\js\lib\barRating\jquery.barrating.js" />
     <Content Include="CustomLib\js\lib\bootstrap\css\bootstrap.min.css" />

@@ -9449,7 +9449,8 @@ tbody tr td {
     text-align: center;
 }
 .req1 {
-    width: 400px;
+    width: 900px;
+    padding-top: 7px;
 }
 .req1 li {
     display: inline-block;
