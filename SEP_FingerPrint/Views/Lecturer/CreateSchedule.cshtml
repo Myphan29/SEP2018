@@ -13,6 +13,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 <script src="~/CustomLib/Attendance/jquery.nice-select.js"></script>
 <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 <script>
     $(document).ready(function () {
         var date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -24,60 +28,373 @@
             multidate: true
         };
         date_input.datepicker(options);
+        var usedNames = {};
+        $("select[id='listCourse'] > option").each(function () {
+            if (usedNames[this.text]) {
+                $(this).remove();
+            } else {
+                usedNames[this.text] = this.value;
+            }
+        });
     });
     $(document).ready(function () {
         $('select').niceSelect();
+        $("ul.daysOfWeekButton-group li").click(function (e) {
+            $(function () {
+                $(".btn").on('click', function (e) {
+                    e.preventDefault();
+                    $(this).closest('.aitem').remove();
+                });
+            });
+            if ($("div.xItem:contains('" + $(this).text() + "')").length) {
+                alert('Ngày vừa chọn đã được chọn!');
+            } else {
+                $(".xItem").append('<div class="aitem"><ul class="req1">'
+                    + '<li style="width: 100px"><p style="display: inline-block; font-weight: bold">' + $(this).text() + '</p></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input type="text" class="form-control"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '&nbsp;&nbsp;<li><a class="btn"><i style="font-color: red; font-size: 25px" class="fa fa-close"></i></a></li>'
+                    + '</ul>'
+                    + '</div>');
+            }
+            //alert($(this).find("a.button").text());
+        });
     });
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'right'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY'));
+        });
+    });
+    function createSchedule() {
+        var x = document.getElementById("gettingStartSetupSchedule");
+        x.style.display = "block";
+    };
 </script>
 <div class="page-wrapper">
     <!-- Bread crumb -->
-    <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">#</h3>
-        </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
-                <li class="breadcrumb-item active">Khóa học</li>
-            </ol>
-        </div>
-    </div>
+    @*<div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">#</h3>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Khóa học</li>
+                </ol>
+            </div>
+        </div>*@
     <!-- End Bread crumb -->
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
         <div class="row">
             <!-- /# column -->
-            <div class="col-lg-6">
+            <div class="col-lg-11">
                 <div class="card">
-                    <div class="card-title">
-                        <h4>Tạo lịch học</h4>
+                    <div style="justify-content: flex-start; display: flex">
+                        <div>
+                            <h4 style="height: 42px; line-height: 42px;font-weight: bold">Tạo lịch học</h4>
+                        </div>
+                        &nbsp;&nbsp;
+                        <div>
+                            <select id="listCourse">
+                                <option>Môn học</option>
+                                @{
+                                    string getMGV = Session["MGV"].ToString();
+                                    SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
+                                    var listCourse = db.KhoaHocs.Where(x => x.MGV == getMGV).ToList();
+                                    foreach (var item in listCourse)
+                                    {
+                                            <option>@item.MMH - @item.MonHoc.TenMonHoc</option>
+                                    }
+                                }
+                            </select>
+                        </div>
                     </div>
                     <hr />
                     <div class="card-body">
-                        <form>
-                            <div>
-                                <select id="listCourse">
-                                    <option>Chọn môn học</option>
-                                    @{
-                                        SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                                        var listCourse = db.KhoaHocs.ToList();
-                                        foreach (var item in listCourse)
-                                        {
-                                            <option>@item.MKH</option>
-                                        }
-                                    }
-                                </select>
+                        <form style="margin-left: 10px">
+                            <div class="form-group row">
+                                <div class="col-md-9">
+                                    <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
+                                    <div style="justify-content:flex-start; display:flex; color: white;">
+                                        <input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />
+                                        &nbsp;&nbsp;
+                                        <a onclick="createSchedule()" class="btn btn-dark"><span class="fa fa-plus-square"></span>&nbsp;&nbsp;Lập thời khóa biểu</a>
+                                    </div>
+                                </div>
                             </div>
+                            <div id="gettingStartSetupSchedule" style="display: none" class="form-group row">
+                                <div class="col-md-12">
+                                    <label>Chọn buổi học:</label>
+                                    <br />
+                                    <div>
+                                        <ul class="daysOfWeekButton-group">
+                                            <li class="thuhigh"><a class="large button">Thứ hai</a></li>
+                                            <li><a class="large button">Thứ ba</a></li>
+                                            <li><a class="large button">Thứ tư</a></li>
+                                            <li><a class="large button">Thứ năm</a></li>
+                                            <li><a class="large button">Thứ sáu</a></li>
+                                            <li><a class="large button">Thứ bảy</a></li>
+                                            <li><a class="large button">Chủ nhật</a></li>
+                                        </ul>
+                                    </div>
+                                    <br />
+                                    <!-- -->
+                                    <div class="col-md-5">
+                                        <div class="xItem">
+                                            <style scoped>
+                                                button::-moz-focus-inner,
+                                                [type="button"]::-moz-focus-inner,
+                                                [type="reset"]::-moz-focus-inner,
+                                                [type="submit"]::-moz-focus-inner {
+                                                    padding: 0;
+                                                    border-style: none;
+                                                }
+
+                                                button,
+                                                html [type="button"],
+                                                [type="reset"],
+                                                [type="submit"] {
+                                                    -webkit-appearance: button;
+                                                }
+
+                                                a,
+                                                area,
+                                                button,
+                                                input,
+                                                label,
+                                                select,
+                                                summary,
+                                                textarea {
+                                                    -ms-touch-action: manipulation;
+                                                    touch-action: manipulation;
+                                                }
+
+                                                svg:not(:root) {
+                                                    overflow: hidden;
+                                                }
+
+                                                .wheel-picker {
+                                                    display: block;
+                                                    position: relative;
+                                                    width: 100%;
+                                                    cursor: default;
+                                                    background-color: #fff;
+                                                    color: #1d1d1d;
+                                                    height: 38px;
+                                                    -webkit-user-select: none;
+                                                    -moz-user-select: none;
+                                                    -ms-user-select: none;
+                                                    user-select: none
+                                                }
+
+                                                    .wheel-picker:focus {
+                                                        outline: 1px dotted red !important;
+                                                        min-width: 1px;
+                                                        min-height: 1px
+                                                    }
+
+                                                    .wheel-picker .select-wrapper {
+                                                        display: none;
+                                                        position: absolute;
+                                                        top: 100%;
+                                                        left: 0;
+                                                        height: auto;
+                                                        z-index: 3;
+                                                        width: 100%
+                                                    }
+
+                                                    .wheel-picker .select-block {
+                                                        position: relative;
+                                                        display: -webkit-box;
+                                                        display: -ms-flexbox;
+                                                        display: flex;
+                                                        -webkit-box-orient: horizontal;
+                                                        -webkit-box-direction: normal;
+                                                        -ms-flex-flow: row nowrap;
+                                                        flex-flow: row nowrap;
+                                                        width: 100%;
+                                                        -ms-flex-negative: 0;
+                                                        flex-shrink: 0;
+                                                        background-color: #f2f2f2
+                                                    }
+
+                                                        .wheel-picker .select-block::before {
+                                                            content: "";
+                                                            display: block;
+                                                            position: absolute;
+                                                            z-index: 0;
+                                                            height: 40px;
+                                                            background-color: rgba(27,161,226,.5);
+                                                            top: 50%;
+                                                            left: 0;
+                                                            -webkit-transform: translateY(-50%);
+                                                            transform: translateY(-50%);
+                                                            width: 100%
+                                                        }
+
+                                                        .wheel-picker .select-block ul {
+                                                            margin: 0;
+                                                            padding: 0;
+                                                            list-style: none inside;
+                                                            display: block;
+                                                            text-align: center;
+                                                            height: 100%;
+                                                            z-index: 1;
+                                                            -webkit-box-flex: 1;
+                                                            -ms-flex: 1;
+                                                            flex: 1;
+                                                            border: 1px solid #dfdfdf;
+                                                            overflow-y: auto;
+                                                            -ms-overflow-style: -ms-autohiding-scrollbar
+                                                        }
+
+                                                            .wheel-picker .select-block ul::-webkit-scrollbar {
+                                                                display: none !important
+                                                            }
+
+                                                            .wheel-picker .select-block ul li {
+                                                                display: block;
+                                                                height: 40px;
+                                                                line-height: 40px;
+                                                                font-size: .9em
+                                                            }
+
+                                                                .wheel-picker .select-block ul li.active {
+                                                                    font-weight: 700
+                                                                }
+
+                                                    .wheel-picker .action-block {
+                                                        display: -webkit-box;
+                                                        display: -ms-flexbox;
+                                                        display: flex;
+                                                        -webkit-box-orient: horizontal;
+                                                        -webkit-box-direction: normal;
+                                                        -ms-flex-flow: row nowrap;
+                                                        flex-flow: row nowrap;
+                                                        position: relative;
+                                                        width: 100%
+                                                    }
+
+                                                        .wheel-picker .action-block > * {
+                                                            -webkit-box-flex: 1;
+                                                            -ms-flex: 1;
+                                                            flex: 1
+                                                        }
+
+                                                .time-picker input {
+                                                    width: 1px;
+                                                    height: 1px;
+                                                    position: absolute;
+                                                    top: 0;
+                                                    left: 0;
+                                                    opacity: 0
+                                                }
+
+                                                    .time-picker input:focus ~ .time-wrapper {
+                                                        -webkit-box-shadow: 0 0 0 3px rgba(228,228,228,.45);
+                                                        box-shadow: 0 0 0 3px rgba(228,228,228,.45)
+                                                    }
+
+                                                .time-picker .time-wrapper {
+                                                    display: -webkit-inline-box;
+                                                    display: -ms-inline-flexbox;
+                                                    display: inline-flex;
+                                                    -webkit-box-orient: horizontal;
+                                                    -webkit-box-direction: normal;
+                                                    -ms-flex-flow: row nowrap;
+                                                    flex-flow: row nowrap;
+                                                    position: relative;
+                                                    border: 1px solid #dfdfdf;
+                                                    width: 100%
+                                                }
+
+                                                .time-picker .hours, .time-picker .minutes, .time-picker .seconds {
+                                                    display: block;
+                                                    -webkit-box-flex: 1;
+                                                    -ms-flex: 1;
+                                                    flex: 1;
+                                                    border: 1px solid;
+                                                    border-color: inherit;
+                                                    text-align: center;
+                                                    height: 38px;
+                                                    line-height: 34px;
+                                                    position: relative;
+                                                    font-size: 1.2em
+                                                }
+
+                                                .time-picker.show-labels .hours, .time-picker.show-labels .minutes, .time-picker.show-labels .seconds {
+                                                    line-height: 30px
+                                                }
+
+                                                    .time-picker.show-labels .hours::before, .time-picker.show-labels .minutes::before, .time-picker.show-labels .seconds::before {
+                                                        content: attr(data-title);
+                                                        position: absolute;
+                                                        display: block;
+                                                        font-size: 8px;
+                                                        line-height: 12px;
+                                                        left: 50%;
+                                                        bottom: 0;
+                                                        -webkit-transform: translate3d(-50%,0,0);
+                                                        transform: translate3d(-50%,0,0)
+                                                    }
+
+                                                .time-picker .select-wrapper {
+                                                    -webkit-transform: translate3d(0,-50%,0);
+                                                    transform: translate3d(0,-50%,0)
+                                                }
+
+                                                .default-icon-check {
+                                                    background-image: url("data:image/svg+xml;charset=UTF-8,%3C!--%20Generated%20by%20IcoMoon.io%20--%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%0A%3Ctitle%3Echeckmark%3C%2Ftitle%3E%0A%3Cpath%20d%3D%22M27%204l-15%2015-7-7-5%205%2012%2012%2020-20z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
+                                                }
+
+                                                .default-icon-cross {
+                                                    background-image: url("data:image/svg+xml;charset=UTF-8,%3C!--%20Generated%20by%20IcoMoon.io%20--%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%0A%3Ctitle%3Ecross%3C%2Ftitle%3E%0A%3Cpath%20d%3D%22M31.708%2025.708c-0-0-0-0-0-0l-9.708-9.708%209.708-9.708c0-0%200-0%200-0%200.105-0.105%200.18-0.227%200.229-0.357%200.133-0.356%200.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13%200.048-0.252%200.124-0.357%200.228%200%200-0%200-0%200l-9.708%209.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057%200.229l-4.586%204.586c-0.286%200.286-0.361%200.702-0.229%201.057%200.049%200.13%200.124%200.252%200.229%200.357%200%200%200%200%200%200l9.708%209.708-9.708%209.708c-0%200-0%200-0%200-0.104%200.105-0.18%200.227-0.229%200.357-0.133%200.355-0.057%200.771%200.229%201.057l4.586%204.586c0.286%200.286%200.702%200.361%201.057%200.229%200.13-0.049%200.252-0.124%200.357-0.229%200-0%200-0%200-0l9.708-9.708%209.708%209.708c0%200%200%200%200%200%200.105%200.105%200.227%200.18%200.357%200.229%200.356%200.133%200.771%200.057%201.057-0.229l4.586-4.586c0.286-0.286%200.362-0.702%200.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
+                                                }
+
+                                                [class*=default-icon] {
+                                                    display: block;
+                                                    height: 16px;
+                                                    width: 16px;
+                                                    border: none !important;
+                                                    background-size: cover;
+                                                    background-color: transparent;
+                                                    opacity: .5;
+                                                    -webkit-transition: all 0.3s ease-in-out;
+                                                    transition: all 0.3s ease-in-out;
+                                                    margin: auto;
+                                                }
+
+                                                    [class*=default-icon]:hover {
+                                                        opacity: 1;
+                                                    }
+
+                                                .clear::after,
+                                                .clear-fix::after,
+                                                .clearfix::after {
+                                                    display: block;
+                                                    clear: both;
+                                                    content: "";
+                                                }
+                                            </style>
+                                        </div>
+                                    </div>
+                                    <!--- -->
+                                </div>
+
+                            </div>
+                            <hr />
                             <div class="form-group">
-                                <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                                <button class="btn btn-primary " name="submit" type="submit">Submit</button>
                             </div>
-
-
-
-                            @*<div class="form-group">
-                                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-                                </div>*@
                         </form>
                     </div>
                 </div>
