@@ -92,9 +92,13 @@
                         "targets": 0,
                         "render": function (data, type, row) {
                             if (row[8] == 0) {
-                                return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="' + row[0] +'" type="checkbox" /><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
+                                //return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="' + row[0] +'" type="checkbox" /><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
+                                return '<button type="button" style="width: 95px; margin-top: 8px" class="btn-active btn btn-danger"'
+                                                + 'aria-pressed="false" autocomplete="off" data-id="' + row[0] + '">Vắng</button>';
                             } else {
-                                return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="'+ row[0] +'" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
+                                //return '<div class="tg-list-item2"><input class="tgl2 tgl2-light" id="'+ row[0] +'" type="checkbox" checked/><label class="tgl2-btn" data-tg-on="H" data-tg-off="V" for="'+ row[0] +'"></label></div>';
+                                return '<button type="button" style="width: 95px; margin-top: 8px" class="btn-active btn btn-primary"'
+                                                + 'aria-pressed="false" autocomplete="off" data-id="' + row[0] + '">Hiện diện</button>';
                             }
                         }
                     }
@@ -112,43 +116,6 @@
                     else {
                         $(row).find('td:eq(2)').text("").addClass('fa fa-female').css({ 'display': 'block', 'text-align': 'center' });
                     }
-                    //Edit attendance function
-                    //$(".tgl2-btn").click(function () {
-                    //    if ($('input.' + row[0] + '').prop('checked', true)) {
-                            
-                    //    } else if ($('input.' + row[0] + '').prop('checked', false)) {
-                           
-                    //    }
-                    //});
-
-                    var editor = {
-                        init: function () {
-                            editor.registerEvents();
-                        },
-                        registerEvents: function () {
-                            $('.tgl2').off('click').on('click', function (e) {
-                                e.preventDefault();
-                                var btn = $(this);
-                                var id = btn.data('id');
-                                $.ajax({
-                                    url: "/Lecturer/EditAtd",
-                                    data: { id: id },
-                                    dataType: "json",
-                                    type: "POST",
-                                    success: function (response) {
-                                        console.log(response);
-                                        if (response.status == 0) {
-                                            $(row).find('td:eq(4)').text("").addClass('fa fa-close').css({ 'background': '@Session["Clr0"]', 'display': 'block', 'text-align': 'center' });
-                                        }
-                                        else {
-                                             $(row).find('td:eq(4)').text("").addClass('fa fa-check').css({ 'background': '@Session["Clr1"]', 'display': 'block', 'text-align': 'center' });
-                                        }
-                                    }
-                                });
-                            });
-                        }
-                    }
-                    editor.init();
 
                     //
                     $(row).find('td:eq(0)').css({ 'text-align': 'center' });
@@ -157,9 +124,13 @@
                     $("div.tg-list-item").show();
                     $(row).find('td:eq(5)').hide();
                     $(".tgl-btn").click(function () {
-                            $(row).find('td:eq(5)').toggle();
-                            $(row).find('td:eq(4)').toggle();
+                        $(row).find('td:eq(5)').toggle();
+                        $(row).find('td:eq(4)').toggle();
+                        if ($('input.tgl').is(':checked')) {
+                            location.reload();
+                        }
                     });
+                    //
                 }
             });
             }
@@ -173,8 +144,43 @@
                 var redirectURL = '@Url.Action("Attendance", "Lecturer")';
                 window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.BuoiHoc.MKH/' + time;
                 //showTable();
-            })
+            });
+
         });
+        //Edit attendance function
+        setTimeout(function () {
+            var editor = {
+                init: function () {
+                    editor.registerEvents();
+                },
+                registerEvents: function () {
+                    $('.btn-active').on('click', function (e) {
+                        e.preventDefault();
+                        var btn = $(this);
+                        var id = btn.data('id');
+                        $.ajax({
+                            url: "/Lecturer/EditAtd",
+                            data: { id: id },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (response) {
+                                console.log(response);
+                                if (response.status == 0) {
+                                    btn.text('Vắng').addClass('btn-danger');
+                                    btn.text('Vắng').removeClass('btn-primary');
+                                }
+                                else {
+                                    btn.text('Hiện diện').addClass('btn-primary');
+                                    btn.text('Hiện diện').removeClass('btn-danger');
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+            editor.init();
+        }, 3000);
+
     </script>
 </head>
 

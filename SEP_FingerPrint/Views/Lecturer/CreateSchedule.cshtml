@@ -28,10 +28,17 @@
             multidate: true
         };
         date_input.datepicker(options);
+        var usedNames = {};
+        $("select[id='listCourse'] > option").each(function () {
+            if (usedNames[this.text]) {
+                $(this).remove();
+            } else {
+                usedNames[this.text] = this.value;
+            }
+        });
     });
     $(document).ready(function () {
         $('select').niceSelect();
-        
         $("ul.daysOfWeekButton-group li").click(function (e) {
             $(function () {
                 $(".btn").on('click', function (e) {
@@ -39,12 +46,22 @@
                     $(this).closest('.aitem').remove();
                 });
             });
-            $(".xItem").append('<div class="aitem"><ul class="req1">'
-                + '<li style="width: 100px"><p style="display: inline-block;">' + $(this).text() + '</p></li>'
-                + '&nbsp;&nbsp;&nbsp;<li style="width: 200px"><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
-                + '&nbsp;&nbsp;&nbsp;<li><a class="btn"><i class="fa fa-close"></i></a></li>'
-                + '</ul>'
-                + '</div>');
+            if ($("div.xItem:contains('" + $(this).text() + "')").length) {
+                alert('Ngày vừa chọn đã được chọn!');
+            } else {
+                $(".xItem").append('<div class="aitem"><ul class="req1">'
+                    + '<li style="width: 100px"><p style="display: inline-block; font-weight: bold">' + $(this).text() + '</p></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input type="text" class="form-control"></li>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '&nbsp;&nbsp;<li><a class="btn"><i style="font-color: red; font-size: 25px" class="fa fa-close"></i></a></li>'
+                    + '</ul>'
+                    + '</div>');
+            }
             //alert($(this).find("a.button").text());
         });
     });
@@ -59,8 +76,6 @@
         var x = document.getElementById("gettingStartSetupSchedule");
         x.style.display = "block";
     };
-
-
 </script>
 <div class="page-wrapper">
     <!-- Bread crumb -->
@@ -81,7 +96,7 @@
         <!-- Start Page Content -->
         <div class="row">
             <!-- /# column -->
-            <div class="col-lg-10">
+            <div class="col-lg-11">
                 <div class="card">
                     <div style="justify-content: flex-start; display: flex">
                         <div>
@@ -97,7 +112,7 @@
                                     var listCourse = db.KhoaHocs.Where(x => x.MGV == getMGV).ToList();
                                     foreach (var item in listCourse)
                                     {
-                                        <option>@item.MKH - @item.MonHoc.TenMonHoc</option>
+                                            <option>@item.MMH - @item.MonHoc.TenMonHoc</option>
                                     }
                                 }
                             </select>
@@ -107,8 +122,8 @@
                     <div class="card-body">
                         <form style="margin-left: 10px">
                             <div class="form-group row">
-                                <div class="col-md-8">
-                                    <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đằu - Ngày kết thúc:</label>
+                                <div class="col-md-9">
+                                    <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
                                     <div style="justify-content:flex-start; display:flex; color: white;">
                                         <input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />
                                         &nbsp;&nbsp;
@@ -133,7 +148,7 @@
                                     </div>
                                     <br />
                                     <!-- -->
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="xItem">
                                             <style scoped>
                                                 button::-moz-focus-inner,

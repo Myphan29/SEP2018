@@ -3288,6 +3288,7 @@ table.dataTable thead .sorting_desc_disabled {
 .btn {
     padding: 7px 12px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .btn-group label {
@@ -9448,7 +9449,8 @@ tbody tr td {
     text-align: center;
 }
 .req1 {
-    width: 400px;
+    width: 900px;
+    padding-top: 7px;
 }
 .req1 li {
     display: inline-block;

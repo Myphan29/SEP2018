@@ -73,6 +73,8 @@ namespace SEP_FingerPrint.Controllers
                 {
                     v.Attend = e.Attend;
                     v.Absent = e.Absent;
+                    Session["Clr0"] = e.Absent;
+                    Session["Clr1"] = e.Attend;
                 }
                 gun.SaveChanges();
                 status = true;
