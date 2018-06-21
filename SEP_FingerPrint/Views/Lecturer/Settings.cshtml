@@ -14,7 +14,6 @@
     }
 }
 @model SEP_FingerPrint.Models.TaiKhoan
-@*<script src="~/CustomLib/js/lib/jquery/jquery.min.js"></script>*@
 <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
 <script>
     $(document).ready(function () {
@@ -22,7 +21,7 @@
             if ($('#color-1').is(':checked')) {
                 var data = {
                     Absent: '#e74c3c',
-                    Attend: '#2ecc71'
+                    Attend: '#2ecc71',
                 }
             }
             if ($('#color-2').is(':checked')) {
@@ -37,11 +36,6 @@
                     Attend: '#f1c40f'
                 }
             }
-            //var data = {
-            //        ID: '1',
-            //        Absent: '3498db',
-            //        Attend: 'e74c3c'
-            //    }
             ColorChanger(data);
         })
         function ColorChanger(data) {

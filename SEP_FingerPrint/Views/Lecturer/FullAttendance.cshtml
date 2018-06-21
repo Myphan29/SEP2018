@@ -1,6 +1,6 @@
 ﻿@model List<Dictionary<string, object>>
 @{
-    ViewBag.Title = "FullAttendance";
+    ViewBag.Title = "Thống kê điểm danh";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Layout = null;
     if (Session["ID"] != null)
@@ -124,7 +124,6 @@
                                     else if (@row.Key == "NgaySinh")
                                     {
                                         <th style="text-align: center">Ngày Sinh</th>
-
                                     }
 
                                     else
@@ -151,11 +150,11 @@
                                         {
                                             if (@column.Value.ToString() == "0")
                                             {
-                                                <td class="fa fa-close" style="display:table-cell;background: #ffa3a3;text-align: center"></td>
+                                                <td class="fa fa-close" style="display:table-cell;background: @Session["Clr0"];text-align: center"></td>
                                             }
                                             else if (@column.Value.ToString() == "1")
                                             {
-                                                <td  class="fa fa-check" style="display:table-cell;background: #d9f9dd;text-align: center"></td>
+                                                <td  class="fa fa-check" style="display:table-cell;background: @Session["Clr1"];text-align: center"></td>
                                                 s++;
                                             }
                                             else
