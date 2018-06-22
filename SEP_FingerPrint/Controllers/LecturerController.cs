@@ -36,11 +36,6 @@ namespace SEP_FingerPrint.Controllers
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public ActionResult CreateSchedule()
-        {
-
-            return View();
-        }
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
         {
@@ -87,6 +82,18 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
+        public JsonResult GatherScheduleData(CreateSchedule schdl, int id)
+        {
+            var status = false;
+            var L = new LichHoc();
+            var K = new KhoaHoc();
+            var B = new BuoiHoc();
+            using (Sep2018Entities metal = new Sep2018Entities())
+            {
+
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
         [HttpGet]
         //public ActionResult RollupEditor(string id)
         //{
@@ -98,7 +105,11 @@ namespace SEP_FingerPrint.Controllers
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
             return View(thm);
         }
-
+        public ActionResult CreateSchedule(int id)
+        {
+            var schdl = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
+            return View(schdl);
+        }
         [HttpPost]
             public JsonResult EditAtd(string id)
         {
