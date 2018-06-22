@@ -9,14 +9,14 @@
           <Key>
             <PropertyRef Name="MBH" />
           </Key>
-          <Property Name="MBH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MBH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Phong" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Ngay" Type="date" Nullable="false" />
           <Property Name="GioBatDau" Type="time" Precision="7" Nullable="false" />
           <Property Name="GioKetThuc" Type="time" Precision="7" Nullable="false" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="note" Type="nvarchar" MaxLength="50" />
-          <Property Name="MLH" Type="varchar" MaxLength="10" />
+          <Property Name="MLH" Type="int" />
           <Property Name="MKH" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="CauHinh">
@@ -45,7 +45,7 @@
           <Property Name="Gio" Type="time" Precision="7" />
           <Property Name="TrangThai" Type="int" />
           <Property Name="MSV" Type="varchar" MaxLength="10" />
-          <Property Name="MBH" Type="varchar" MaxLength="10" />
+          <Property Name="MBH" Type="int" />
           <Property Name="MKH" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="GiangVien">
@@ -77,7 +77,7 @@
           <Key>
             <PropertyRef Name="MLH" />
           </Key>
-          <Property Name="MLH" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MLH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Thu" Type="int" />
           <Property Name="GioBatDau" Type="time" Precision="7" />
           <Property Name="GioKetThuc" Type="time" Precision="7" />
@@ -371,14 +371,14 @@
           <Key>
             <PropertyRef Name="MBH" />
           </Key>
-          <Property Name="MBH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MBH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Phong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="GioBatDau" Type="Time" Nullable="false" Precision="7" />
           <Property Name="GioKetThuc" Type="Time" Nullable="false" Precision="7" />
           <Property Name="TrangThai" Type="Boolean" />
           <Property Name="note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MLH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MLH" Type="Int32" />
           <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_BuoiHoc_KhoaHoc" FromRole="BuoiHoc" ToRole="KhoaHoc" />
           <NavigationProperty Name="LichHoc" Relationship="Self.FK_BuoiHoc_LichHoc" FromRole="BuoiHoc" ToRole="LichHoc" />
@@ -413,7 +413,7 @@
           <Property Name="Gio" Type="Time" Precision="7" />
           <Property Name="TrangThai" Type="Int32" />
           <Property Name="MSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MBH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MBH" Type="Int32" />
           <Property Name="MKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BuoiHoc" Relationship="Self.FK_DiemDanh_BuoiHoc1" FromRole="DiemDanh" ToRole="BuoiHoc" />
           <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_DiemDanh_KhoaHoc" FromRole="DiemDanh" ToRole="KhoaHoc" />
@@ -457,7 +457,7 @@
           <Key>
             <PropertyRef Name="MLH" />
           </Key>
-          <Property Name="MLH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MLH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Thu" Type="Int32" />
           <Property Name="GioBatDau" Type="Time" Precision="7" />
           <Property Name="GioKetThuc" Type="Time" Precision="7" />

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SEP_FingerPrint.Models.CreateSchedule
+@{
     ViewBag.Title = "Tạo lịch học";
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Session["ID"] == null)
@@ -16,7 +17,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+@*<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>*@
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+
 <script>
     $(document).ready(function () {
         var date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -28,14 +31,14 @@
             multidate: true
         };
         date_input.datepicker(options);
-        var usedNames = {};
-        $("select[id='listCourse'] > option").each(function () {
-            if (usedNames[this.text]) {
-                $(this).remove();
-            } else {
-                usedNames[this.text] = this.value;
-            }
-        });
+        //var usedNames = {};
+        //$("select[id='listCourse'] > option").each(function () {
+        //    if (usedNames[this.text]) {
+        //        $(this).remove();
+        //    } else {
+        //        usedNames[this.text] = this.value;
+        //    }
+        //});
     });
     $(document).ready(function () {
         $('select').niceSelect();
@@ -52,21 +55,22 @@
                 $(".xItem").append('<div class="aitem"><ul class="req1">'
                     + '<li style="width: 100px"><p style="display: inline-block; font-weight: bold">' + $(this).text() + '</p></li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i>@Html.TextBoxFor(model => model.Start, new { @class = "form-control", @autofocus = "autofocus" })</li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i>@Html.TextBoxFor(model => model.End, new { @class = "form-control", @autofocus = "autofocus" })</li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input type="text" class="form-control"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i>@Html.TextBoxFor(model => model.Room, new { @class = "form-control", @autofocus = "autofocus" })</li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
                     + '&nbsp;&nbsp;<li><a class="btn"><i style="font-color: red; font-size: 25px" class="fa fa-close"></i></a></li>'
                     + '</ul>'
                     + '</div>');
             }
             //alert($(this).find("a.button").text());
+
         });
     });
     $(function () {
-        $('input[name="daterange"]').daterangepicker({
+        $('#daterange').daterangepicker({
             opens: 'right'
         }, function (start, end, label) {
             console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY'));
@@ -107,12 +111,14 @@
                             <select id="listCourse">
                                 <option>Môn học</option>
                                 @{
+                                    int i = 1;
                                     string getMGV = Session["MGV"].ToString();
                                     SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
                                     var listCourse = db.KhoaHocs.Where(x => x.MGV == getMGV).ToList();
                                     foreach (var item in listCourse)
                                     {
-                                            <option>@item.MMH - @item.MonHoc.TenMonHoc</option>
+                                        <option id="option-@i" value="@item.MKH">@item.MKH - @item.MonHoc.TenMonHoc</option>
+                                        i++;
                                     }
                                 }
                             </select>
@@ -122,28 +128,30 @@
                     <div class="card-body">
                         <form style="margin-left: 10px">
                             <div class="form-group row">
-                                <div class="col-md-9">
+                                <div class="col-md-5">
                                     <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
                                     <div style="justify-content:flex-start; display:flex; color: white;">
-                                        <input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />
+                                        @*<input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />*@
+                                        @Html.TextBoxFor(model => model.Dates, new { @class = "form-control", @type = "text", @id = "daterange", @value = "01/01/2018 - 01/02/2018", @autocomplete = "off" })
                                         &nbsp;&nbsp;
-                                        <a onclick="createSchedule()" class="btn btn-dark"><span class="fa fa-plus-square"></span>&nbsp;&nbsp;Lập thời khóa biểu</a>
+                                        @*<a onclick="createSchedule()" class="btn btn-dark"><span class="fa fa-plus-square"></span>&nbsp;&nbsp;Lập thời khóa biểu</a>*@
                                     </div>
+                                    @Html.TextBoxFor(model => model.CourseID, new { @class = "form-control", @style = "display: none", @type ="text" })
                                 </div>
                             </div>
-                            <div id="gettingStartSetupSchedule" style="display: none" class="form-group row">
+                            <div id="gettingStartSetupSchedule" style="" class="form-group row">
                                 <div class="col-md-12">
                                     <label>Chọn buổi học:</label>
                                     <br />
                                     <div>
                                         <ul class="daysOfWeekButton-group">
-                                            <li class="thuhigh"><a class="large button">Thứ hai</a></li>
-                                            <li><a class="large button">Thứ ba</a></li>
-                                            <li><a class="large button">Thứ tư</a></li>
-                                            <li><a class="large button">Thứ năm</a></li>
-                                            <li><a class="large button">Thứ sáu</a></li>
-                                            <li><a class="large button">Thứ bảy</a></li>
-                                            <li><a class="large button">Chủ nhật</a></li>
+                                            <li value="2"><a class="large button">Thứ hai</a></li>
+                                            <li value="3"><a class="large button">Thứ ba</a></li>
+                                            <li value="4"><a class="large button">Thứ tư</a></li>
+                                            <li value="5"><a class="large button">Thứ năm</a></li>
+                                            <li value="6"><a class="large button">Thứ sáu</a></li>
+                                            <li value="7"><a class="large button">Thứ bảy</a></li>
+                                            <li value="CN"><a class="large button">Chủ nhật</a></li>
                                         </ul>
                                     </div>
                                     <br />
@@ -405,3 +413,12 @@
     <!-- End Container fluid  -->
 </div>
 
+<script>
+    $('#listCourse').on('change', () => {
+        const selectedValue = $('#listCourse').val();
+        $('#CourseID').val(selectedValue);
+        //const abc = $('#CourseID').val();
+        //alert(abc);
+    })
+    //CourseID
+</script>

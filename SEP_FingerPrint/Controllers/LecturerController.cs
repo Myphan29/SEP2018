@@ -14,6 +14,7 @@ using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
 using SEP_FingerPrint.IntegratedModel;
+using System.Globalization;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -34,6 +35,11 @@ namespace SEP_FingerPrint.Controllers
                           select new { e.MBH, e.Phong, e.Ngay, e.GioBatDau, e.GioKetThuc }).ToList();
             ;
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public ActionResult CreateSchedule()
+        {
+
+            return View();
         }
         [HttpPost]
         public JsonResult SaveEvent(BuoiHoc e)
@@ -81,28 +87,12 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public JsonResult AtdChangeee(DiemDanh i)
-        {
-            var responde = false;
-            using (Sep2018Entities owl = new Sep2018Entities())
-            {
-                var atdList = owl.DiemDanhs.Where(x => x.ID == i.ID).FirstOrDefault();
-                if (atdList != null)
-                {
-                    atdList.ID = i.ID;
-                    atdList.TrangThai = i.TrangThai;
-                }
-                owl.SaveChanges();
-                responde = true;
-            }
-            return new JsonResult { Data = new { status = responde } };
-        }
         [HttpGet]
-        public ActionResult RollupEditor(string id)
-        {
-            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
-            return View(std);
-        }
+        //public ActionResult RollupEditor(string id)
+        //{
+        //    var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
+        //    return View(std);
+        //}
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
@@ -110,8 +100,7 @@ namespace SEP_FingerPrint.Controllers
         }
 
         [HttpPost]
-
-        public JsonResult EditAtd(string id)
+            public JsonResult EditAtd(string id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -185,10 +174,6 @@ namespace SEP_FingerPrint.Controllers
             string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
-        }
-        public ActionResult CreateSchedule()
-        {
-            return View();
         }
         public List<KhoaHoc> initData(string mgv)
         {
