@@ -2190,6 +2190,17 @@ textarea {
     .mini-sidebar.show-sidebar .left-sidebar {
         left: 0;
     }
+    .mini-sidebar.show-sidebar .mvls-aob {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: #e6294b;
+        width: 240px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        display: block;
+    }
 
     .mini-sidebar.show-sidebar .sidebar-footer {
         left: 0;
@@ -8391,14 +8402,17 @@ tbody tr td {
     text-align: center;
     line-height: 40px;
 }
-
-@media (min-width: 768px) {
+@media (max-width: 767px ) {
+    .mini-sidebar .mvls-aob {
+        display: none;
+    }
+}
+@media (min-width: 768px ) {
     .mini-sidebar .mvls-aob {
         width: 60px;
         height: 39px;
     }
 }
-
 .cp-block-1 {
     width: 300px;
     height: 550px;
