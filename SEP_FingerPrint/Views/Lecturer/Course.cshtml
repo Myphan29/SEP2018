@@ -84,9 +84,9 @@
                                             <td>@item.MonHoc.TenMonHoc</td>
                                             <td>@item.Note</td>
                                             <td>
-                                                <a href="/Lecturer/FullAttendance/@item.MKH" role="button" class="btn btn-primary btn-rounded">Điểm danh</a>
-                                                |
-                                                <a href="/Lecturer/Schedule/@item.MKH" role="button" class="btn btn-warning fa fa-info"></a>
+                                                <a class="btn btn-primary btn-rounded" href="/Lecturer/FullAttendance/@item.MKH" id="@item.MKH">Điểm danh</a>|
+                                                
+                                                <a href="/Lecturer/Schedule/@item.MKH" role="button" class="btn btn-warning fa fa-info" name="@item.MKH"></a>
                                             </td>
                                         </tr>
                                     }

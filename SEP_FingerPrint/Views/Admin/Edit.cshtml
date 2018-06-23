@@ -26,6 +26,22 @@
             $('#listUser').DataTable();
         });
     </script>
+    <style>
+        .button {
+            background-color: #2185d0;
+            border: none;
+            color: white;
+            padding: 3px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: 2px solid #2185d0;
+            border-radius: 25px;
+        }
+    </style>
 </head>
 @section jsFooter{
     <script src="~/CustomLib/js/user.js"></script>
@@ -72,8 +88,10 @@
                                         <td>@item.TaiKhoan.TenTK</td>
                                         <td>
                                             <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.TaiKhoan.ID">@item.TaiKhoan.Trangthai</button>
+                                            @*<a class="button" href="~/Admin/ResetPassword/@item.TaiKhoan.ID" id="@item.TaiKhoan.ID">Reset Pass </a>*@
+                                            <a class="btn btn-warning" href="~/Admin/ResetPassword/@item.TaiKhoan.ID" role="button">Reset Pass</a>
                                         </td>
-                                       
+
                                     </tr>
                                     }
                                 </tbody>
