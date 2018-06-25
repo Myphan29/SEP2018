@@ -1,4 +1,4 @@
-﻿@model SEP_FingerPrint.Models.TaiKhoan
+﻿@model SEP_FingerPrint.Models.GiangVien
 @{
     ViewBag.Title = "Tạo lịch học";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -127,7 +127,9 @@
                                     <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
                                     <div style="justify-content:flex-start; display:flex; color: white;">
                                         <input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />
-                                        <input id="CourseID" style="display: none" class="form-control" autocomplete="off" type="text" />
+
+                                         @*no need using exactly model, this input used for get MKH*@
+                                        <input id="CourseID" style="display: none" class="form-control" autocomplete="off" type="text" /> 
                                         &nbsp;&nbsp;
                                         @*<a onclick="createSchedule()" class="btn btn-dark"><span class="fa fa-plus-square"></span>&nbsp;&nbsp;Lập thời khóa biểu</a>*@
                                     </div>
@@ -151,7 +153,7 @@
                                     <br />
                                     <!-- -->
                                     <div class="col-md-5">
-                                        <div class="xItem">
+                                        <div class="xItem">   <!--- css apply for only this -->
                                             <style scoped>
                                                 button::-moz-focus-inner,
                                                 [type="button"]::-moz-focus-inner,
@@ -407,21 +409,17 @@
     <!-- End Container fluid  -->
 </div>
 <script>
+    // get MKH
     $('#listCourse').on('change', () => {
         const selectedValue = $('#listCourse').val();
         $('#CourseID').val(selectedValue);
-        //const abc = $('#CourseID').val();
         //alert(abc);
     });
     $('#SaveChanges').click(function () {
-        const zV = $("#CourseID").text();
-        //if ($("#thu2").length != 0) {
-        //    var x = document.getElementById("#Room2").text;
-            alert(zV);
-        //} else {
-        //    alert("It's hidden");
-        //}
+        // this code using for save schedule records
+
+
+
+        //GatherScheduleData(data);
     });
-    
-   
 </script>

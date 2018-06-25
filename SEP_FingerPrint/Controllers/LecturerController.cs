@@ -82,7 +82,7 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public JsonResult GatherScheduleData(CreateSchedule schdl, int id)
+        public JsonResult GatherScheduleData(CreateSchedule schdl, string id)
         {
             var status = false;
             var L = new LichHoc();
@@ -90,24 +90,36 @@ namespace SEP_FingerPrint.Controllers
             var B = new BuoiHoc();
             using (Sep2018Entities metal = new Sep2018Entities())
             {
+                var temp = metal.GiangViens.Where(k => k.MGV == id).FirstOrDefault();
+                if (temp != null)
+                {
+                    L.MKH = schdl.CourseID;
+                    L.GioBatDau = TimeSpan.Parse(schdl.Start);
+                    L.GioKetThuc = TimeSpan.Parse(schdl.End);
 
+                    K.NgayBatDau = DateTime.Parse(schdl.Dates.ToString().Split(' ')[0]);
+                    K.NgayKetThuc = DateTime.Parse(schdl.Dates.ToString().Split(' ')[2]);
+                    K.MGV = Convert.ToString(Session["MGV"]);
+
+                    B.Phong = schdl.Room;
+                }
+                //metal.LichHocs.Add(L);
+                //metal.KhoaHocs.Add(K);
+                //metal.BuoiHocs.Add(B);
+                //metal.SaveChanges();
+                status = true;
             }
             return new JsonResult { Data = new { status = status } };
         }
         [HttpGet]
-        //public ActionResult RollupEditor(string id)
-        //{
-        //    var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
-        //    return View(std);
-        //}
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
             return View(thm);
         }
-        public ActionResult CreateSchedule(int id)
+        public ActionResult CreateSchedule(string mgv)
         {
-            var schdl = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
+            var schdl = db.GiangViens.Where(x => x.MGV == mgv).FirstOrDefault();
             return View(schdl);
         }
         [HttpPost]
