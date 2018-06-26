@@ -82,6 +82,11 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
+        public ActionResult CreateSchedule(string mgv)
+        {
+            var schdl = db.GiangViens.Where(x => x.MGV == mgv).FirstOrDefault();
+            return View(schdl);
+        }
         public JsonResult GatherScheduleData(CreateSchedule schdl, string id)
         {
             var status = false;
@@ -117,11 +122,7 @@ namespace SEP_FingerPrint.Controllers
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
             return View(thm);
         }
-        public ActionResult CreateSchedule(string mgv)
-        {
-            var schdl = db.GiangViens.Where(x => x.MGV == mgv).FirstOrDefault();
-            return View(schdl);
-        }
+        
         [HttpPost]
             public JsonResult EditAtd(string id)
         {
@@ -145,28 +146,26 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, string e = "1")    
+        public ActionResult Attendance(string id, int e)    
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH==e).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
 
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+
+            return Content("<script language='javascript' type='text/javascript'>alert('Failed');history.go(-1);</script>");
         }
 
-
-
-
-        public ActionResult LoadData(string id, string e)
+        public ActionResult LoadData(string id, int e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH==e
                              select new[]
                              {
                                  Convert.ToString( c.ID),

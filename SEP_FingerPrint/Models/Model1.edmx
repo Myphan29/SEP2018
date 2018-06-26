@@ -59,6 +59,7 @@
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="IDTaiKhoan" Type="int" Nullable="false" />
           <Property Name="IDConf" Type="int" Nullable="false" />
+          <Property Name="VanTay" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -100,7 +101,7 @@
           <Property Name="Ten" Type="nvarchar" MaxLength="50" />
           <Property Name="NgaySinh" Type="date" />
           <Property Name="GioiTinh" Type="bit" />
-          <Property Name="VanTay" Type="nvarchar" MaxLength="50" />
+          <Property Name="VanTay" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -430,6 +431,7 @@
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IDTaiKhoan" Type="Int32" Nullable="false" />
           <Property Name="IDConf" Type="Int32" Nullable="false" />
+          <Property Name="VanTay" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CauHinh" Relationship="Self.FK_GiangVien_CauHinh" FromRole="GiangVien" ToRole="CauHinh" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_GiangVien_TaiKhoan" FromRole="GiangVien" ToRole="TaiKhoan" />
           <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KhoaHoc_GiangVien" FromRole="GiangVien" ToRole="KhoaHoc" />
@@ -483,7 +485,7 @@
           <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="GioiTinh" Type="Boolean" />
-          <Property Name="VanTay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VanTay" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DanhSachLops" Relationship="Self.FK_DanhSachLop_SinhVien" FromRole="SinhVien" ToRole="DanhSachLop" />
           <NavigationProperty Name="DiemDanhs" Relationship="Self.FK_DiemDanh_SinhVien" FromRole="SinhVien" ToRole="DiemDanh" />
         </EntityType>
@@ -821,6 +823,7 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="IDTaiKhoan" ColumnName="IDTaiKhoan" />
                 <ScalarProperty Name="IDConf" ColumnName="IDConf" />
+                <ScalarProperty Name="VanTay" ColumnName="VanTay" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
