@@ -145,7 +145,6 @@
                 window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.BuoiHoc.MKH/' + time;
                 //showTable();
             });
-
         });
         //Edit attendance function
         setTimeout(function () {
@@ -213,7 +212,7 @@
                         <option>Chọn buổi học</option>
                         @{
                             SEP_FingerPrint.Models.Sep2018Entities db = new SEP_FingerPrint.Models.Sep2018Entities();
-                            var listSel = db.BuoiHocs.ToList();
+                            var listSel = db.BuoiHocs.ToList().Where(x=>x.MKH.Equals(@Model.MKH));
                             foreach (var item in listSel)
                             {
                                 <option>@item.MBH - @item.Ngay.ToShortDateString()</option>

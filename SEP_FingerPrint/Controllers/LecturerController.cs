@@ -14,6 +14,7 @@ using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
 using SEP_FingerPrint.IntegratedModel;
+using System.Globalization;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -81,37 +82,57 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public JsonResult AtdChangeee(DiemDanh i)
+        public ActionResult CreateSchedule(string id)
         {
-            var responde = false;
-            using (Sep2018Entities owl = new Sep2018Entities())
+            var schdl = db.GiangViens.Where(x => x.MGV == id).FirstOrDefault();
+            return View(schdl);
+        }
+        [HttpPost]
+        public JsonResult GatherScheduleData(CreateSchedule schdl)
+        {
+            var status = false;
+           
+            
+             //var DateStart = (schdl.Dates.ToString().Split('-')[0]);
+            //var changeDS = DateTime.Parse(DateStart.ToString().Split('/')[1] +"/"+ DateStart.ToString().Split('/')[0] +"/"+ DateStart.ToString().Split('/')[2]);
+            //var DateEnd = schdl.Dates.ToString().Split('-')[1];
+            //var changeDE = DateTime.Parse(DateEnd.ToString().Split('/')[1] + "/" + DateEnd.ToString().Split('/')[0] + "/" + DateEnd.ToString().Split('/')[2]);
+            using (Sep2018Entities metal = new Sep2018Entities())
             {
-                var atdList = owl.DiemDanhs.Where(x => x.ID == i.ID).FirstOrDefault();
-                if (atdList != null)
+                KhoaHoc khoahoc = metal.KhoaHocs.Single(p => p.MKH == schdl.CourseID);
+                khoahoc.NgayBatDau = schdl.DateStart;
+                khoahoc.NgayKetThuc = schdl.DateEnd;
+                metal.SaveChanges();
+                
+                for (var i = schdl.DateStart; DateTime.Compare(i,schdl.DateEnd)<0; i=i.AddDays(1))
                 {
-                    atdList.ID = i.ID;
-                    atdList.TrangThai = i.TrangThai;
+                    int day = (int)i.DayOfWeek;
+                    if (day == schdl.Days)
+                    {
+                        var B = new BuoiHoc();
+                        B.MKH = schdl.CourseID;
+                        B.GioBatDau = schdl.Start;
+                        B.GioKetThuc = schdl.End;
+                        B.Ngay = i;
+                        B.Phong = schdl.Room;
+                        metal.BuoiHocs.Add(B);
+                        metal.SaveChanges();
+                    }
                 }
-                owl.SaveChanges();
-                responde = true;
+                
+                status = true;
             }
-            return new JsonResult { Data = new { status = responde } };
+            return new JsonResult { Data = new { status = status } };
         }
         [HttpGet]
-        public ActionResult RollupEditor(string id)
-        {
-            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
-            return View(std);
-        }
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
             return View(thm);
         }
-
+        
         [HttpPost]
-
-        public JsonResult EditAtd(string id)
+            public JsonResult EditAtd(string id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -133,28 +154,26 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, string e = "1")    
+        public ActionResult Attendance(string id, int e)    
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH==e).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
 
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+
+            return Content("<script language='javascript' type='text/javascript'>alert('Failed');history.go(-1);</script>");
         }
 
-
-
-
-        public ActionResult LoadData(string id, string e)
+        public ActionResult LoadData(string id, int e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH==e
                              select new[]
                              {
                                  Convert.ToString( c.ID),
@@ -185,10 +204,6 @@ namespace SEP_FingerPrint.Controllers
             string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
-        }
-        public ActionResult CreateSchedule()
-        {
-            return View();
         }
         public List<KhoaHoc> initData(string mgv)
         {

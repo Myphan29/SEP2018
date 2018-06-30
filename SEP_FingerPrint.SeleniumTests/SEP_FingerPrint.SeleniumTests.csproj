@@ -139,6 +139,7 @@
     <Compile Include="Config\WebApplication.cs" />
     <Compile Include="LoginAndLogoutSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticalAttendanceSteps.cs" />
     <Compile Include="Support\Browsers.cs" />
     <Compile Include="Support\SeleniumController.cs" />
     <Compile Include="Support\SeleniumStepsBase.cs" />

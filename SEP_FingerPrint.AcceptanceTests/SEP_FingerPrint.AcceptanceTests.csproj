@@ -152,6 +152,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginAndLogout.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\StaticalAttendance.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaticalAttendance.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +170,10 @@
     <None Include="Features\LoginAndLogout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LoginAndLogout.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\StaticalAttendance.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>StaticalAttendance.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

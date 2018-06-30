@@ -220,13 +220,14 @@
     </Compile>
     <Compile Include="IntegratedModel\AtdNSettings.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AddUserModels.cs" />
     <Compile Include="Models\BuoiHoc.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CauHinh.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateScheduleModels.cs" />
+    <Compile Include="Models\AddUserModels.cs" />
     <Compile Include="Models\DanhSachLop.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -273,7 +274,9 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TaiKhoan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -781,6 +784,7 @@
     <Content Include="CustomLib\js\lib\sweetalert\sweetalert.min.js" />
     <Content Include="CustomLib\js\lib\toastr\toastr.init.js" />
     <Content Include="CustomLib\js\lib\toastr\toastr.min.js" />
+    <Content Include="CustomLib\js\lib\user.js" />
     <Content Include="CustomLib\js\lib\vector-map\country\jquery.vmap.algeria.js" />
     <Content Include="CustomLib\js\lib\vector-map\country\jquery.vmap.argentina.js" />
     <Content Include="CustomLib\js\lib\vector-map\country\jquery.vmap.brazil.js" />
@@ -804,6 +808,7 @@
     <Content Include="CustomLib\js\main.js" />
     <Content Include="CustomLib\js\scripts.js" />
     <Content Include="CustomLib\js\sidebarmenu.js" />
+    <Content Include="CustomLib\js\validateFunc.js" />
     <Content Include="CustomLib\js\user.js" />
     <Content Include="CustomLib\Schedule\fullcalendar.css" />
     <Content Include="CustomLib\Schedule\fullcalendar.js" />

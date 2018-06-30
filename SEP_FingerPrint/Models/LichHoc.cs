@@ -20,7 +20,7 @@ namespace SEP_FingerPrint.Models
             this.BuoiHocs = new HashSet<BuoiHoc>();
         }
     
-        public string MLH { get; set; }
+        public int MLH { get; set; }
         public Nullable<int> Thu { get; set; }
         public Nullable<System.TimeSpan> GioBatDau { get; set; }
         public Nullable<System.TimeSpan> GioKetThuc { get; set; }

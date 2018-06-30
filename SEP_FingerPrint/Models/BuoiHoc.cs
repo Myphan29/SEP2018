@@ -20,14 +20,14 @@ namespace SEP_FingerPrint.Models
             this.DiemDanhs = new HashSet<DiemDanh>();
         }
     
-        public string MBH { get; set; }
+        public int MBH { get; set; }
         public string Phong { get; set; }
         public System.DateTime Ngay { get; set; }
         public System.TimeSpan GioBatDau { get; set; }
         public System.TimeSpan GioKetThuc { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public string note { get; set; }
-        public string MLH { get; set; }
+        public Nullable<int> MLH { get; set; }
         public string MKH { get; set; }
     
         public virtual KhoaHoc KhoaHoc { get; set; }
