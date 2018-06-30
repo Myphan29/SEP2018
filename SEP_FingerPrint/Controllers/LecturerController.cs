@@ -82,36 +82,44 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public ActionResult CreateSchedule(string mgv)
+        public ActionResult CreateSchedule(string id)
         {
-            var schdl = db.GiangViens.Where(x => x.MGV == mgv).FirstOrDefault();
+            var schdl = db.GiangViens.Where(x => x.MGV == id).FirstOrDefault();
             return View(schdl);
         }
-        public JsonResult GatherScheduleData(CreateSchedule schdl, string id)
+        [HttpPost]
+        public JsonResult GatherScheduleData(CreateSchedule schdl)
         {
             var status = false;
-            var L = new LichHoc();
-            var K = new KhoaHoc();
-            var B = new BuoiHoc();
+           
+            
+             //var DateStart = (schdl.Dates.ToString().Split('-')[0]);
+            //var changeDS = DateTime.Parse(DateStart.ToString().Split('/')[1] +"/"+ DateStart.ToString().Split('/')[0] +"/"+ DateStart.ToString().Split('/')[2]);
+            //var DateEnd = schdl.Dates.ToString().Split('-')[1];
+            //var changeDE = DateTime.Parse(DateEnd.ToString().Split('/')[1] + "/" + DateEnd.ToString().Split('/')[0] + "/" + DateEnd.ToString().Split('/')[2]);
             using (Sep2018Entities metal = new Sep2018Entities())
             {
-                var temp = metal.GiangViens.Where(k => k.MGV == id).FirstOrDefault();
-                if (temp != null)
+                KhoaHoc khoahoc = metal.KhoaHocs.Single(p => p.MKH == schdl.CourseID);
+                khoahoc.NgayBatDau = schdl.DateStart;
+                khoahoc.NgayKetThuc = schdl.DateEnd;
+                metal.SaveChanges();
+                
+                for (var i = schdl.DateStart; DateTime.Compare(i,schdl.DateEnd)<0; i=i.AddDays(1))
                 {
-                    L.MKH = schdl.CourseID;
-                    L.GioBatDau = TimeSpan.Parse(schdl.Start);
-                    L.GioKetThuc = TimeSpan.Parse(schdl.End);
-
-                    K.NgayBatDau = DateTime.Parse(schdl.Dates.ToString().Split(' ')[0]);
-                    K.NgayKetThuc = DateTime.Parse(schdl.Dates.ToString().Split(' ')[2]);
-                    K.MGV = Convert.ToString(Session["MGV"]);
-
-                    B.Phong = schdl.Room;
+                    int day = (int)i.DayOfWeek;
+                    if (day == schdl.Days)
+                    {
+                        var B = new BuoiHoc();
+                        B.MKH = schdl.CourseID;
+                        B.GioBatDau = schdl.Start;
+                        B.GioKetThuc = schdl.End;
+                        B.Ngay = i;
+                        B.Phong = schdl.Room;
+                        metal.BuoiHocs.Add(B);
+                        metal.SaveChanges();
+                    }
                 }
-                //metal.LichHocs.Add(L);
-                //metal.KhoaHocs.Add(K);
-                //metal.BuoiHocs.Add(B);
-                //metal.SaveChanges();
+                
                 status = true;
             }
             return new JsonResult { Data = new { status = status } };

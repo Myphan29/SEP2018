@@ -13,15 +13,16 @@ namespace SEP_FingerPrint.Models
 
         [Required(ErrorMessage = "Giờ bắt đầu?")]
         //[Display(Name = "Tên đăng nhập:")]
-        public string Start { set; get; }
+        public TimeSpan Start { set; get; }
 
         [Required(ErrorMessage = "Giờ kết thúc?")]
         //[Display(Name = "Tên đăng nhập:")]
-        public string End { set; get; }
+        public TimeSpan End { set; get; }
 
         [Required(ErrorMessage = "Ngày bắt đầu - ngày kết thúc?")]
         //[Display(Name = "Tên đăng nhập:")]
-        public string Dates { set; get; }
+        public DateTime DateStart { set; get; }
+        public DateTime DateEnd { set; get; }
 
         [Required(ErrorMessage = "Thứ?")]
         //[Display(Name = "Tên đăng nhập:")]
@@ -30,6 +31,6 @@ namespace SEP_FingerPrint.Models
         [Required(ErrorMessage = "Phòng học?")]
         //[Display(Name = "Tên đăng nhập:")]
         public string Room { set; get; }
-        
+        public string MGV { get; set; }
     }
 }

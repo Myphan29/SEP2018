@@ -40,7 +40,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ngay" Type="date" />
           <Property Name="Gio" Type="time" Precision="7" />
           <Property Name="TrangThai" Type="int" />
@@ -409,7 +409,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ngay" Type="DateTime" Precision="0" />
           <Property Name="Gio" Type="Time" Precision="7" />
           <Property Name="TrangThai" Type="Int32" />
