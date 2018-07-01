@@ -134,7 +134,7 @@ namespace SEP_FingerPrint.Controllers
         }
         
         [HttpPost]
-            public JsonResult EditAtd(string id)
+            public JsonResult EditAtd(int id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -142,7 +142,7 @@ namespace SEP_FingerPrint.Controllers
                 status = pistol
             });
         }
-        public int AtdChanger(string id)
+        public int AtdChanger(int id)
         {
             var editor = db.DiemDanhs.Find(id);
             if (editor.TrangThai == 0)
@@ -156,16 +156,15 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, int e)    
+        public ActionResult Attendance(string id, string MBH)    
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH==e).FirstOrDefault();
+            int bh = Int32.Parse(MBH);
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH== bh).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
-
-
-            return Content("<script language='javascript' type='text/javascript'>alert('Failed');history.go(-1);</script>");
+            return Content("<script language='javascript' type='text/javascript'>alert('Không có dữ liệu');history.go(-1);</script>");
         }
 
         public ActionResult LoadData(string id, int e)
