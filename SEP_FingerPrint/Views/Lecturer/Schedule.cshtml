@@ -14,8 +14,6 @@
 <head>
     <link href='~/CustomLib/Schedule/fullcalendar.min.css' rel='stylesheet' />
     <link href='~/CustomLib/Schedule/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-
-    <script src="~/CustomLib/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <script src='~/CustomLib/Schedule/lib/jquery.min.js'></script>
     <script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
     <script src='~/CustomLib/Schedule/fullcalendar.min.js'></script>
@@ -213,11 +211,11 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Lịch Dạy</h3>
+            <h3 class="text-primary">@Html.DisplayFor(model => model.KhoaHoc.MonHoc.TenMonHoc) ( Từ @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayBatDau)) đến @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.KhoaHoc.NgayKetThuc)) )</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li> 
                 <li class="breadcrumb-item active">Lịch Dạy</li>
             </ol>
         </div>
@@ -226,7 +224,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="container">
-                <div class="content_component-text-detail">
+                @*<div class="content_component-text-detail">
                     <div class="card text-center">
                         <div class="card-header">
                             @Html.DisplayFor(model => model.KhoaHoc.MonHoc.TenMonHoc)
@@ -237,7 +235,7 @@
                         </div>
                     </div>
                 </div>
-                </br>
+                </br>*@
                 <div id='calendar'></div>
                 <!-- Start function Change Date-->
 
