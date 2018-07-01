@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 <script>
+    
     $(document).ready(function () {
         //DateRange
         //var date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -54,27 +55,27 @@
             $(function () {
                 $(".btn").on('click', function (e) {
                     e.preventDefault();
-                    $(this).closest('.aitem').remove();
+                    $(this).closest('.rm').remove();
                 });
             });
             if ($("div.xItem:contains('" + $(this).text() + "')").length) {
                 alert('Ngày vừa chọn đã được chọn!');
             } else {
                 $(".xItem").append(
-                    '<form>'
+                    '<form class="rm">'
                     + '<div class="aitem"><ul class="req1" ><input style="display: none" id="DayOfWeek" value=' + $(this).val() + '>'
+                    + '<div class="aitem"><ul class="req1" ><input style="display: none" id="Thu" value=' + $(this).attr('id') + '>'
                     + '<li style="width: 100px"><p style="display: inline-block; font-weight: bold">' + $(this).text() + '</p></li>'
-                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input id="StartTime" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
-                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input id="TimeOut" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
-                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input id="Room" type="text" class="form-control"></li>'
-                    + '<li style="width: 200px; display: none ;"><input type="text" class="form-control"></li>'
-                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    + '<li style="width: 120px"><i style="font-size: 12px">Giờ bắt đầu </i><input id="StartTime" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    + '<li style="width: 120px"><i style="font-size: 12px">Giờ kết thúc </i><input id="TimeOut" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    + '<li style="width: 100px"><i style="font-size: 12px;">Phòng </i><input id="Room" type="text" class="form-control"></li>'
+                    + '<li style="width: 100px; display: none ;"><input type="text" class="form-control"></li>'
+                    + '&nbsp;&nbsp;&nbsp;&nbsp;'
                     + '&nbsp;&nbsp;<li><a class="btn"><i style="color: red; font-size: 25px" class="fa fa-close"></i></a></li>'
-                   //btn Save k dung class="btn"
-                    + '<button id="btnSave" class="btn-sm btn-primary" type="button" onclick="Save()">Submit</button>'
+                    + '<button id="btnSave" class="btn btn-sm btn-primary" type="button" onclick="Save()">Submit</button>'
                     + '</ul>'
                     + '</div>'
                     + '</form>'
@@ -84,15 +85,44 @@
 
         });
         
-       
+        
     });
+   function Save() {
+       
+        var data = {
+            Days: $('#DayOfWeek').val(),
+             Room: $('#Room').val(),
+             CourseID: $('#CourseID').val(),
+             MGV: "@Model.MGV",
+             Start: $('#StartTime').val(),
+            End: $('#TimeOut').val(),
+            DateStart: $('#DateRange').data('daterangepicker').startDate.format("DD/MM/YYYY"),
+            DateEnd: $('#DateRange').data('daterangepicker').endDate.format("DD/MM/YYYY"),
+            
+       }
+       var thu = $('#Thu').val();
+        // this code using for save schedule records
+        $.ajax({
+            type: "POST",
+            url: '/Lecturer/GatherScheduleData',
+            data: data,
+            success: function (data) {
+                if (data.status) {
+                    alert('Tạo lịch học thành công');
+                    document.getElementById(thu).remove();
+                }
+            },
+            error: function () {
+                alert('Dữ liệu nhập vào sai định dạng');
+            }
+        })
+        }
    
-    
 
      
    
 </script>
-<div class="page-wrapper">
+<div class="page-wrapper"  style="min-width: 853px;">
     <!-- Bread crumb -->
     @*<div class="row page-titles">
             <div class="col-md-5 align-self-center">
@@ -111,7 +141,7 @@
         <!-- Start Page Content -->
         <div class="row">
             <!-- /# column -->
-            <div class="col-lg-11">
+            <div class="col-lg-9">
                 <div class="card">
                     <div style="justify-content: flex-start; display: flex">
                         <div>
@@ -137,7 +167,7 @@
                     <div class="card-body">
                         <form style="margin-left: 10px">
                             <div class="form-group row">
-                                <div class="col-md-9">
+                                <div class="col-md-7">
                                     <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
                                     <div style="justify-content:flex-start; display:flex; color: white;">
                                         <input class="form-control" autocomplete="off" type="text" name="daterange" id="DateRange" />
@@ -155,19 +185,19 @@
                                     <br />
                                     <div>
                                         <ul class="daysOfWeekButton-group">
-                                            <li  value="1"><a class="large button">Thứ hai</a></li>
-                                            <li  value="2"><a class="large button">Thứ ba</a></li>
-                                            <li value="3"><a class="large button">Thứ tư</a></li>
-                                            <li value="4"><a class="large button">Thứ năm</a></li>
-                                            <li value="5"><a class="large button">Thứ sáu</a></li>
-                                            <li value="6"><a class="large button">Thứ bảy</a></li>
+                                            <li  id="thu2"value="1"><a class="large button">Thứ hai</a></li>
+                                            <li id="thu3" value="2"><a class="large button">Thứ ba</a></li>
+                                            <li id="thu4"value="3"><a class="large button">Thứ tư</a></li>
+                                            <li id="thu5"value="4"><a class="large button">Thứ năm</a></li>
+                                            <li id="thu6"value="5"><a class="large button">Thứ sáu</a></li>
+                                            <li id="thu7"value="6"><a class="large button">Thứ bảy</a></li>
                                         </ul>
                                     </div>
                                     <br />
                                     <!-- -->
-                                    <div class="col-md-5">
+                                    <div class="col-md-2">
                                         <div class="xItem">
-                                            <!--- css apply for only this -->
+                                            <!--- css apply for this only -->
                                             <style scoped>
                                                 button::-moz-focus-inner,
                                                 [type="button"]::-moz-focus-inner,
@@ -428,34 +458,6 @@
         $('#CourseID').val(selectedValue);
         //alert(abc);
     });
-    function Save() {
-       
-        var data = {
-            Days: $('#DayOfWeek').val(),
-             Room: $('#Room').val(),
-             CourseID: $('#CourseID').val(),
-             MGV: "@Model.MGV",
-             Start: $('#StartTime').val(),
-            End: $('#TimeOut').val(),
-            DateStart: $('#DateRange').data('daterangepicker').startDate.format("DD/MM/YYYY"),
-            DateEnd: $('#DateRange').data('daterangepicker').endDate.format("DD/MM/YYYY"),
-            
-         }
-         
-        // this code using for save schedule records
-        $.ajax({
-            type: "POST",
-            url: '/Lecturer/GatherScheduleData',
-            data: data,
-            success: function (data) {
-                if (data.status) {
-                    alert('Tạo lịch học thành công');
-                }
-            },
-            error: function () {
-                alert('Dữ liệu nhập vào sai định dạng');
-            }
-        })
-        }
+    
   
 </script>
