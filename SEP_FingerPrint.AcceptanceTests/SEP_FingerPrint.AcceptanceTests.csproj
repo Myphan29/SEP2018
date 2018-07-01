@@ -142,11 +142,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\EditColorBackground.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EditColorBackground.feature</DependentUpon>
-    </Compile>
     <Compile Include="Features\LoginAndLogout.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,10 +167,6 @@
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Features\EditColorBackground.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>EditColorBackground.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LoginAndLogout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
