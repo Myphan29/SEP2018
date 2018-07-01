@@ -25,13 +25,14 @@ namespace SEP_FingerPrint.UnitTests
             
            
             var result = controller.changeStt(user);
-            var stt = "Disable";
+            //var stt = "Disable";
+            var stt = new TaiKhoan();
+            
             
             var viewResult = controller.Edit() as ViewResult;
 
             Assert.IsNotNull(viewResult);
-            Assert.AreEqual(result, stt);
-           
+            Assert.AreEqual(result, stt.Trangthai);
             Assert.AreEqual(0, validationResults.Count);
         }
         

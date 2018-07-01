@@ -7,6 +7,7 @@ using SEP_FingerPrint.UnitTests.Support;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moq;
+using System.Web.Security;
 
 namespace SEP_FingerPrint.UnitTests
 {
@@ -63,19 +64,20 @@ namespace SEP_FingerPrint.UnitTests
             var controller = new HomeController();
             var user = new LoginModels()
             {
-                UserName = "t150001",
-                Password = "123456"
+                UserName = "phamminhhuyen",
+                Password = "croprokiwi"
             };
             var validationResults = TestModelHelper.ValidateModel(controller, user);
             controller.ControllerContext = new ControllerContext(moqContext.Object, new RouteData(), controller);
 
-            moqContext.SetupGet(x => x.Session["ID"]).Returns(1);
-            moqContext.SetupGet(x => x.Session["Role"]).Returns(1);
+            moqContext.SetupGet(x => x.Session["ID"]).Returns(39);
+            moqContext.SetupGet(x => x.Session["Role"]).Returns(2);
             var redirectRoute = controller.Login(user) as RedirectToRouteResult;
 
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Course", redirectRoute.RouteValues["action"]);
             Assert.AreEqual("Lecturer", redirectRoute.RouteValues["controller"]);
+            
         }
         [TestMethod]
         public void LogOutSuccessful()
@@ -86,21 +88,22 @@ namespace SEP_FingerPrint.UnitTests
 
             moqRequest.Setup(r => r.Files.Count).Returns(0);
             moqContext.Setup(x => x.Request).Returns(moqRequest.Object);
-
+            
             var controller = new HomeController();
             var user = new LoginModels()
             {
-                UserName = "t150001",
+                UserName = "admin",
                 Password = "123456"
             };
             var validationResults = TestModelHelper.ValidateModel(controller, user);
-
+            
             controller.ControllerContext = new ControllerContext(moqContext.Object, new RouteData(), controller);
 
-            moqContext.SetupGet(x => x.Session["ID"]).Returns(1);
-            moqContext.SetupGet(x => x.Session["Role"]).Returns(1);
+            moqContext.SetupGet(x => x.Session["ID"]).Returns(39);
+            moqContext.SetupGet(x => x.Session["Role"]).Returns(2);
             var redirectRoute = controller.Login(user) as RedirectToRouteResult;
             var redirectRouteResult = controller.Logout() as RedirectToRouteResult;
+            
 
             Assert.AreEqual(0, validationResults.Count);
             Assert.AreEqual("Course", redirectRouteResult.RouteValues["action"]);
@@ -175,20 +178,20 @@ namespace SEP_FingerPrint.UnitTests
             var controller = new HomeController();
             var user = new LoginModels()
             {
-                UserName = "t150001",
-                Password = "123456789"
+                UserName = "phamminhhuyen",
+                Password = "123456"
             };
             var validationResults = TestModelHelper.ValidateModel(controller, user);
             controller.ControllerContext = new ControllerContext(moqContext.Object, new RouteData(), controller);
             var viewResult = controller.Login(user) as ViewResult;
 
-            //moqContext.SetupGet(x => x.Session["ID"]).Returns(1);
-            //moqContext.SetupGet(x => x.Session["Role"]).Returns(1);
-            var result = controller.Login("t150001", "123456789");
+            moqContext.SetupGet(x => x.Session["ID"]).Returns(1);
+            moqContext.SetupGet(x => x.Session["Role"]).Returns(1);
+            var result = controller.Login("phamminhhuyen", "123456");
 
             Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
             Assert.AreEqual(0, validationResults.Count);
-            Assert.AreEqual(-2, result);
+            Assert.AreEqual(0, result);
         }
         [TestMethod]
         public void TestThatUserUnsuccessfullyLoginWithAccountDisabled()
