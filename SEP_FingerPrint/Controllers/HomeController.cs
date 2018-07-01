@@ -35,11 +35,12 @@ namespace SEP_FingerPrint.Controllers
                     var userdetail = db.TaiKhoans.Where(x => x.TenTK == model.UserName && x.matkhau == pass).FirstOrDefault();
                     Session["ID"] = userdetail.ID;
                     Session["TenTK"] = userdetail.TenTK;
+                    Session["pass"] = model.Password;
                     Session["Role"] = userdetail.Vaitro;
                     if (Session["Role"].Equals(1))
                     {
                         Session["MGV"] = db.GiangViens.FirstOrDefault(x => x.IDTaiKhoan == userdetail.ID).MGV;
-                        Session["TenGV"] = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == userdetail.ID).HoTen;
+                        Session["TenGV"] = db.GiangViens.FirstOrDefault(x => x.IDTaiKhoan == userdetail.ID).HoTen;
                         Session["Clr0"] = db.CauHinhs.FirstOrDefault(x => x.ID == userdetail.ID).Absent;
                         Session["Clr1"] = db.CauHinhs.FirstOrDefault(x => x.ID == userdetail.ID).Attend;
                         return RedirectToAction("Course", "Lecturer");

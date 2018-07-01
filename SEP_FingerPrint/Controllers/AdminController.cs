@@ -135,9 +135,9 @@ namespace SEP_FingerPrint.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string id, ResetPasswordModel model)
+        public ActionResult ResetPassword(int id, ResetPasswordModel model)
         {
-            var item = db.TaiKhoans.Where(x => x.TenTK == id).First();
+            var item = db.TaiKhoans.Where(x => x.ID == id).First();
             if (ModelState.IsValid)
             {
                 if (model.matkhau == model.nhaplaimatkhau)
@@ -146,30 +146,15 @@ namespace SEP_FingerPrint.Controllers
                     db.SaveChanges();
                     ViewBag.SuccessMessage = "The password has been reseted";
                 }
-
             }
             return View();
         }
-
-
-        public ActionResult Teach(int page = 1, int pageSize = 10)
+        public ActionResult Teach()
         {
             string idTK = Session["ID"] as string;
-            var model = ListAllPaging(page, pageSize);
+            var model = db.KhoaHocs.ToList();
             return View(model);
         }
-        public IEnumerable<KhoaHoc> ListAllPaging(int page, int pageSize)
-        {
-            var list = db.KhoaHocs.OrderBy(x => x.MGV).ToList();
-            for (int i = 0; i < list.Count(); i++)
-            {
-                if (list[i].MGV == list[i + 1].MGV)
-                {
-                    list.Remove(list[i + 1]);
-                }
-            }
-            return list.ToPagedList(page, pageSize);
-        }
-       
+        
     }
 }

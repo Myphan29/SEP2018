@@ -1,7 +1,6 @@
-﻿@model PagedList.IPagedList<SEP_FingerPrint.Models.KhoaHoc>
-@using PagedList.Mvc;
+﻿@model IEnumerable<SEP_FingerPrint.Models.KhoaHoc>
 @{
-    ViewBag.Title = "Teach";
+    ViewBag.Title = "Danh sách giảng viên";
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Session["ID"] == null)
     {
@@ -31,7 +30,7 @@
 </head>
 <!-- Bread crumb -->
 <div class="page-wrapper">
-    <div class="row page-titles">
+    @*<div class="row page-titles">
         <div class="col-md-5 align-self-center">
             <h3 class="text-primary">Khóa học</h3>
         </div>
@@ -41,7 +40,7 @@
                 <li class="breadcrumb-item active">Khóa học</li>
             </ol>
         </div>
-    </div>
+    </div>*@
     <!-- End Bread crumb -->
     <!-- Container fluid  -->
     <div class="container-fluid">
@@ -51,7 +50,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-title">
-                        <h4>Danh sách giảng viên</h4>
+                        <h1 class="text-primary">Danh sách giảng viên</h1>
                     </div>
                     @*<div class="card-body">*@
                     <div class="table-responsive" style="padding: 20px">
