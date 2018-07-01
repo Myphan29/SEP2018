@@ -575,6 +575,7 @@
     <Content Include="CustomLib\img\chat-person-add.png" />
     <Content Include="CustomLib\img\close.png" />
     <Content Include="CustomLib\img\custom-select.png" />
+    <Content Include="CustomLib\img\favicon-n.png" />
     <Content Include="CustomLib\img\favicon.png" />
     <Content Include="CustomLib\img\fjords.jpg" />
     <Content Include="CustomLib\img\gallery\chair.jpg" />
