@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@ViewBag.Title - RollUp Management</title>
+    <title>@ViewBag.Title - F.A.M.S</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -97,7 +97,7 @@
                 </div>
                 <!-- End header header -->
                 <!-- Left Sidebar  -->
-                <div class="left-sidebar">
+                <div class="left-sidebar" style="">
                     <!-- Sidebar scroll-->
                     <div class="scroll-sidebar">
                         <!-- Sidebar navigation-->
@@ -111,11 +111,16 @@
                                 {
                                     <p style="margin-top: -10px">@Session["TenGV"]</p>
                                 }
+                                else
+                                {
+                                    <p style="">@Session["TenTK"]</p>
+                                }
+
                             </div>
                             <ul id="sidebarnav">
                                 <li class="nav-devider"></li>
 
-                                <li class="nav-label">Features</li>
+                                <li class="nav-label">Chức năng</li>
                                 @if (Session["Role"].Equals(1))
                                 {
                                     <li>
@@ -138,11 +143,15 @@
                                 {
                                     <li>
                                         <a href="/Admin/AddUser" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Thêm tài khoản</span></a>
-                                        <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-plus"></i><span class="hide-menu">Quản lý giảng viên</span></a>
-                                        <a href="/Admin/Edit" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kích hoạt tài khoản</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/Admin/Teach" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Quản lý giảng viên</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/Admin/Edit" aria-expanded="false"><i class="fa fa-pie-chart"></i><span class="hide-menu">Quản lý tài khoản</span></a>
                                     </li>
                                 }
-                                <li class="nav-label">SETTING</li>
+                                <li class="nav-label">Cài đặt</li>
                                 <li>
                                     <a href="/Lecturer/ChangePassword" aria-expanded="false"><i class="fa fa-wrench"></i><span class="hide-menu">Đổi mật khẩu</span></a>
                                 </li>

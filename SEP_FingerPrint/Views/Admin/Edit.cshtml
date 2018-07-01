@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SEP_FingerPrint.Models.GiangVien>
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Quản lí tài khoản";
 
     if (Session["ID"] == null)
     {
@@ -23,7 +23,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#listUser').DataTable();
+            $('#listUser').DataTable(
+                //language: {
+                //    "search": "Tìm kiếm:",
+                //    "searchPlaceholder": "Nhập dữ liệu cần tìm",
+                //    "loadingRecords": "Đang tải dữ liệu...",
+                //    "processing": "Đang xử lý...",
+                //    "emptyTable": "Không tìm thấy dữ liệu",
+                //    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ dữ liệu",
+                //    "infoEmpty": "Hiển thị 0 trong tổng số 0 dữ liệu",
+                //    "infoFiltered": "(lọc từ tổng số _MAX_ dữ liệu)",
+                //    "lengthMenu": "Hiển thị _MENU_ dữ liệu",
+                //    "zeroRecords": "Không tìm thấy dữ liệu nào phù hợp",
+                //    "paginate": {
+                //        "first": "Đầu",
+                //        "last": "Cuối",
+                //        "next": "Tiếp theo",
+                //        "previous": "Trước đó"
+                //    },
+                //}
+            );
         });
     </script>
     <style>
@@ -49,7 +68,7 @@
 }
     <div class="page-wrapper">
 
-        <div class="row page-titles">
+        @*<div class="row page-titles">
             <div class="col-md-5 align-self-center">
                 <h3 class="text-primary">User</h3>
             </div>
@@ -59,7 +78,7 @@
                     <li class="breadcrumb-item active">User</li>
                 </ol>
             </div>
-        </div>
+        </div>*@
 
         <div class="container-fluid">
             <!-- Start Page Content -->
@@ -68,8 +87,9 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-title">
-                            <h4>User</h4>
+                            <h1 class="text-primary">Quản lý tài khoản</h1>
                         </div>
+                        <hr />
                         @*<div class="card-body">*@
                         <div class="table-responsive" style="padding: 20px">
                             <table id="listUser" class="table table-hover ">
@@ -89,7 +109,7 @@
                                         <td>
                                             <button type="button" class="btn-active btn btn-outline-primary" aria-pressed="false" autocomplete="off" data-id="@item.TaiKhoan.ID">@item.TaiKhoan.Trangthai</button>
                                             @*<a class="button" href="~/Admin/ResetPassword/@item.TaiKhoan.ID" id="@item.TaiKhoan.ID">Reset Pass </a>*@
-                                            <a class="btn btn-warning" href="~/Admin/ResetPassword/@item.TaiKhoan.ID" role="button">Reset Pass</a>
+                                            <a class="btn btn-outline-red" href="~/Admin/ResetPassword/@item.TaiKhoan.ID" role="button">Reset Pass</a>
                                         </td>
 
                                     </tr>
