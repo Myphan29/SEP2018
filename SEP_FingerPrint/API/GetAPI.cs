@@ -86,6 +86,7 @@ namespace SEP_FingerPrint.API
                     sv.Ho = ho;
                     sv.Ten = ten;
                     sv.NgaySinh = DateTime.ParseExact(ngaysinh, "M/d/yyyy", null);
+                    sv.GioiTinh = true;
                     db.SinhViens.Add(sv);
                     db.SaveChanges();
                 }
