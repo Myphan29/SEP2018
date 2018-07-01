@@ -14,6 +14,9 @@ using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
 using SEP_FingerPrint.IntegratedModel;
+using System.Globalization;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -81,37 +84,57 @@ namespace SEP_FingerPrint.Controllers
             }
             return new JsonResult { Data = new { status = status } };
         }
-        public JsonResult AtdChangeee(DiemDanh i)
+        public ActionResult CreateSchedule(string id)
         {
-            var responde = false;
-            using (Sep2018Entities owl = new Sep2018Entities())
+            var schdl = db.GiangViens.Where(x => x.MGV == id).FirstOrDefault();
+            return View(schdl);
+        }
+        [HttpPost]
+        public JsonResult GatherScheduleData(CreateSchedule schdl)
+        {
+            var status = false;
+           
+            
+             //var DateStart = (schdl.Dates.ToString().Split('-')[0]);
+            //var changeDS = DateTime.Parse(DateStart.ToString().Split('/')[1] +"/"+ DateStart.ToString().Split('/')[0] +"/"+ DateStart.ToString().Split('/')[2]);
+            //var DateEnd = schdl.Dates.ToString().Split('-')[1];
+            //var changeDE = DateTime.Parse(DateEnd.ToString().Split('/')[1] + "/" + DateEnd.ToString().Split('/')[0] + "/" + DateEnd.ToString().Split('/')[2]);
+            using (Sep2018Entities metal = new Sep2018Entities())
             {
-                var atdList = owl.DiemDanhs.Where(x => x.ID == i.ID).FirstOrDefault();
-                if (atdList != null)
+                KhoaHoc khoahoc = metal.KhoaHocs.Single(p => p.MKH == schdl.CourseID);
+                khoahoc.NgayBatDau = schdl.DateStart;
+                khoahoc.NgayKetThuc = schdl.DateEnd;
+                metal.SaveChanges();
+                
+                for (var i = schdl.DateStart; DateTime.Compare(i,schdl.DateEnd)<0; i=i.AddDays(1))
                 {
-                    atdList.ID = i.ID;
-                    atdList.TrangThai = i.TrangThai;
+                    int day = (int)i.DayOfWeek;
+                    if (day == schdl.Days)
+                    {
+                        var B = new BuoiHoc();
+                        B.MKH = schdl.CourseID;
+                        B.GioBatDau = schdl.Start;
+                        B.GioKetThuc = schdl.End;
+                        B.Ngay = i;
+                        B.Phong = schdl.Room;
+                        metal.BuoiHocs.Add(B);
+                        metal.SaveChanges();
+                    }
                 }
-                owl.SaveChanges();
-                responde = true;
+                
+                status = true;
             }
-            return new JsonResult { Data = new { status = responde } };
+            return new JsonResult { Data = new { status = status } };
         }
         [HttpGet]
-        public ActionResult RollupEditor(string id)
-        {
-            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
-            return View(std);
-        }
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
             return View(thm);
         }
-
+        
         [HttpPost]
-
-        public JsonResult EditAtd(string id)
+            public JsonResult EditAtd(int id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -119,7 +142,7 @@ namespace SEP_FingerPrint.Controllers
                 status = pistol
             });
         }
-        public int AtdChanger(string id)
+        public int AtdChanger(int id)
         {
             var editor = db.DiemDanhs.Find(id);
             if (editor.TrangThai == 0)
@@ -133,28 +156,25 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, string e = "1")    
+        public ActionResult Attendance(string id, string MBH)    
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
+            int bh = Int32.Parse(MBH);
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH== bh).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
-
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+            return Content("<script language='javascript' type='text/javascript'>alert('Không có dữ liệu');history.go(-1);</script>");
         }
 
-
-
-
-        public ActionResult LoadData(string id, string e)
+        public ActionResult LoadData(string id, int e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH==e
                              select new[]
                              {
                                  Convert.ToString( c.ID),
@@ -186,10 +206,6 @@ namespace SEP_FingerPrint.Controllers
             //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
         }
-        public ActionResult CreateSchedule()
-        {
-            return View();
-        }
         public List<KhoaHoc> initData(string mgv)
         {
             List<KhoaHoc> kh = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
@@ -198,14 +214,25 @@ namespace SEP_FingerPrint.Controllers
 
         public PartialViewResult LoadCourse()
         {
-            System.Threading.Thread.Sleep(3000); //DEMO ONLY
+            //System.Threading.Thread.Sleep(3000); //DEMO ONLY
             int idTK = Convert.ToInt32(Session["ID"]);
             string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             API.GetAPI api = new API.GetAPI();
             api.getCourse(mgv);
+            var listKH = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
+            foreach (var item in listKH)
+            {
+                api.getMember(item.MKH);
+            }
             List<KhoaHoc> kh = initData(mgv);
             return PartialView("_LoadCourse", kh);
         }
+
+        //public ActionResult postAttendance()
+        //{
+
+        //}
+
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -296,6 +323,7 @@ namespace SEP_FingerPrint.Controllers
         }
         public ActionResult FullAttendance(string id)
         {
+            Session["courseID"] = id;
             DataTable table = new DataTable();
 
             using (var ctx = new Sep2018Entities())
@@ -307,12 +335,66 @@ namespace SEP_FingerPrint.Controllers
                 cmd.Parameters.Add(new SqlParameter("@MKH", id));
                 using (var reader = cmd.ExecuteReader())
                 {
-                    var model = this.Read(reader).ToList();
-                    return View(model);
+                   
+                        var model = this.Read(reader).ToList();
+                    if (model.Count != 0)
+                    {
+                        return View(model);
+                    }
+                    else
+                    {
+                        return Content("<script language='javascript' type='text/javascript'>alert('Không có dữ liệu');history.go(-1);</script>");
+                    }
                 }
+
             }
         }
 
-    }
 
+        #region
+        public async System.Threading.Tasks.Task<ActionResult> syncAttendanceAsync()
+        {
+            API.GetAPI api = new API.GetAPI();
+            HttpClient client = new HttpClient();
+            string id = Session["courseID"].ToString();
+            string lecid = Session["MGV"].ToString();
+            string sec = api.apiLogin(Session["TenTK"].ToString(), Session["pass"].ToString());
+
+            var value = new
+            {
+                course = id,
+                sessions = db.BuoiHocs.Where(x => x.MKH == id).AsEnumerable().Select(b => new
+                {
+                    id = b.MBH,
+                    date = b.Ngay.ToString("yyyy-MM-ddThh:mm:ss"),
+                    info = string.Empty
+                }).ToArray(),
+                attendance = db.DanhSachLops.AsEnumerable().Where(x => x.MKH == id).Select(d => new
+                {
+                    student = d.MSV,
+                    checklist = db.DiemDanhs.Where(x => x.TrangThai == 1 && x.MKH == id && x.MSV == d.MSV).Select(z => z.BuoiHoc.MBH).ToArray(),
+                    info = string.Empty
+                }).ToArray()
+            };
+            var json = JsonConvert.SerializeObject(value);
+
+            var formData = new Dictionary<string, string>
+                                {
+                                    { "uid", lecid },
+                                    { "secret", sec },
+                                    { "data", json }
+                                };
+
+            var content = new FormUrlEncodedContent(formData);
+            var response = await client.PostAsync("https://entool.azurewebsites.net/SEP21/SyncAttendance", content);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            //string ResponeMessage = JsonConvert.DeserializeObject<string>(responseString);
+            //	Session["SynMessage"] = ResponeMessage.message.ToString();
+
+            //return RedirectToAction("ViewAllAttendance", new { id = Session["CourseID"] });
+            return RedirectToAction("Course", "Lecturer");
+        }
+        #endregion
+    }
 }

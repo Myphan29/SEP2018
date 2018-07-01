@@ -14,12 +14,12 @@ namespace SEP_FingerPrint.Models
     
     public partial class DiemDanh
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }
         public Nullable<System.TimeSpan> Gio { get; set; }
         public Nullable<int> TrangThai { get; set; }
         public string MSV { get; set; }
-        public string MBH { get; set; }
+        public Nullable<int> MBH { get; set; }
         public string MKH { get; set; }
     
         public virtual BuoiHoc BuoiHoc { get; set; }
