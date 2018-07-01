@@ -335,9 +335,18 @@ namespace SEP_FingerPrint.Controllers
                 cmd.Parameters.Add(new SqlParameter("@MKH", id));
                 using (var reader = cmd.ExecuteReader())
                 {
-                    var model = this.Read(reader).ToList();
-                    return View(model);
+                   
+                        var model = this.Read(reader).ToList();
+                    if (model.Count != 0)
+                    {
+                        return View(model);
+                    }
+                    else
+                    {
+                        return Content("<script language='javascript' type='text/javascript'>alert('Không có dữ liệu');history.go(-1);</script>");
+                    }
                 }
+
             }
         }
 
