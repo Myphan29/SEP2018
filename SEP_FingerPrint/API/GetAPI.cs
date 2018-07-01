@@ -2,6 +2,7 @@
 using SEP_FingerPrint.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -14,7 +15,10 @@ namespace SEP_FingerPrint.API
         Sep2018Entities db = new Sep2018Entities();
         public void getCourse(string lec_id)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(string.Format("https://entool.azurewebsites.net/SEP21/GetCourses?lecturerID=" + lec_id));
+            var config = ConfigurationManager.GetSection("mySetting/api") as dynamic;
+            var getCourses = config["getCourses"];
+            string url = getCourses + lec_id;
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(string.Format(url));
             req.Method = "GET";
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
 
