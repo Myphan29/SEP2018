@@ -25,15 +25,15 @@ namespace SEP_FingerPrint.SeleniumTests
         [When(@"I press attendance button")]
         public void WhenIPressAttendanceButton()
         {
-            IWebElement element = driver.FindElement(By.Id("PM01"));
+            IWebElement element = driver.FindElement(By.Id("MH01"));
             Actions actions = new Actions(driver);
-            actions.MoveToElement(element).Click().Build().Perform();
+            actions.MoveToElement(element).Click().Build().Perform();          
         }                   
         
         [Then(@"the list of attendance show off as user want")]
         public void ThenTheListOfAttendanceShowOffAsUserWant()
         {
-            driver.Url.CompareTo("http://localhost:49354/Lecturer/FullAttendance/PM01");
+            driver.Url.CompareTo("http://localhost:49354/Lecturer/FullAttendance/MH1");
             driver.Close();
         }
     }
