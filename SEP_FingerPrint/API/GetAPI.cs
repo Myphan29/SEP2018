@@ -38,7 +38,7 @@ namespace SEP_FingerPrint.API
                 if (db.MonHocs.Where(x => x.TenMonHoc == tenmh).Count() == 0)
                 {
                     var monhoc = new MonHoc();
-                    monhoc.MMH = tenmh.Substring(0,1) + tenmh.Split(' ')[1].Substring(0,1);
+                    monhoc.MMH = tenmh.Substring(0, 1) + tenmh.Split(' ')[1].Substring(0, 1);
                     monhoc.TenMonHoc = tenmh;
                     db.MonHocs.Add(monhoc);
                     db.SaveChanges();
@@ -99,5 +99,36 @@ namespace SEP_FingerPrint.API
                 }
             }
         }
+
+        public string apiLogin(string uname, string pass)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(string.Format("https://entool.azurewebsites.net//SEP21/Login?Username=" + uname + "&Password=" + pass));
+            req.Method = "GET";
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+
+            string jsonString;
+            using (Stream stream = resp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
+            {
+                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                jsonString = reader.ReadToEnd();
+            }
+
+            apiLoginModel.apiLogin login = JsonConvert.DeserializeObject<apiLoginModel.apiLogin>(jsonString);
+            return login.data.secret;
+        }
+
+        //public void postAttendance(apiPostAttendanceModel formData)
+        //{
+        //    var client = new RestClient("https://entool.azurewebsites.net/SEP21/SyncAttendance");
+        //    var request = new RestRequest(Method.POST);
+        //    request.AddHeader("Postman-Token", "80f71e26-272e-402e-814f-060a96481a51");
+        //    request.AddHeader("Cache-Control", "no-cache");
+        //    request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+        //    request.AddHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW");
+        //    request.AddParameter("multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW", "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"uid\"\r\n\r\nMH\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"secret\"\r\n\r\n1655478314\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"data\"\r\n\r\n{\n        \"Course\": \"MH1\",\n        \"Sessions\": [\n            {\n                \"Id\": 1,\n                \"Date\": \"2018-07-01T18:43:37\",\n                \"Info\": null\n            },\n            {\n                \"Id\": 2,\n                \"Date\": \"2018-07-02T18:43:37\",\n                \"Info\": null\n            }\n        ],\n        \"Attendance\": [\n            {\n                \"Student\": \"T153194\",\n                \"Checklist\": [\n                    1,\n                    2\n                ],\n                \"Info\": null\n            },\n            {\n                \"Student\": \"T153586\",\n                \"Checklist\": [],\n                \"Info\": null\n            }\n        ]\n    }\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--", ParameterType.RequestBody);
+        //    IRestResponse response = client.Execute(request);
+        //}
+
+        
     }
 }

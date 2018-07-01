@@ -15,6 +15,8 @@ using System.ComponentModel;
 using System.Dynamic;
 using SEP_FingerPrint.IntegratedModel;
 using System.Globalization;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -213,14 +215,25 @@ namespace SEP_FingerPrint.Controllers
 
         public PartialViewResult LoadCourse()
         {
-            System.Threading.Thread.Sleep(3000); //DEMO ONLY
+            //System.Threading.Thread.Sleep(3000); //DEMO ONLY
             int idTK = Convert.ToInt32(Session["ID"]);
             string mgv = db.GiangViens.ToList().FirstOrDefault(p => p.IDTaiKhoan == idTK).MGV;
             API.GetAPI api = new API.GetAPI();
             api.getCourse(mgv);
+            var listKH = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
+            foreach (var item in listKH)
+            {
+                api.getMember(item.MKH);
+            }
             List<KhoaHoc> kh = initData(mgv);
             return PartialView("_LoadCourse", kh);
         }
+
+        //public ActionResult postAttendance()
+        //{
+
+        //}
+
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -311,6 +324,7 @@ namespace SEP_FingerPrint.Controllers
         }
         public ActionResult FullAttendance(string id)
         {
+            Session["courseID"] = id;
             DataTable table = new DataTable();
 
             using (var ctx = new Sep2018Entities())
@@ -328,6 +342,51 @@ namespace SEP_FingerPrint.Controllers
             }
         }
 
-    }
 
+        #region
+        public async System.Threading.Tasks.Task<ActionResult> syncAttendanceAsync()
+        {
+            API.GetAPI api = new API.GetAPI();
+            HttpClient client = new HttpClient();
+            string id = Session["courseID"].ToString();
+            string lecid = Session["MGV"].ToString();
+            string sec = api.apiLogin(Session["TenTK"].ToString(), Session["pass"].ToString());
+
+            var value = new
+            {
+                course = id,
+                sessions = db.BuoiHocs.Where(x => x.MKH == id).AsEnumerable().Select(b => new
+                {
+                    id = b.MBH,
+                    date = b.Ngay.ToString("yyyy-MM-ddThh:mm:ss"),
+                    info = string.Empty
+                }).ToArray(),
+                attendance = db.DanhSachLops.AsEnumerable().Where(x => x.MKH == id).Select(d => new
+                {
+                    student = d.MSV,
+                    checklist = db.DiemDanhs.Where(x => x.TrangThai == 1 && x.MKH == id && x.MSV == d.MSV).Select(z => z.BuoiHoc.MBH).ToArray(),
+                    info = string.Empty
+                }).ToArray()
+            };
+            var json = JsonConvert.SerializeObject(value);
+
+            var formData = new Dictionary<string, string>
+                                {
+                                    { "uid", lecid },
+                                    { "secret", sec },
+                                    { "data", json }
+                                };
+
+            var content = new FormUrlEncodedContent(formData);
+            var response = await client.PostAsync("https://entool.azurewebsites.net/SEP21/SyncAttendance", content);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            //string ResponeMessage = JsonConvert.DeserializeObject<string>(responseString);
+            //	Session["SynMessage"] = ResponeMessage.message.ToString();
+
+            //return RedirectToAction("ViewAllAttendance", new { id = Session["CourseID"] });
+            return RedirectToAction("Course", "Lecturer");
+        }
+        #endregion
+    }
 }

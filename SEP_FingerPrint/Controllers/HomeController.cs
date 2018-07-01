@@ -35,6 +35,7 @@ namespace SEP_FingerPrint.Controllers
                     var userdetail = db.TaiKhoans.Where(x => x.TenTK == model.UserName && x.matkhau == pass).FirstOrDefault();
                     Session["ID"] = userdetail.ID;
                     Session["TenTK"] = userdetail.TenTK;
+                    Session["pass"] = model.Password;
                     Session["Role"] = userdetail.Vaitro;
                     if (Session["Role"].Equals(1))
                     {
