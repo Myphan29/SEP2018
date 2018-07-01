@@ -135,9 +135,9 @@ namespace SEP_FingerPrint.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string id, ResetPasswordModel model)
+        public ActionResult ResetPassword(int id, ResetPasswordModel model)
         {
-            var item = db.TaiKhoans.Where(x => x.TenTK == id).First();
+            var item = db.TaiKhoans.Where(x => x.ID == id).First();
             if (ModelState.IsValid)
             {
                 if (model.matkhau == model.nhaplaimatkhau)
@@ -146,12 +146,9 @@ namespace SEP_FingerPrint.Controllers
                     db.SaveChanges();
                     ViewBag.SuccessMessage = "The password has been reseted";
                 }
-
             }
             return View();
         }
-
-
         public ActionResult Teach(int page = 1, int pageSize = 10)
         {
             string idTK = Session["ID"] as string;

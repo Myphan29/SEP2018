@@ -120,6 +120,7 @@
                     //
                     $(row).find('td:eq(0)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(1)').css({ 'text-align': 'center' });
+                    $(row).find('td:eq(3)').css({ 'text-align': 'center' });
                     $(row).find('td:eq(5)').css({ 'text-align': 'center' });
                     $("div.tg-list-item").show();
                     $(row).find('td:eq(5)').hide();
@@ -141,8 +142,8 @@
             showTable();
             $("#listTime").change(function () {
                 var time = $("#listTime").val().split(" ", 1);
-                var redirectURL = '@Url.Action("Attendance", "Lecturer")';
-                window.location.href = 'http://localhost:49354/Lecturer/Attendance/@Model.BuoiHoc.MKH/' + time;
+                //var redirectURL = '@Url.Action("Attendance", "Lecturer")';
+                window.location.href = '@Url.Action("Attendance", "Lecturer")?id=' + "@Model.MKH" + '&MBH=' +time;
                 //showTable();
             });
         });

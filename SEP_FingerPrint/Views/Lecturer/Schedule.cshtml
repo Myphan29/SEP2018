@@ -106,7 +106,7 @@
                     //}
                 })
             }
-
+            
             $('#btnEdit').click(function () {
                 //Open modal dialog for edit event
                 openAddEditForm();
@@ -116,8 +116,8 @@
                 uiLibrary: 'bootstrap4',
                 format:'dd/mm/yyyy'
             });
-
-
+            
+           
             function openAddEditForm() {
                 if (selectedEvent != null) {
                     $('#hdEventID').val(selectedEvent.eventID);
@@ -130,7 +130,22 @@
                 $('#myModal').modal('hide');
                 $('#myModalSave').modal();
             }
+             $('#btnDiemDanh').click(function () {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtDay').val(selectedEvent.start.format('DD/MM/YYYY'));
+                    $('#txtStartTime').val(selectedEvent.start.format('HH:mm:ss'));
+                    $('#txtEndTime').val(selectedEvent.end.format('HH:mm:ss'));
 
+                }
+              
+                 var data = $('#hdEventID').val();
+           
+      
+         window.location.href =  '@Url.Action("Attendance", "Lecturer")?id=' + "@Model.MKH" + '&MBH=' + data;
+       
+    })
             $('#btnSave').click(function () {
                 //Validation/
                 if ($('#txtSubject').val().trim() == "") {
@@ -164,9 +179,10 @@
                     MKH:"@Model.MKH"
                 }
                 SaveEvent(data);
+
+
                 // call function for submit data to the server
             })
-
             function SaveEvent(data) {
                 $.ajax({
                     type: "POST",
@@ -184,8 +200,11 @@
                     }
                 })
             }
+
         })
     </script>
+
+
 
 
 </head>
@@ -230,8 +249,8 @@
 
                             </div>
                             <div class="modal-body">
-                                <button class="btn btn-default btn-sm pull-right">
-                                    <span class="fa fa-male"></span> <a href="/Lecturer/Attendance/@Model.MKH/@Model.MBH">Điểm danh</a>
+                                <button class="btn btn-default btn-sm pull-right" id="btnDiemDanh">
+                                    <span class="fa fa-male"></span> Điểm danh
                                 </button>
                                 <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
                                     <span class="fa fa-pencil"></span> Chỉnh sửa
@@ -252,7 +271,7 @@
                             </div>
                             <div class="modal-body">
                                 <form class="col-md-12 form-horizontal">
-                                    <input type="hidden" id="hdEventID" value="0" />
+                                    <input type="hidden" id="hdEventID" value="0"  />
                                     <div class="form-group">
                                         <label>Phòng</label>
                                         <input type="text" id="txtSubject" class="form-control" />
@@ -263,7 +282,7 @@
                                         <div class="input-group date">
                                             <input type="text" id="txtDay" class="form-control" />
                                         </div>
-                                      
+
 
                                     </div>
 
@@ -272,14 +291,14 @@
                                         <div class="input-group date">
                                             <input type="text" id="txtStartTime" class="form-control" />
                                         </div>
-                                       
+
                                     </div>
                                     <div class="form-group">
                                         <label>Giờ kết thúc</label>
                                         <div class="input-group date">
                                             <input type="text" id="txtEndTime" class="form-control" />
                                         </div>
-                                       
+
                                     </div>
                                     <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -292,6 +311,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
+<script>
+    
+</script>
