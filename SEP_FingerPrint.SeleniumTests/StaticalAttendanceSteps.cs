@@ -10,13 +10,15 @@ namespace SEP_FingerPrint.SeleniumTests
     [Binding]
     public class StaticalAttendanceSteps
     {
-        public IWebDriver driver = new ChromeDriver();
+        public IWebDriver driver;        
         [Given(@"I was in user view")]
         public void GivenIWasInUserView()
         {
-            driver.Navigate().GoToUrl("localhost:49354");
-            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("T150001");
-            driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("123456");
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://localhost:49354");
+            driver.Navigate().GoToUrl("http://localhost:49354/Home/Login");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("phamminhhuyen");
+            driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("croprokiwi");
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
         
