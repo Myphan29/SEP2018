@@ -61,17 +61,19 @@
                                 <td style="line-height: 55px">@item.SinhVien.NgaySinh.ToString().Split(' ')[0]</td>
                                 <td>
                                     @{
-                                        string tmp = "";
+                                        string Tmp = "";
                                         if (item.TrangThai == 0)
                                         {
-                                            tmp = "Vắng";
+                                            Tmp = "Vắng";
                                         }
                                         else
                                         {
-                                            tmp = "Hiện diện";
+                                            Tmp = "Hiện diện";
                                         }
+                                        <button type="button" style="width: 95px; margin-top: 8px" class="btn-active btn btn-primary"
+                                                aria-pressed="false" autocomplete="off" data-id="@item.ID">@Tmp</button>
                                     }
-                                    <button type="button" style="width: 95px; margin-top: 8px" class="btn-active btn btn-outline-dark" aria-pressed="false" autocomplete="off" data-id="@item.ID">@tmp</button>
+
                                 </td>
                             </tr>
                         }
@@ -103,10 +105,10 @@
                     success: function (response) {
                         console.log(response);
                         if (response.status == 0) {
-                            btn.text('Vắng').addClass(' btn btn-outline-danger');
+                            btn.text('Vắng').addClass('btn-active btn btn-danger');
                         }
                         else {
-                            btn.text('Hiện diện').addClass(' btn btn-outline-primary');
+                            btn.text('Hiện diện').addClass('btn-active btn btn-primary');
                         }
                     }
                 });

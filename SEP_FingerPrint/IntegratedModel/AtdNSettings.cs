@@ -15,7 +15,7 @@ namespace SEP_FingerPrint.IntegratedModel
         public List<DiemDanh> AnthrDiemDanh { get; set; }
         public List<GiangVien> AnthrGiangVien { get; set; }
         public List<KhoaHoc> AnthrKhoaHoc { get; set; }
-        public List<LichHoc> AnthrLichHoc { get; set; }
+        
         public List<MonHoc> AnthrMonHoc { get; set; }
         public List<SinhVien> AnthrSinhVien { get; set; }
         public List<TaiKhoan> AnthrTaiKhoan { get; set; }

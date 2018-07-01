@@ -14,6 +14,7 @@ using System.Data.Common;
 using System.ComponentModel;
 using System.Dynamic;
 using SEP_FingerPrint.IntegratedModel;
+using System.Globalization;
 
 namespace SEP_FingerPrint.Controllers
 {
@@ -73,54 +74,65 @@ namespace SEP_FingerPrint.Controllers
                 {
                     v.Attend = e.Attend;
                     v.Absent = e.Absent;
+                    Session["Clr0"] = e.Absent;
+                    Session["Clr1"] = e.Attend;
                 }
-
-                //else
-                //{
-                //    e.ID = id;
-                //    gun.CauHinhs.Add(e);
-                //}
                 gun.SaveChanges();
                 status = true;
-
-                //var hex = gun.CauHinhs.Where(x => x.ID == id).FirstOrDefault();
-                //    if (hex != null)
-                //    {
-
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-                //    else
-                //    {
-                //        var re = new CauHinh();
-                //        re.ID=id;
-                //        pistol.Attend = re.Attend;
-                //        pistol.Absent = re.Absent;
-                //        gun.CauHinhs.Add(re);
-                //        gun.SaveChanges();
-                //        status = true;
-                //    }
-
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+        public ActionResult CreateSchedule(string id)
+        {
+            var schdl = db.GiangViens.Where(x => x.MGV == id).FirstOrDefault();
+            return View(schdl);
+        }
+        [HttpPost]
+        public JsonResult GatherScheduleData(CreateSchedule schdl)
+        {
+            var status = false;
+           
+            
+             //var DateStart = (schdl.Dates.ToString().Split('-')[0]);
+            //var changeDS = DateTime.Parse(DateStart.ToString().Split('/')[1] +"/"+ DateStart.ToString().Split('/')[0] +"/"+ DateStart.ToString().Split('/')[2]);
+            //var DateEnd = schdl.Dates.ToString().Split('-')[1];
+            //var changeDE = DateTime.Parse(DateEnd.ToString().Split('/')[1] + "/" + DateEnd.ToString().Split('/')[0] + "/" + DateEnd.ToString().Split('/')[2]);
+            using (Sep2018Entities metal = new Sep2018Entities())
+            {
+                KhoaHoc khoahoc = metal.KhoaHocs.Single(p => p.MKH == schdl.CourseID);
+                khoahoc.NgayBatDau = schdl.DateStart;
+                khoahoc.NgayKetThuc = schdl.DateEnd;
+                metal.SaveChanges();
+                
+                for (var i = schdl.DateStart; DateTime.Compare(i,schdl.DateEnd)<0; i=i.AddDays(1))
+                {
+                    int day = (int)i.DayOfWeek;
+                    if (day == schdl.Days)
+                    {
+                        var B = new BuoiHoc();
+                        B.MKH = schdl.CourseID;
+                        B.GioBatDau = schdl.Start;
+                        B.GioKetThuc = schdl.End;
+                        B.Ngay = i;
+                        B.Phong = schdl.Room;
+                        metal.BuoiHocs.Add(B);
+                        metal.SaveChanges();
+                    }
+                }
+                
+                status = true;
             }
             return new JsonResult { Data = new { status = status } };
         }
         [HttpGet]
-        public ActionResult RollupEditor(string id)
-        {
-            var std = db.DiemDanhs.Where(x => x.MBH == id).ToList();
-            return View(std);
-        }
         public ActionResult Settings(int id)
         {
             var thm = db.TaiKhoans.Where(x => x.ID == id).FirstOrDefault();
-
-
             return View(thm);
         }
-
+        
         [HttpPost]
-
-        public JsonResult EditAtd(string id)
+            public JsonResult EditAtd(string id)
         {
             var pistol = AtdChanger(id);
             return Json(new
@@ -142,28 +154,26 @@ namespace SEP_FingerPrint.Controllers
             db.SaveChanges();
             return (int)editor.TrangThai;
         }
-        public ActionResult Attendance(string id, string e = "1")    
+        public ActionResult Attendance(string id, int e)    
         {
-            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH.Equals(e)).FirstOrDefault();
+            var atd = db.DiemDanhs.Where(x => x.BuoiHoc.MKH.Equals(id) && x.MBH==e).FirstOrDefault();
             if (atd != null)
             {
                 return View(atd);
             }
 
-            return Content("<script language='javascript' type='text/javascript'>alert('Fuck off! This is not your business.');history.go(-1);</script>");
+
+            return Content("<script language='javascript' type='text/javascript'>alert('Failed');history.go(-1);</script>");
         }
 
-
-
-
-        public ActionResult LoadData(string id, string e)
+        public ActionResult LoadData(string id, int e)
         {
             List<DiemDanh> _list = new List<DiemDanh>();
             try
             {
                 _list = db.DiemDanhs.ToList();
                 var result = from c in _list
-                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH.Equals(e)
+                             where c.BuoiHoc.MKH.Equals(id) && c.BuoiHoc.MBH==e
                              select new[]
                              {
                                  Convert.ToString( c.ID),
@@ -195,7 +205,6 @@ namespace SEP_FingerPrint.Controllers
             //string idGV = db.TaiKhoans.ToList().FirstOrDefault(p => p.ID == idTK).TenTK;
             return View(db.KhoaHocs.Where(p => p.MGV == mgv).ToList());
         }
-
         public List<KhoaHoc> initData(string mgv)
         {
             List<KhoaHoc> kh = db.KhoaHocs.Where(x => x.MGV == mgv).ToList();
@@ -212,7 +221,6 @@ namespace SEP_FingerPrint.Controllers
             List<KhoaHoc> kh = initData(mgv);
             return PartialView("_LoadCourse", kh);
         }
-
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -315,9 +323,7 @@ namespace SEP_FingerPrint.Controllers
                 using (var reader = cmd.ExecuteReader())
                 {
                     var model = this.Read(reader).ToList();
-
                     return View(model);
-
                 }
             }
         }

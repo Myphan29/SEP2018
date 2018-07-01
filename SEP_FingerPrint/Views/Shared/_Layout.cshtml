@@ -42,7 +42,7 @@
                             {
                                 <a class="navbar-brand" href="/Lecturer/Course">
                                     <!-- Logo icon -->
-                                    <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                    <b><img src="~/CustomLib/img/newlogo.png" alt="homepage" class="dark-logo" /></b>
                                     <!--End Logo icon -->
                                     <!-- Logo text -->
                                     <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
@@ -52,7 +52,7 @@
                             {
                                 <a class="navbar-brand" href="/Admin/Teach">
                                     <!-- Logo icon -->
-                                    <b><img src="~/CustomLib/img/logo.png" alt="homepage" class="dark-logo" /></b>
+                                    <b><img src="~/CustomLib/img/newlogo.png" alt="homepage" class="dark-logo" /></b>
                                     <!--End Logo icon -->
                                     <!-- Logo text -->
                                     <span><img src="~/CustomLib/img/logo-text.png" alt="homepage" class="dark-logo" /></span>
@@ -109,7 +109,8 @@
                                 <p style="margin-top: 35px">@Session["MGV"]</p>
                                 @if (Session["Role"].Equals(1))
                                 {
-                                    <p style="margin-top: -10px">@Session["TenGV"]</p>}
+                                    <p style="margin-top: -10px">@Session["TenGV"]</p>
+                                }
                             </div>
                             <ul id="sidebarnav">
                                 <li class="nav-devider"></li>
@@ -120,6 +121,12 @@
                                     <li>
                                         <a href="/Lecturer/Course" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Khóa học</span></a>
                                     </li>
+                                    <li>
+                                        <a href="/Lecturer/CreateSchedule/@Session["MGV"]" aria-expanded="false"><i class="fa fa-edit"></i><span class="hide-menu">Tạo lịch học</span></a>
+                                    </li>
+                                    @*<li>
+                                            <a href="/Lecturer/FullAttendance/PM01" aria-expanded="false"><i class="fa fa-tasks"></i><span class="hide-menu">Thống kê điểm danh</span></a>
+                                        </li>*@
                                     @*<li>
                                             <a href="#" aria-expanded="false"><i class="fa fa-check"></i><span class="hide-menu">Điểm danh</span></a>
                                         </li>
@@ -147,8 +154,8 @@
                                 }
                             </ul>
                             <div class="mvls-aob">
-                                <a href="/Home/Logout" aria-expanded="false"><i class="fa fa-power-off"></i><span class="hide-menu" style="color: #ffffff">&ensp;Đăng xuất</span></a>
-                            </div>
+                                    <a href="/Home/Logout" aria-expanded="false"><i class="fa fa-power-off"></i><span class="hide-menu" style="color: #ffffff">&ensp;Đăng xuất</span></a>
+                                </div>
                         </nav>
                         <!-- End Sidebar navigation -->
                     </div>
