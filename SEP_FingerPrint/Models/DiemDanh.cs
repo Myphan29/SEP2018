@@ -14,7 +14,7 @@ namespace SEP_FingerPrint.Models
     
     public partial class DiemDanh
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }
         public Nullable<System.TimeSpan> Gio { get; set; }
         public Nullable<int> TrangThai { get; set; }

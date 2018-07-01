@@ -14,21 +14,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 <script src="~/CustomLib/Attendance/jquery.nice-select.js"></script>
 <link href="~/CustomLib/css/nice-select.css" rel="stylesheet" />
+<script src='~/CustomLib/Schedule/lib/moment.min.js'></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 <script>
     $(document).ready(function () {
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        var options = {
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            multidate: true
-        };
-        date_input.datepicker(options);
+        //DateRange
+        //var date_input = $('input[name="date"]'); //our date input has the name "date"
+        //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        //var options = {
+        //    format: 'MM/dd/yyyy',
+        //    container: container,
+        //    todayHighlight: true,
+        //    multidate: true,
+           
+        //};
+        //date_input.datepicker(options);
         var usedNames = {};
         $("select[id='listCourse'] > option").each(function () {
             if (usedNames[this.text]) {
@@ -37,9 +40,14 @@
                 usedNames[this.text] = this.value;
             }
         });
-    });
-    $(document).ready(function () {
-        
+        $(function () {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'right'
+            }, function (start, end, label) {
+                console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY'));
+            });
+        });
+        //Thứ
         $('select').niceSelect();
         var DayList = [];
         $("ul.daysOfWeekButton-group li").click(function (e) {
@@ -52,31 +60,37 @@
             if ($("div.xItem:contains('" + $(this).text() + "')").length) {
                 alert('Ngày vừa chọn đã được chọn!');
             } else {
-                $(".xItem").append('<div class="aitem"><ul class="req1" id="thu' + $(this).val() +'">'
+                $(".xItem").append(
+                    '<form>'
+                    + '<div class="aitem"><ul class="req1" ><input style="display: none" id="DayOfWeek" value=' + $(this).val() + '>'
                     + '<li style="width: 100px"><p style="display: inline-block; font-weight: bold">' + $(this).text() + '</p></li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input id="StartTime' + $(this).val() +'" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ bắt đầu </i><input id="StartTime" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input id="TimeOut' + $(this).val() +'" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Giờ kết thúc </i><input id="TimeOut" data-role="timepicker" data-distance="2" data-seconds="false"></li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
-                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input id="Room' + $(this).val() +'" type="text" class="form-control"></li>'
-                    + '<li style="width: 200px; display: none ;"><input type="text" class="form-control" value="' + $(this).val() +'"></li>'
+                    + '<li style="width: 200px"><i style="font-size: 12px">Phòng </i><input id="Room" type="text" class="form-control"></li>'
+                    + '<li style="width: 200px; display: none ;"><input type="text" class="form-control"></li>'
                     + '&nbsp;&nbsp;|&nbsp;&nbsp;'
                     + '&nbsp;&nbsp;<li><a class="btn"><i style="color: red; font-size: 25px" class="fa fa-close"></i></a></li>'
+                   //btn Save k dung class="btn"
+                    + '<button id="btnSave" class="btn-sm btn-primary" type="button" onclick="Save()">Submit</button>'
                     + '</ul>'
-                    + '</div>');
+                    + '</div>'
+                    + '</form>'
+                );
             }
-            //alert($(this).find("a.button").text());
-            
+          
+
         });
+        
+       
     });
-    $(function () {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'right'
-        }, function (start, end, label) {
-            console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY'));
-        });
-    });
+   
+    
+
+     
+   
 </script>
 <div class="page-wrapper">
     <!-- Bread crumb -->
@@ -126,10 +140,10 @@
                                 <div class="col-md-9">
                                     <label style="margin-left: 2px"><i class="fa fa-calendar"></i>&nbsp;Ngày bắt đầu - Ngày kết thúc:</label>
                                     <div style="justify-content:flex-start; display:flex; color: white;">
-                                        <input class="form-control" autocomplete="off" type="text" name="daterange" value="01/01/2018 - 01/02/2018" />
+                                        <input class="form-control" autocomplete="off" type="text" name="daterange" id="DateRange" />
 
-                                         @*no need using exactly model, this input used for get MKH*@
-                                        <input id="CourseID" style="display: none" class="form-control" autocomplete="off" type="text" /> 
+                                        @*no need using exactly model, this input used for get MKH*@
+                                        <input id="CourseID" style="display: none" class="form-control" autocomplete="off" type="text"  />
                                         &nbsp;&nbsp;
                                         @*<a onclick="createSchedule()" class="btn btn-dark"><span class="fa fa-plus-square"></span>&nbsp;&nbsp;Lập thời khóa biểu</a>*@
                                     </div>
@@ -141,19 +155,19 @@
                                     <br />
                                     <div>
                                         <ul class="daysOfWeekButton-group">
-                                            <li value="2"><a class="large button">Thứ hai</a></li>
-                                            <li value="3"><a class="large button">Thứ ba</a></li>
-                                            <li value="4"><a class="large button">Thứ tư</a></li>
-                                            <li value="5"><a class="large button">Thứ năm</a></li>
-                                            <li value="6"><a class="large button">Thứ sáu</a></li>
-                                            <li value="7"><a class="large button">Thứ bảy</a></li>
-                                            <li value="0"><a class="large button">Chủ nhật</a></li>
+                                            <li  value="1"><a class="large button">Thứ hai</a></li>
+                                            <li  value="2"><a class="large button">Thứ ba</a></li>
+                                            <li value="3"><a class="large button">Thứ tư</a></li>
+                                            <li value="4"><a class="large button">Thứ năm</a></li>
+                                            <li value="5"><a class="large button">Thứ sáu</a></li>
+                                            <li value="6"><a class="large button">Thứ bảy</a></li>
                                         </ul>
                                     </div>
                                     <br />
                                     <!-- -->
                                     <div class="col-md-5">
-                                        <div class="xItem">   <!--- css apply for only this -->
+                                        <div class="xItem">
+                                            <!--- css apply for only this -->
                                             <style scoped>
                                                 button::-moz-focus-inner,
                                                 [type="button"]::-moz-focus-inner,
@@ -396,9 +410,9 @@
 
                             </div>
                             <hr />
-                            <div class="form-group">
-                                <button id="SaveChanges" class="btn btn-primary" type="button">Submit</button>
-                            </div>
+                            @*<div class="form-group">
+                               
+                            </div>*@
                         </form>
                     </div>
                 </div>
@@ -409,17 +423,39 @@
     <!-- End Container fluid  -->
 </div>
 <script>
-    // get MKH
     $('#listCourse').on('change', () => {
         const selectedValue = $('#listCourse').val();
         $('#CourseID').val(selectedValue);
         //alert(abc);
     });
-    $('#SaveChanges').click(function () {
+    function Save() {
+       
+        var data = {
+            Days: $('#DayOfWeek').val(),
+             Room: $('#Room').val(),
+             CourseID: $('#CourseID').val(),
+             MGV: "@Model.MGV",
+             Start: $('#StartTime').val(),
+            End: $('#TimeOut').val(),
+            DateStart: $('#DateRange').data('daterangepicker').startDate.format("DD/MM/YYYY"),
+            DateEnd: $('#DateRange').data('daterangepicker').endDate.format("DD/MM/YYYY"),
+            
+         }
+         
         // this code using for save schedule records
-
-
-
-        //GatherScheduleData(data);
-    });
+        $.ajax({
+            type: "POST",
+            url: '/Lecturer/GatherScheduleData',
+            data: data,
+            success: function (data) {
+                if (data.status) {
+                    alert('Tạo lịch học thành công');
+                }
+            },
+            error: function () {
+                alert('Dữ liệu nhập vào sai định dạng');
+            }
+        })
+        }
+  
 </script>
