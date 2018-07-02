@@ -142,6 +142,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\EditColorAttendance.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditColorAttendance.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\LoginAndLogout.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,11 +167,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaticalAttendance.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\SyncAPI.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SyncAPI.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\EditColorAttendance.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EditColorAttendance.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LoginAndLogout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -183,6 +197,10 @@
     <None Include="Features\StaticalAttendance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>StaticalAttendance.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\SyncAPI.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SyncAPI.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

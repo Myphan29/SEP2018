@@ -20,7 +20,7 @@ namespace SEP_FingerPrint.SeleniumTests
         [When(@"User enter UserName = t(.*) and Password = (.*) of teacher")]
         public void WhenUserEnterUserNameTAndPasswordOfTeacher(int p0, int p1)
         {
-            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("t150001");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("phamminhhuyen");
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys(p1.ToString());
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
@@ -44,7 +44,7 @@ namespace SEP_FingerPrint.SeleniumTests
         [When(@"User enter UserName = t(.*) and Password = (.*)")]
         public void WhenUserEnterUserNameTAndPassword(int p0, Decimal p1)
         {
-            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("t150001");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("phamminhhuyen");
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys(p1.ToString());
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
@@ -52,7 +52,7 @@ namespace SEP_FingerPrint.SeleniumTests
         [When(@"User enter UserName = t(.*) and Password = (.*) \(trạng thái: ""(.*)""\)")]
         public void WhenUserEnterUserNameTAndPasswordTrạngThai(int p0, int p1, string p2)
         {
-            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("t150004");
+            driver.FindElement(By.XPath("//*[@id='UserName']")).SendKeys("phamminhhuyen");
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys(p1.ToString());
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
@@ -85,7 +85,7 @@ namespace SEP_FingerPrint.SeleniumTests
         public void ThenICanSeeTheButtonDangXuấtAndNameOfMe()
         { 
 
-            string expectedResult = "T150001";
+            string expectedResult = "phamminhhuyen";
             string actualResult = driver.FindElement(By.XPath("//*[@id='main - wrapper']/div[2]/div/div[1]/nav/div[1]/p")).Text;
             Assert.AreEqual(expectedResult, actualResult);
             string expectedResult1 = "Đăng xuất";

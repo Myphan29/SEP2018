@@ -10,7 +10,7 @@ namespace SEP_FingerPrint.SeleniumTests
     [Binding]
     public class StaticalAttendanceSteps
     {
-        public IWebDriver driver;        
+        public IWebDriver driver;
         [Given(@"I was in user view")]
         public void GivenIWasInUserView()
         {
@@ -21,15 +21,21 @@ namespace SEP_FingerPrint.SeleniumTests
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("croprokiwi");
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
-        
+
+        [Given(@"I go to user page")]
+        public void GivenIGoToUserPage()
+        {
+            driver.Navigate().GoToUrl("http://localhost:49354/Lecturer/Course");
+        }
+
         [When(@"I press attendance button")]
         public void WhenIPressAttendanceButton()
         {
             IWebElement element = driver.FindElement(By.Id("MH01"));
             Actions actions = new Actions(driver);
-            actions.MoveToElement(element).Click().Build().Perform();          
-        }                   
-        
+            actions.MoveToElement(element).Click().Build().Perform();
+        }
+
         [Then(@"the list of attendance show off as user want")]
         public void ThenTheListOfAttendanceShowOffAsUserWant()
         {

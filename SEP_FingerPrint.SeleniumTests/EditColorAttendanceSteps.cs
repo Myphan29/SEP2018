@@ -2,16 +2,17 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace SEP_FingerPrint.SeleniumTests
 {
     [Binding]
-    public class EditColorBackgroundSteps
+    public class EditColorAttendanceSteps
     {
         public IWebDriver driver;
-        [Given(@"I was login")]
-        public void GivenIWasLogin()
+        [Given(@"I was loggedin")]
+        public void GivenIWasLoggedin()
         {
             driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://localhost:49354");
@@ -20,43 +21,43 @@ namespace SEP_FingerPrint.SeleniumTests
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("croprokiwi");
             driver.FindElement(By.XPath("/html/body/div[1]/div/div/form/div[5]/button")).Click();
         }
-        
-        [Given(@"I go to course page")]
-        public void GivenIGoToCoursePage()
+
+        [Given(@"I go to the course page")]
+        public void GivenIGoToTheCoursePage()
         {
             driver.Navigate().GoToUrl("http://localhost:49354/Lecturer/Course");
         }
-        
-        [When(@"I press button ""(.*)""")]
-        public void WhenIPressButton(string p0)
+
+        [When(@"I press the button ""(.*)""")]
+        public void WhenIPressTheButton(string p0)
         {
             IWebElement element = driver.FindElement(By.Id("caidat"));
             Actions actions = new Actions(driver);
             actions.MoveToElement(element).Click().Build().Perform();
         }
-        
-        [When(@"I go to set color page")]
-        public void WhenIGoToSetColorPage()
+
+        [When(@"I go to the color page")]
+        public void WhenIGoToTheColorPage()
         {
             driver.Navigate().GoToUrl("http://localhost:49354/Lecturer/Settings/40");
         }
-        
-        [When(@"I choose color")]
-        public void WhenIChooseColor()
+
+        [When(@"I choose the color")]
+        public void WhenIChooseTheColor()
         {
             IWebElement element = driver.FindElement(By.Id("but2"));
             Actions actions = new Actions(driver);
             actions.MoveToElement(element).Click().Build().Perform();
         }
-        
-        [When(@"I click save")]
-        public void WhenIClickSave()
-        {            
+
+        [When(@"I click ""(.*)""")]
+        public void WhenIClick(string p0)
+        {
             driver.FindElement(By.XPath("//*[@id='SaveChanges']")).Click();
         }
-        
-        [Then(@"the color of layout attendance is changed")]
-        public void ThenTheColorOfLayoutAttendanceIsChanged()
+
+        [Then(@"the color is changed")]
+        public void ThenTheColorIsChanged()
         {
             driver.Close();
         }
