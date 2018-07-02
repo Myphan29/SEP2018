@@ -136,7 +136,7 @@
     <Compile Include="Config\MsBuildDeployer.cs" />
     <Compile Include="Config\ProjectLocation.cs" />
     <Compile Include="Config\WebApplication.cs" />
-    <Compile Include="EditColorBackgroundSteps.cs" />
+    <Compile Include="EditColorAttendanceSteps.cs" />
     <Compile Include="LoginAndLogoutSteps.cs" />
     <Compile Include="ManageTeacherSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="Support\SeleniumStepsBase.cs" />
     <Compile Include="Support\SeleniumSupport.cs" />
     <Compile Include="Support\WebDriverExtensions.cs" />
+    <Compile Include="SyncAPISteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
