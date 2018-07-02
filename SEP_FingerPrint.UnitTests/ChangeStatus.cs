@@ -16,24 +16,25 @@ namespace SEP_FingerPrint.UnitTests
         [TestMethod]
         public void ValidateAdminCanChangeStatusOfAccountUser()
         {
+          
             var controller = new AdminController();
-            var user = new TaiKhoan().ID;
-            user = 37;
-
+            var user = new TaiKhoan
+            {
+                ID = 37,
+                Trangthai = "Disable",
+            };
+          
             var validationResults = TestModelHelper.ValidateModel(controller, user);
 
-            
-           
-            var result = controller.changeStt(user);
-            //var stt = "Disable";
-            var stt = new TaiKhoan();
-            
+
+            var result = controller.changeStt(user.ID);
             
             var viewResult = controller.Edit() as ViewResult;
 
             Assert.IsNotNull(viewResult);
-            Assert.AreEqual(result, stt.Trangthai);
             Assert.AreEqual(0, validationResults.Count);
+            Assert.AreEqual(result, "Enable");
+            
         }
         
     }
