@@ -136,8 +136,11 @@
     <Compile Include="Config\MsBuildDeployer.cs" />
     <Compile Include="Config\ProjectLocation.cs" />
     <Compile Include="Config\WebApplication.cs" />
+    <Compile Include="EditColorBackgroundSteps.cs" />
     <Compile Include="LoginAndLogoutSteps.cs" />
+    <Compile Include="ManageTeacherSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeeListClassSteps.cs" />
     <Compile Include="StaticalAttendanceSteps.cs" />
     <Compile Include="Support\Browsers.cs" />
     <Compile Include="Support\SeleniumController.cs" />

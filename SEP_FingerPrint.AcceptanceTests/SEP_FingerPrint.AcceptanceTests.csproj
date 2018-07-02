@@ -147,6 +147,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginAndLogout.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\ManageTeacher.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageTeacher.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\SeeListClass.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeeListClass.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\StaticalAttendance.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -161,6 +171,14 @@
     <None Include="Features\LoginAndLogout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LoginAndLogout.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ManageTeacher.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ManageTeacher.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\SeeListClass.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SeeListClass.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\StaticalAttendance.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
